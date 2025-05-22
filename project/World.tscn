@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs6u7ruomaxi5"]
+
+[ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
+[ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_loader.tscn" id="2_2dftf"]
+[ext_resource type="Resource" uid="uid://c5pqjuqa2mfu6" path="res://addons/cellblock/resources/example_cell_registry.tres" id="3_bcbcq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2dftf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bcbcq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js7pq"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_c6gwx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(1000, 1, 1000)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36.6726, 0)
+size = Vector3(200, 1, 100)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57055, -5.99115)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_2dftf")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_bcbcq")
+material = SubResource("StandardMaterial3D_js7pq")
+
+[node name="CellLoader" parent="." instance=ExtResource("2_2dftf")]
+cell_registry = ExtResource("3_bcbcq")
+
+[connection signal="editor_state_changed" from="CellLoader" to="CellLoader" method="_on_editor_state_changed"]

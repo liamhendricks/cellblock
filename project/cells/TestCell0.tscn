@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0m7jt5mfvapj"]
+
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_1hyhr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hyhr"]
+albedo_color = Color(1, 0.207843, 1, 1)
+
+[node name="TestCell0" type="Node3D"]
+script = ExtResource("1_1hyhr")
+
+[node name="Statics" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Statics"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.868408, 1.33902, 0)
+size = Vector3(2.73682, 1.38428, 1)
+material = SubResource("StandardMaterial3D_1hyhr")
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="Spawners" type="Node3D" parent="."]

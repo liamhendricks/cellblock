@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=5 format=3 uid="uid://c5pqjuqa2mfu6"]
+
+[ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="1_5lf64"]
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="2_b2wil"]
+
+[sub_resource type="Resource" id="Resource_5lf64"]
+script = ExtResource("1_5lf64")
+cell_name = "cell_0_0_0"
+coordinates = Vector3i(0, 0, 0)
+world_position = Vector3(0, 0, 0)
+scene_path = "res://cells/TestCell0.tscn"
+metadata/_custom_type_script = "uid://lftsrpr8yjp4"
+
+[sub_resource type="Resource" id="Resource_xv6jv"]
+script = ExtResource("1_5lf64")
+cell_name = "cell_0_0_0"
+coordinates = Vector3i(0, 0, 0)
+world_position = Vector3(50, 0, 0)
+scene_path = "res://cells/TestCell0.tscn"
+metadata/_custom_type_script = "uid://lftsrpr8yjp4"
+
+[resource]
+script = ExtResource("2_b2wil")
+cells = Dictionary[Vector3i, ExtResource("1_5lf64")]({
+Vector3i(0, 0, 0): SubResource("Resource_5lf64"),
+Vector3i(5, 0, 0): SubResource("Resource_xv6jv")
+})
+max_loaded_cells = 10
+max_cache_size = 5
+load_strategy = 1
+grid_size = Vector3i(200, 60, 100)
+cell_size = 10
+num_iterations = 1
+metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"
