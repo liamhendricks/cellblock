@@ -2,8 +2,7 @@ extends Node
 
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
-var current_cell : Cell
-var closest_cell_dist : float
+var current_cell_key : Vector3i = Vector3.ZERO
 
 var cell_registry : CellRegistry
 var cell_data_tree : KDTree
@@ -12,8 +11,8 @@ var cell_loader : CellLoader
 var to_add : Dictionary[Vector3i, Vector3i] = {}
 var to_remove : Dictionary[Vector3i, Vector3i] = {}
 
-signal entered_cell(old_cell : Cell, new_cell : Cell)
-signal reparented_node(old_cell : Cell, new_cell : Cell, node : Node3D)
+signal entered_cell(old_cell : CellData, new_cell : CellData)
+signal reparented_node(old_cell : CellData, new_cell : CellData, node : Node3D)
 
 func _ready() -> void:
 	set_process(false)
@@ -57,13 +56,22 @@ func _process(_delta) -> void:
 	dequeue_active()
 	dequeue_inactive()
 
-func update_current_cell(_cell : Cell, _dist : float) -> void:
-	if _dist < closest_cell_dist and current_cell.cell_data.cell_name != _cell.cell_data.cell_name:
-		enter_cell(current_cell, _cell, _dist)
+	if len(nearest) == 0:
+		return
 
-func enter_cell(_old : Cell, _new : Cell, _dist : float) -> void:
-	closest_cell_dist = _dist
-	current_cell = _new
+	update_current_cell(nearest[0])
+
+func update_current_cell(_nearest : Vector3i) -> void:
+	if _nearest not in cell_registry.cells:
+		return
+
+	var new_current : CellData = cell_registry.cells[_nearest]
+	if _nearest != current_cell_key:
+		var current_cell : CellData = cell_registry.cells[current_cell_key]
+		current_cell_key = _nearest
+		enter_cell(current_cell, new_current)
+
+func enter_cell(_old : CellData, _new : CellData) -> void:
 	emit_signal("entered_cell", _old, _new)
 
 func cell_to_world_space(_coords : Vector3i, _cell_size : int) -> Vector3:
