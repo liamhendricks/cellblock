@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0m7jt5mfvapj"]
+[gd_scene load_steps=5 format=3 uid="uid://b0m7jt5mfvapj"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_1hyhr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hyhr"]
 albedo_color = Color(1, 0.207843, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmuv6"]
+albedo_color = Color(0.21413, 0.488341, 0.36892, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tftvl"]
+albedo_color = Color(0.215686, 0.490196, 0.788235, 1)
 
 [node name="TestCell0" type="Node3D"]
 script = ExtResource("1_1hyhr")
@@ -11,9 +17,19 @@ script = ExtResource("1_1hyhr")
 [node name="Statics" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Statics"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.868408, 1.33902, 0)
-size = Vector3(2.73682, 1.38428, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.868408, 1.49604, 0)
+size = Vector3(2.73682, 2, 1)
 material = SubResource("StandardMaterial3D_1hyhr")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Statics"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1.86841, 2.90625, -6)
+size = Vector3(5, 1.38428, 1)
+material = SubResource("StandardMaterial3D_qmuv6")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Statics"]
+transform = Transform3D(-4.37114e-08, 1, 0, -0.851306, -3.72118e-08, 0.52467, 0.52467, 2.2934e-08, 0.851306, 7.93945, 4.37082, 4)
+size = Vector3(8, 7, 1)
+material = SubResource("StandardMaterial3D_tftvl")
 
 [node name="Objects" type="Node3D" parent="."]
 

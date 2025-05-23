@@ -1,4 +1,4 @@
-class_name CellLoader
+class_name CellAnchor
 extends Node3D
 
 @export var cell_registry : CellRegistry

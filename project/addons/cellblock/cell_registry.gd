@@ -25,11 +25,11 @@ enum LOAD_STRATEGY {
 }
 
 @export var cells : Dictionary[Vector3i, CellData]
-@export var max_loaded_cells : int = 20
-@export var max_cache_size : int = 5
+@export_range(0, 100) var max_loaded_cells : int = 20
+@export_range(0, 25) var max_cache_size : int = 5
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 @export var grid_size : Vector3i = Vector3i(100, 100, 100)
 @export_range(0, 100) var cell_size : int = 10
 
-# how many Cells the CellManager will process per frame
-@export var num_iterations : int = 1
+# the max distance that the kdtree will consider when searching for nearby cells
+@export var max_dist : float = cell_size * 2

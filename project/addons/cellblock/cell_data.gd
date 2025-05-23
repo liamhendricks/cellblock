@@ -6,12 +6,19 @@ extends Resource
 @export var world_position : Vector3 = Vector3.ZERO
 @export var scene_path : String = "res://cells/" + cell_name + ".tscn"
 
-var cell_save : Resource
+var cell_save : CellSave
 
-func work(_pos : Vector3):
-	pass
-
-func _load_scene():
+func get_scene_instance() -> Cell:
 	var scene = load(scene_path)
 	if scene:
-		var cell = scene.instantiate()
+		return scene.instantiate()
+
+	return null
+
+# virtual
+func load_data(cell : Cell):
+	pass
+
+# virtual
+func save_data(cell : Cell):
+	pass
