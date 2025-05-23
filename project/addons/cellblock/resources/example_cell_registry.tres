@@ -30,5 +30,5 @@ max_cache_size = 5
 load_strategy = 1
 grid_size = Vector3i(200, 60, 100)
 cell_size = 10
-max_dist = null
+max_dist = 10.0
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

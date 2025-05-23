@@ -16,6 +16,7 @@ func build(points : Array, depth: int = 0) -> KDTreeNode:
 	var node = KDTreeNode.new(points[median], axis)
 	node.left = build(points.slice(0, median), depth + 1)
 	node.right = build(points.slice(median + 1, points.size()), depth + 1)
+
 	return node
 
 func from_points(points : Array):
@@ -23,7 +24,7 @@ func from_points(points : Array):
 
 func find_nearest(target : Vector3i, k : int, max_dist : float = 10.0) -> Array:
 	var heap: Array = []
-	_find_nearest(root, target, k, 10.0, heap)
+	_find_nearest(root, target, k, max_dist, heap)
 	heap.sort_custom(func(a, b): return a["dist"] < b["dist"])
 	return heap.slice(0, k).map(func(entry): return entry["point"])
 
