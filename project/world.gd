@@ -4,4 +4,4 @@ extends Node3D
 @onready var cell_anchor = $CellAnchor
 
 func _ready():
-	CellManager.start(player, self, cell_anchor.cell_registry)
+	CellManager.start(player, self, cell_anchor)

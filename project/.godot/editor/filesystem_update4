@@ -17,3 +17,5 @@ res://addons/cellblock/components/cell_loader.gd
 res://addons/cellblock/components/loaders/cell_loader_in_memory_rm.gd
 res://addons/cellblock/components/loaders/cell_loader.gd
 res://addons/cellblock/cell_save.gd
+res://cells/TestCell1.tscn
+res://addons/cellblock/cell_anchor.gd

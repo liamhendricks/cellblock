@@ -26,3 +26,11 @@ func evict() -> Cell:
 	var cell : Cell = data[key]
 	data.erase(key)
 	return cell
+
+func clear():
+	for k in data.keys():
+		var cell = data[k]
+		cell.queue_free()
+
+	data.clear()
+	queue.clear()

@@ -34,6 +34,7 @@ func init():
 func _on_save_pressed():
 	var cell_data = anchor.cell_registry.cells[coordinates]
 	cell_data.world_position = active_cell.global_position
+	cell_data.coordinates = coordinates
 	ResourceSaver.save(cell_data)
 
 	_set_owner_recursive(active_cell, active_cell)

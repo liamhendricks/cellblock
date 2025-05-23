@@ -9,8 +9,8 @@ var cell_registry : CellRegistry
 var cell_data_tree : KDTree
 var cell_loader : CellLoader
 
-var to_add : Dictionary[Vector3i, CellData] = {}
-var to_remove : Dictionary[Vector3i, CellData] = {}
+var to_add : Dictionary[Vector3i, Vector3i] = {}
+var to_remove : Dictionary[Vector3i, Vector3i] = {}
 
 signal entered_cell(old_cell : Cell, new_cell : Cell)
 signal reparented_node(old_cell : Cell, new_cell : Cell, node : Node3D)
@@ -22,17 +22,25 @@ func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
 
 # entrypoint to start the cell_manager
-func start(_origin_object : Node3D, _world : Node3D, _registry : CellRegistry) -> void:
+func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
 	origin_object = _origin_object
-	cell_loader = CellLoader.new(_world, cell_registry.max_cache_size)
-	cell_registry = _registry
+	cell_registry = _anchor.cell_registry
+	cell_loader = get_loader(_world)
+	cell_loader.configure(cell_registry)
 	if origin_object == null || cell_registry == null:
 		return
 
 	cell_data_tree = KDTree.new()
 	cell_data_tree.from_points(cell_registry.cells.keys())
 
+	_anchor.anchor_exited.connect(_on_anchor_exited)
 	set_process(true)
+
+func get_loader(_world : Node3D) -> CellLoader:
+	match(cell_registry.load_strategy):
+		CellRegistry.LOAD_STRATEGY.IN_MEMORY_REMOVE: return CellLoaderInMemoryRemove.new(_world, cell_registry.max_cache_size)
+
+	return null
 
 func stop() -> void:
 	set_process(false)
@@ -101,3 +109,9 @@ func enqueue(active: Array, nearest: Array) -> void:
 	for k in nearest:
 		if !active.has(k) && k not in to_add:
 			to_add[k] = k
+
+func _on_anchor_exited():
+	stop()
+	to_add.clear()
+	to_remove.clear()
+	cell_loader.on_exit()
