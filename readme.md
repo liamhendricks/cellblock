@@ -1,3 +1,5 @@
+![alt text](https://github.com/liamhendricks/cellblock/docs/cellblockicon.png "Cellblock Icon")
+
 # Cellblock
 
 Open world scene management in gdscript.
