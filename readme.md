@@ -1,4 +1,4 @@
-![alt text](https://github.com/liamhendricks/cellblock/docs/cellblockicon.png "Cellblock Icon")
+![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblockicon.png "Cellblock Icon")
 
 # Cellblock
 
