@@ -6,7 +6,8 @@ extends Resource
 @export var world_position : Vector3 = Vector3.ZERO
 @export var scene_path : String = "res://cells/" + cell_name + ".tscn"
 
-var cell_save : CellSave
+# runtime storage of cell save data
+var save_data : Dictionary
 
 func get_scene_instance() -> Cell:
 	var scene = load(scene_path)
@@ -14,11 +15,3 @@ func get_scene_instance() -> Cell:
 		return scene.instantiate()
 
 	return null
-
-# virtual
-func load_data(cell : Cell):
-	pass
-
-# virtual
-func save_data(cell : Cell):
-	pass

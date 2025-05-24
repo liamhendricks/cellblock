@@ -2,11 +2,13 @@ class_name CellLoaderInMemoryRemove
 extends CellLoader
 
 # This loader will load and configure all cells on initial load and store them
-# in the cells dictionary. The cells remain in memory and are never queue_freed.
+# in the cells dictionary. The cells remain in memory and are never queue_freed
+# until the world scene itself is freed.
 
 var cells : Dictionary[Vector3i, Cell]
 
 func configure(cell_registry : CellRegistry):
+	var save_data = cell_registry.cell_save.load_save()
 	for k in cell_registry.cells.keys():
 		var cell_data : CellData = cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
@@ -14,8 +16,15 @@ func configure(cell_registry : CellRegistry):
 		if cell == null:
 			continue
 
+		var key = "%v" % k
+		if key in save_data:
+			cell_data.save_data = save_data[key]
+		else:
+			cell_data.save_data = {}
+
 		cells[cell_data.coordinates] = cell
-		print("added %s at: %v" % [cell_data.cell_name, cell_data.coordinates])
+
+	emit_signal("cells_configured")
 
 func add(cell_data : CellData):
 	if cell_data.coordinates in active_cells:
@@ -32,14 +41,21 @@ func add(cell_data : CellData):
 	active_cells[cell_data.coordinates] = cell
 	world.add_child(cell)
 	cell.global_position = cell_data.world_position
+	cell.load_cell(cell_data.save_data)
+	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+
+	emit_signal("cell_added", cell_data)
 
 func remove(cell_data : CellData):
 	if cell_data.coordinates not in active_cells:
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
+	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
+
+	emit_signal("cell_removed", cell_data)
 
 func on_exit():
 	super()

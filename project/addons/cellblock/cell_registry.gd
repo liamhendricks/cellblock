@@ -33,3 +33,4 @@ enum LOAD_STRATEGY {
 
 # the max distance that the kdtree will consider when searching for nearby cells
 @export var max_dist : float = cell_size * 2
+@export var cell_save : CellSave

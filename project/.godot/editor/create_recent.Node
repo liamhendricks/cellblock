@@ -1,3 +1,6 @@
+CollisionShape3D
+CSGSphere3D
+RigidBody3D
 CSGCylinder3D
 Cell
 DirectionalLight3D
@@ -8,8 +11,4 @@ SpringArm3D
 StaticBody3D
 CSGBox3D
 CSGMesh3D
-CollisionShape3D
 CharacterBody3D
-Control
-LineEdit
-TextEdit

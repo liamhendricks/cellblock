@@ -9,6 +9,7 @@ class_name Player
 @export var jump_speed = 8.0
 @export var mouse_sensitivity = 0.0015
 @export var rotation_speed = 12.0
+@export var force = 5.0
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var jumping = false
@@ -21,6 +22,17 @@ func _physics_process(delta):
 	get_move_input(delta)
 
 	move_and_slide()
+
+	# for knocking around the mutable objects
+	for slide in get_slide_collision_count():
+		var collision = get_slide_collision(slide)
+		var collider = collision.get_collider()
+		var normal = collision.get_normal()
+		if !collider.is_class("RigidBody3D"):
+			continue
+
+		var i = -normal * force
+		collider.apply_central_impulse(i)
 
 func get_move_input(delta):
 	var vy = velocity.y
@@ -36,8 +48,13 @@ func _unhandled_input(event):
 		camera_pivot.rotation_degrees.x = clamp(camera_pivot.rotation_degrees.x, -90.0, 30.0)
 		camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
 
-	if event.is_action_pressed("quit"):
+	if Input.is_action_just_pressed("quit"):
 		quit_scene()
+		return
+
+	if Input.is_action_just_pressed("save"):
+		CellManager.save_cells()
+		return
 
 func quit_scene():
 	var tree = get_tree()

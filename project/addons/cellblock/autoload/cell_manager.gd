@@ -24,10 +24,15 @@ func set_origin_object(_origin_object : Node3D) -> void:
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
 	origin_object = _origin_object
 	cell_registry = _anchor.cell_registry
-	cell_loader = get_loader(_world)
-	cell_loader.configure(cell_registry)
-	if origin_object == null || cell_registry == null:
+	cell_loader = _get_loader(_world)
+	if origin_object == null || cell_registry == null || cell_loader == null:
+		push_error("cell_manager not started correctly, please review the docs if any below are null")
+		push_error("origin_object: %v" % origin_object)
+		push_error("cell_registry: %v" % cell_registry)
+		push_error("cell_loader: %v" % cell_loader)
 		return
+
+	cell_loader.configure(cell_registry)
 
 	cell_data_tree = KDTree.new()
 	cell_data_tree.from_points(cell_registry.cells.keys())
@@ -35,11 +40,14 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 	set_process(true)
 
-func get_loader(_world : Node3D) -> CellLoader:
+func _get_loader(_world : Node3D) -> CellLoader:
 	match(cell_registry.load_strategy):
 		CellRegistry.LOAD_STRATEGY.IN_MEMORY_REMOVE: return CellLoaderInMemoryRemove.new(_world, cell_registry.max_cache_size)
 
 	return null
+
+func save_cells():
+	cell_loader.save_cells(cell_registry)
 
 func stop() -> void:
 	set_process(false)

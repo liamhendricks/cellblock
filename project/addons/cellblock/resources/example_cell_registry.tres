@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="CellRegistry" load_steps=5 format=3 uid="uid://c5pqjuqa2mfu6"]
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=7 format=3 uid="uid://c5pqjuqa2mfu6"]
 
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="1_5lf64"]
+[ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="1_gjsug"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="2_b2wil"]
+
+[sub_resource type="Resource" id="Resource_kdqb2"]
+script = ExtResource("1_gjsug")
+save_file_name = "user://savegame.save"
+metadata/_custom_type_script = "uid://bfffeg8o5htm1"
 
 [sub_resource type="Resource" id="Resource_gjsug"]
 script = ExtResource("1_5lf64")
@@ -31,4 +37,5 @@ load_strategy = 1
 grid_size = Vector3i(200, 60, 100)
 cell_size = 10
 max_dist = 10.0
+cell_save = SubResource("Resource_kdqb2")
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

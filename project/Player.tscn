@@ -9,6 +9,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js7pq"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_xhfnw")
 speed = 20.0
 
