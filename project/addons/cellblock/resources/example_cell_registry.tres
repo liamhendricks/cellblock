@@ -34,8 +34,9 @@ Vector3i(5, 0, 0): SubResource("Resource_xv6jv")
 max_loaded_cells = 10
 max_cache_size = 5
 load_strategy = 1
-grid_size = Vector3i(200, 60, 100)
+grid_size = Vector3i(1000, 60, 1000)
 cell_size = 10
 max_dist = 10.0
 cell_save = SubResource("Resource_kdqb2")
+cell_directory = "res://cells/"
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

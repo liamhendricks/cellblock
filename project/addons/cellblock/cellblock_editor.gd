@@ -1,10 +1,12 @@
 @tool
 extends Control
 
-@onready var x = $PanelContainer/MarginContainer/VBoxContainer/XSpin
-@onready var y = $PanelContainer/MarginContainer/VBoxContainer/YSpin
-@onready var z = $PanelContainer/MarginContainer/VBoxContainer/ZSpin
+@onready var x = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/XSpin
+@onready var y = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/YSpin
+@onready var z = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/ZSpin
 @onready var container = $PanelContainer/MarginContainer/VBoxContainer
+
+@onready var cell_scene = preload("res://addons/cellblock/cell.tscn")
 
 var active_cell : Cell
 var coordinates : Vector3i
@@ -32,10 +34,13 @@ func init():
 		z.value_changed.connect(_coordinates_updated.bind(2))
 
 func _on_save_pressed():
+	_save_active_cell()
+
+func _save_active_cell():
 	var cell_data = anchor.cell_registry.cells[coordinates]
 	cell_data.world_position = active_cell.global_position
 	cell_data.coordinates = coordinates
-	ResourceSaver.save(cell_data)
+	ResourceSaver.save(anchor.cell_registry)
 
 	_set_owner_recursive(active_cell, active_cell)
 	var scene = PackedScene.new()
@@ -59,10 +64,33 @@ func _on_load_pressed():
 		active_cell = cell
 
 		var root = EditorInterface.get_edited_scene_root()
-		print("cell loaded: ", cell)
+		print("cell loaded at %v: %s" % [coordinates, data.cell_name])
 		root.add_child(cell)
 		cell.global_position = anchor.global_position
 		_enable_cell_editing(cell, root)
+
+func _on_create_pressed() -> void:
+	if coordinates in anchor.cell_registry.cells:
+		push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
+		return
+
+	_clear()
+
+	var cell_data = CellData.new()
+	cell_data.coordinates = coordinates
+	cell_data.cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
+	cell_data.scene_path = anchor.cell_registry.cell_directory + cell_data.cell_name + ".tscn"
+	cell_data.world_position = anchor.global_position
+	anchor.cell_registry.cells[coordinates] = cell_data
+
+	var cell = cell_scene.instantiate()
+	active_cell = cell
+	var root = EditorInterface.get_edited_scene_root()
+	print("cell created at %v with name: %s" % [coordinates, cell_data.cell_name])
+	root.add_child(cell)
+	cell.global_position = anchor.global_position
+
+	_save_active_cell()
 
 func _set_owner_recursive(node: Node, owner: Node):
 	if node.name == owner.name:

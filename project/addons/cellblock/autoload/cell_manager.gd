@@ -25,10 +25,11 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	origin_object = _origin_object
 	cell_registry = _anchor.cell_registry
 	cell_loader = _get_loader(_world)
-	if origin_object == null || cell_registry == null || cell_loader == null:
+	if  cell_registry == null || cell_registry.cell_save == null || origin_object == null || cell_loader == null:
 		push_error("cell_manager not started correctly, please review the docs if any below are null")
-		push_error("origin_object: %v" % origin_object)
 		push_error("cell_registry: %v" % cell_registry)
+		push_error("cell_save: %v" % cell_registry.cell_save)
+		push_error("origin_object: %v" % origin_object)
 		push_error("cell_loader: %v" % cell_loader)
 		return
 
