@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1748126537
+::res://::1748184867
 icon.svg::CompressedTexture2D/CompressedTexture2D::1514681417908234060::1748015068::1748015068::1::::<><><>0<>0<>a140d9e0b2a93c45ba3fbd7a03793245<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 MutableObjectExample.tscn::PackedScene/PackedScene::7675335775972063976::1748122983::0::1::::<><><>0<>0<><>::uid://x1pkhw7yjo6v::::res://mutable_object.gd
 mutable_object.gd::GDScript/GDScript::1668946241246369715::1748106557::0::1::::MutableObject<>RigidBody3D<><>0<>0<><>::
@@ -11,8 +11,8 @@ World.tscn::PackedScene/PackedScene::6101508672952123658::1748126273::0::1::::<>
 ::res://addons/cellblock/::1748126525
 cell.gd::GDScript/GDScript::6192759981644013384::1748123011::0::1::::Cell<>Node3D<><>0<>0<><>::
 cell.tscn::PackedScene/PackedScene::842379725865871330::1748015068::0::1::::<><><>0<>0<><>::uid://cuh238b5eycuy::::res://addons/cellblock/cell.gd
-cellblock_editor.gd::GDScript::8905349197580480704::1748126520::0::1::::<>Control<><>0<>1<><>::
-cellblock_editor.tscn::PackedScene::3392198286824885710::1748126525::0::1::::<><><>0<>0<><>::uid://dy422ha6gotu3::::res://addons/cellblock/cellblock_editor.gd
+cellblock_editor.gd::GDScript/GDScript::8905349197580480704::1748126520::0::1::::<>Control<><>0<>1<><>::
+cellblock_editor.tscn::PackedScene/PackedScene::3392198286824885710::1748126525::0::1::::<><><>0<>0<><>::uid://dy422ha6gotu3::::res://addons/cellblock/cellblock_editor.gd
 cellblock_plugin.gd::GDScript/GDScript::2826481700795625077::1748126245::0::1::::<>EditorPlugin<><>0<>1<><>::
 cell_anchor.gd::GDScript/GDScript::3937222196008469883::1748036579::0::1::::CellAnchor<>Node3D<><>0<>0<><>::
 cell_anchor.tscn::PackedScene/PackedScene::6082509777379777374::1748032313::0::1::::<><><>0<>0<><>::uid://bwdhqelgek348::::res://addons/cellblock/cell_anchor.gd

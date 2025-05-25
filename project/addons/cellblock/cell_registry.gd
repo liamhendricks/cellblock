@@ -35,3 +35,4 @@ enum LOAD_STRATEGY {
 @export var max_dist : float = cell_size * 2
 @export var cell_save : CellSave
 @export var cell_directory : String = "res://cells/"
+@export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"

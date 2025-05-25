@@ -78,6 +78,9 @@ value of 1 would mean 1 cell for every vertex in the grid.
 cells.
 - cell_save: This is a `CellSave` resource that enables saving and loading for your mutable objects.
 - cell_directory: The directory where your `Cell` scenes will be saved.
+- base_cell_scene_path: This is the base scene that you wish to be created when the editor tool
+creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you may want to extend this
+node and use that one instead.
 
 Cellblock registers a singleton called `CellManager` that you need to hook into. Once you have
 created a `CellRegistry`, somewhere you will need to start the `CellManager`. In this repo's example
@@ -102,6 +105,52 @@ cells you are editing. You'll notice X, Y and Z spinner buttons. When updating t
 will see the `CellAnchor` node moving to that coordinate in world space. You will be interacting with
 1 cell at a time at the current coordinates. The cell data is keyed by this `Vector3i`, which means
 1 cell to 1 vertex in cell space.
+
+Click the 'Create Cell' button to create a new cell. This will create a new `Cell` scene, and a
+cooresponding `CellData` resource file, which automatically gets added to your `CellRegistry`. You
+are now free to edit the cell scene itself in the editor. When you are done editing, make sure you
+click the 'Save Active' button to save the scene. This scene gets saved in your cell_directory that
+was specified in the `CellRegistry`.
+
+Clicking the 'Clear Active' button will remove the active cell from the editor scene. At any time,
+you can click the `Load Cell` button to load the cell at the current coordinates (if one exists).
+
+If you want, you can also manually create the scene and manually add the `CellData` record to the
+`CellRegistry.cells` dictionary. It's also possible to load scenes in the editor tool created this
+way. Completely up to you.
+
+## Building your Cells
+
+The `Cell` node is designed to be extended (see the `CellRegistry` documentation above) to fit your
+gameplay needs. The base class is a good starting point, but I would highly recommend extending the
+class even if you don't need any new functionality right away. If you get halfway through building
+your game and realize the `Cell` class provided by this addon is insufficient, it may be very
+annoying to try to retroactively fix all your cells. There are some things I can do to enforce this
+behavior, but I haven't done it yet.
+
+In the future I'll also consider making it possible to extend the `CellData` resource.
+
+## Saving and Loading mutable CellData in game
+
+
+### Caviats
+
+- 'Cell space' and 'world space' are decoupled from each other, so changing the grid_size and cell_size
+properties will not mess up the positioning of your cells. However, changing these properties might
+mean that your coordinates become 'invisible' to the grid. I.e, it is possible to create a large grid
+of, say, 1000, 50, 1000. Then create a cell at a very high number. Then if you change the grid_size
+to be lower than that cell vertex, it will be unreachable.
+
+- As you are editing cells, the `Cell` scene gets added to the tree. If you save the scene and forget
+to press 'Clear Active'. That active `Cell` scene in the editor will be attached to the scene
+in-game, which is likely not desired behavior. Make sure to 'Clear Active' after you are done editing
+so this doesn't happen, until I can figure out a better way of dealing with this :/
+
+- When you save a `Cell` scene using the editor tool, it saves the actual scene in the file system.
+This means that if you have that scene open in another editor tab, it will override it and you will
+lose progress in that tab. I think there is a way to inspect other editor tab scenes, so I think I
+can fix this by just prompting the user to save and close that tab (like the engine editor does in
+this kind of scenario) so this will likely get fixed in the future.
 
 ## LICENCE
 

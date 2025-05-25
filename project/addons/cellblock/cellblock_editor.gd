@@ -6,8 +6,6 @@ extends Control
 @onready var z = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/ZSpin
 @onready var container = $PanelContainer/MarginContainer/VBoxContainer
 
-@onready var cell_scene = preload("res://addons/cellblock/cell.tscn")
-
 var active_cell : Cell
 var coordinates : Vector3i
 var anchor : CellAnchor
@@ -83,6 +81,7 @@ func _on_create_pressed() -> void:
 	cell_data.world_position = anchor.global_position
 	anchor.cell_registry.cells[coordinates] = cell_data
 
+	var cell_scene = load(anchor.cell_registry.base_cell_scene_path)
 	var cell = cell_scene.instantiate()
 	active_cell = cell
 	var root = EditorInterface.get_edited_scene_root()
