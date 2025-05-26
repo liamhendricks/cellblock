@@ -1,7 +1,7 @@
 class_name CellLoaderInMemoryRemove
 extends CellLoader
 
-# This loader will load and configure all cells on initial load and store them
+# This loader will load and configure all cells on initial start and store them
 # in the cells dictionary. The cells remain in memory and are never queue_freed
 # until the world scene itself is freed.
 
@@ -23,8 +23,6 @@ func configure(cell_registry : CellRegistry):
 			cell_data.save_data = {}
 
 		cells[cell_data.coordinates] = cell
-
-	emit_signal("cells_configured")
 
 func add(cell_data : CellData):
 	if cell_data.coordinates in active_cells:

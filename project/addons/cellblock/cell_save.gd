@@ -20,7 +20,7 @@ func load_save() -> Dictionary:
 		var json = JSON.new()
 
 		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
+		if not parse_result == OK || json.data == null || "key" not in json.data:
 			continue
 
 		data[json.data["key"]] = json.data

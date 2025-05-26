@@ -6,6 +6,9 @@ signal entered_cell(old_cell : CellData, new_cell : CellData)
 # some mutable object got closer to a different cell, and now belongs there
 signal reparented_node(old_cell : CellData, new_cell : CellData, node_name : String)
 
+signal cell_added(cell_data : CellData)
+signal cell_removed(cell_data : CellData)
+
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
 var current_cell_key : Vector3i = Vector3.ZERO
@@ -38,10 +41,14 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 	cell_loader.configure(cell_registry)
 
+	cell_loader.cell_added.connect(_on_cell_added)
+	cell_loader.cell_removed.connect(_on_cell_removed)
+
 	cell_data_tree = KDTree.new()
 	cell_data_tree.from_points(cell_registry.cells.keys())
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
+
 	set_process(true)
 
 func _get_loader(_world : Node3D) -> CellLoader:
@@ -144,12 +151,12 @@ func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
 		for object in _mutable_data[k]:
 			var actual = world_to_cell_space(object.global_position, cell_registry.cell_size)
 
-			# distance check
 			if actual.distance_squared_to(_key) < cell_data.max_mutable_travel_dist_sq:
 				continue
 
-			if actual in cell_registry.cells && actual != _key:
-				reparent_node(_key, actual, object, k)
+			var closest = cell_data_tree.find_closest_point(actual)
+			if closest != _key:
+				reparent_node(_key, closest, object, k)
 
 func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String):
 	if _to not in cell_registry.cells:
@@ -158,6 +165,7 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	var old := cell_registry.cells[_from]
 	var new := cell_registry.cells[_to]
 
+	var tmp_pos = _node.global_position
 	var parent = _node.get_parent()
 	parent.remove_child(_node)
 
@@ -167,7 +175,7 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	# the cell gets removed, or if saved while active
 	if _to in cell_loader.active_cells:
 		var new_cell := cell_loader.active_cells[_to]
-		new_cell.add_mutable(_node, _data_key)
+		new_cell.add_mutable(_node, _data_key, tmp_pos)
 	else:
 		if _node.has_method("on_save"):
 			new.save_data[_data_key].append(_node.on_save())
@@ -182,3 +190,9 @@ func _on_anchor_exited():
 	to_add.clear()
 	to_remove.clear()
 	cell_loader.on_exit()
+
+func _on_cell_added(_cell_data : CellData):
+	emit_signal("cell_added", _cell_data)
+
+func _on_cell_removed(_cell_data : CellData):
+	emit_signal("cell_removed", _cell_data)

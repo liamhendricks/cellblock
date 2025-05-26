@@ -3,7 +3,6 @@ extends Resource
 
 signal cell_added(cell_data : CellData)
 signal cell_removed(cell_data : CellData)
-signal cells_configured()
 
 var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]
