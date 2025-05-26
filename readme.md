@@ -83,7 +83,7 @@ creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you ma
 node and use that one instead.
 
 Cellblock registers a singleton called `CellManager` that you need to hook into. Once you have
-created a `CellRegistry`, somewhere you will need to start the `CellManager`. In this repo's example
+created a `CellRegistry`, somewhere you will need to start the `CellManager`. In this repo's demo
 project, I put it in the World script itself like this:
 
 ```
@@ -94,6 +94,8 @@ extends Node3D
 @onready var cell_anchor = $CellAnchor
 
 func _ready():
+	# here is where you would create your cell save, or update it's filepath. 
+	cell_anchor.cell_registry.cell_save.save_file_name = "user://savegame.save"
 	CellManager.start(player, self, cell_anchor)
 ```
 
@@ -132,6 +134,19 @@ In the future I'll also consider making it possible to extend the `CellData` res
 
 ## Saving and Loading mutable CellData in game
 
+The `CellSave` resource is available to developers to indicate the filepath for storing mutable cell
+data records. This data is stored as serialized JSON, but fell free to extend the `CellSave` resource
+and serialize it any way you like. Each `CellData` resource stores a Cell's mutable data in memory in
+a dictionary until a save is initiated.
+
+When a player saves your game, the `CellManager` needs to be told so that the cell data can be saved
+as well. Here is the example in the `player.gd` script in this repo's demo project:
+
+```
+if Input.is_action_just_pressed("save"):
+    CellManager.save_cells()
+    return
+```
 
 ### Caviats
 

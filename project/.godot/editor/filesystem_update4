@@ -1,4 +1,5 @@
 res://World.tscn
 res://addons/cellblock/resources/example_cell_registry.tres
-res://addons/cellblock/cellblock_editor.gd
+res://world.gd
+res://addons/cellblock/components/loaders/cell_loader.gd
 res://addons/cellblock/cell_registry.gd

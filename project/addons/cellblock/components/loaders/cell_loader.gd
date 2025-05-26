@@ -25,7 +25,6 @@ func add(cell_data : CellData):
 func remove(cell_data : CellData):
 	pass
 
-#virtual
 func on_exit():
 	cell_cache.clear()
 
@@ -51,12 +50,3 @@ func save_cells(cell_registry : CellRegistry):
 		save_data[key] = cell.cell_data.save_data
 
 	cell_registry.cell_save.write_save(save_data)
-
-# if no key exists in the save_data, we can safely assume it's the first time loading this cell
-func _try_load_cell(cell_data : CellData, cell : Cell, save_data : Dictionary):
-	var key = "%v" % cell_data.coordinates
-	if key in save_data:
-		cell_data.save_data = save_data[key]
-		cell.load_cell(cell_data.save_data)
-	else:
-		cell_data.save_data = cell.save_cell(key)
