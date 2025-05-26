@@ -31,10 +31,20 @@ layout_mode = 2
 
 [node name="SaveButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "SAVE GAME"
+text = "SAVE"
+
+[node name="QuitButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
 
 [node name="FPSLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "FPS: 60"
 
+[node name="Label" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PRESS ESC TO CAPTURE
+AND UNCAPTURE MOUSE"
+
 [connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -48,8 +48,12 @@ func save_cell(_key : String) -> Dictionary:
 
 # delete old mutable cell children and reconstruct them with saved data
 func load_cell(_data : Dictionary):
+	if len(_data.keys()) == 0:
+		return
+
 	for obj in objects.get_children():
 		obj.queue_free()
+
 	for o in _data["objects"]:
 		var new_object = load(o["filename"]).instantiate()
 		objects.add_child(new_object)

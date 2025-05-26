@@ -14,3 +14,6 @@ res://autoloads/UserInterface.tscn
 res://cells/cell_49_0_0.tscn
 res://addons/cellblock/cell_save.gd
 res://addons/cellblock/components/loaders/cell_loader_in_memory_rm.gd
+res://MutableObjectExample.tscn
+res://cells/TestCell1.tscn
+res://cells/TestCell0.tscn

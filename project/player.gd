@@ -43,20 +43,18 @@ func get_move_input(delta):
 	velocity.y = vy
 
 func _unhandled_input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && Input.mouse_mode == Input.MouseMode.MOUSE_MODE_CAPTURED:
 		camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
 		camera_pivot.rotation_degrees.x = clamp(camera_pivot.rotation_degrees.x, -90.0, 30.0)
 		camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
 
 	if Input.is_action_just_pressed("quit"):
-		quit_scene()
+		if Input.mouse_mode == Input.MouseMode.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 
 	if Input.is_action_just_pressed("save"):
 		CellManager.save_cells()
 		return
-
-func quit_scene():
-	var tree = get_tree()
-	tree.root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	tree.call_deferred("quit")
