@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name Player
 
-#basic character controller
+#basic character controller for demo purposes
 @onready var camera_pivot = $CameraPivot
 
 @export var speed = 5.0

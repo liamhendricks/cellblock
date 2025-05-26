@@ -25,7 +25,6 @@ enum LOAD_STRATEGY {
 }
 
 @export var cells : Dictionary[Vector3i, CellData]
-@export_range(0, 100) var max_loaded_cells : int = 20
 @export_range(0, 25) var max_cache_size : int = 5
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 @export var grid_size : Vector3i = Vector3i(100, 100, 100)

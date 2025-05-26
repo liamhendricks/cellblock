@@ -1,5 +1,11 @@
 extends Node
 
+# the origin object has a new nearest cell
+signal entered_cell(old_cell : CellData, new_cell : CellData)
+
+# some mutable object got closer to a different cell, and now belongs there
+signal reparented_node(old_cell : CellData, new_cell : CellData, node_name : String)
+
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
 var current_cell_key : Vector3i = Vector3.ZERO
@@ -10,9 +16,6 @@ var cell_loader : CellLoader
 
 var to_add : Dictionary[Vector3i, Vector3i] = {}
 var to_remove : Dictionary[Vector3i, Vector3i] = {}
-
-signal entered_cell(old_cell : CellData, new_cell : CellData)
-signal reparented_node(old_cell : CellData, new_cell : CellData, node : Node3D)
 
 func _ready() -> void:
 	set_process(false)
@@ -27,10 +30,10 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	cell_loader = _get_loader(_world)
 	if  cell_registry == null || cell_registry.cell_save == null || origin_object == null || cell_loader == null:
 		push_error("cell_manager not started correctly, please review the docs if any below are null")
-		push_error("cell_registry: %v" % cell_registry)
-		push_error("cell_save: %v" % cell_registry.cell_save)
-		push_error("origin_object: %v" % origin_object)
-		push_error("cell_loader: %v" % cell_loader)
+		push_error("cell_registry: %s" % cell_registry)
+		push_error("cell_save: %s" % cell_registry.cell_save)
+		push_error("origin_object: %s" % origin_object)
+		push_error("cell_loader: %s" % cell_loader)
 		return
 
 	cell_loader.configure(cell_registry)
@@ -58,7 +61,7 @@ func _process(_delta) -> void:
 		return
 
 	var coords := world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
-	var nearest := cell_data_tree.find_nearest(coords, cell_registry.max_loaded_cells, cell_registry.max_dist)
+	var nearest := cell_data_tree.radius_search(coords, cell_registry.max_dist)
 
 	enqueue(cell_loader.active_cells.keys(), nearest)
 
@@ -115,6 +118,11 @@ func dequeue_inactive():
 	var cell_data : CellData = cell_registry.cells[last]
 	to_remove.erase(last)
 
+	# some mutable objects may have moved out of range of the current cell
+	var cell : Cell = cell_loader.active_cells[last]
+	var mutable_objects := cell.get_mutable()
+	try_reparent_mutable(mutable_objects, last)
+
 	cell_loader.remove(cell_data)
 
 # enqueue keys of cells to add and remove
@@ -126,6 +134,48 @@ func enqueue(active: Array, nearest: Array) -> void:
 	for k in nearest:
 		if !active.has(k) && k not in to_add:
 			to_add[k] = k
+
+func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
+	if len(_mutable_data.keys()) == 0:
+		return
+
+	var cell_data := cell_registry.cells[_key]
+	for k in _mutable_data.keys():
+		for object in _mutable_data[k]:
+			var actual = world_to_cell_space(object.global_position, cell_registry.cell_size)
+
+			# distance check
+			if actual.distance_squared_to(_key) < cell_data.max_mutable_travel_dist_sq:
+				continue
+
+			if actual in cell_registry.cells && actual != _key:
+				reparent_node(_key, actual, object, k)
+
+func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String):
+	if _to not in cell_registry.cells:
+		return
+
+	var old := cell_registry.cells[_from]
+	var new := cell_registry.cells[_to]
+
+	var parent = _node.get_parent()
+	parent.remove_child(_node)
+
+	old.save_data = cell_loader.active_cells[_from].save_cell("%v" % _from)
+
+	# if the new cell is already loaded, just add it. the new node will be included in the save if
+	# the cell gets removed, or if saved while active
+	if _to in cell_loader.active_cells:
+		var new_cell := cell_loader.active_cells[_to]
+		new_cell.add_mutable(_node, _data_key)
+	else:
+		if _node.has_method("on_save"):
+			new.save_data[_data_key].append(_node.on_save())
+
+		_node.queue_free()
+
+	print("reparented node: ", _node.name)
+	emit_signal("reparented_node", old, new, _node.name)
 
 func _on_anchor_exited():
 	stop()

@@ -7,10 +7,29 @@ var cell_data : CellData
 @onready var objects = $Objects
 @onready var characters = $Characters
 
+# check mutable object positions for movement to different cells
+func get_mutable() -> Dictionary:
+	var mutable = {
+		"objects": objects.get_children(),
+		"characters": characters.get_children(),
+	}
+
+	return mutable
+
+# add mutable object to specific parent
+func add_mutable(_node : Node3D, _key : String):
+	match(_key):
+		"objects": 
+			objects.add_node(_node)
+			_node.owner = objects
+		"characters": 
+			characters.add_node(_node)
+			_node.owner = characters
+
 # construct a keyed save dictionary of all mutable cell children
-func save_cell(key : String) -> Dictionary:
+func save_cell(_key : String) -> Dictionary:
 	var save_data = {
-		"key": key,
+		"key": _key,
 		"objects": [],
 		"characters": []
 	}
@@ -26,22 +45,22 @@ func save_cell(key : String) -> Dictionary:
 	return save_data
 
 # delete old mutable cell children and reconstruct them with saved data
-func load_cell(data : Dictionary):
-	if "objects" in data && len(data["objects"]) > 0:
+func load_cell(_data : Dictionary):
+	if "objects" in _data && len(_data["objects"]) > 0:
 		for obj in objects.get_children():
 			obj.queue_free()
 
-		for o in data["objects"]:
+		for o in _data["objects"]:
 			var new_object = load(o["filename"]).instantiate()
 			objects.add_child(new_object)
 			if new_object.has_method("on_load"):
 				new_object.on_load(o)
 
-	if "characters" in data && len(data["characters"]) > 0:
+	if "characters" in _data && len(_data["characters"]) > 0:
 		for char in characters.get_children():
 			char.queue_free()
 
-		for c in data["characters"]:
+		for c in _data["characters"]:
 			var new_character = load(c["filename"]).instantiate()
 			characters.add_child(new_character)
 			if new_character.has_method("on_load"):
