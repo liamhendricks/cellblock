@@ -12,9 +12,9 @@ signal cell_removed(cell_data : CellData)
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
 var current_cell_key : Vector3i = Vector3.ZERO
+var current_cell_coords : Vector3i = Vector3.ZERO
 
 var cell_registry : CellRegistry
-var cell_data_tree : KDTree
 var cell_loader : CellLoader
 
 var to_add : Dictionary[Vector3i, Vector3i] = {}
@@ -44,10 +44,6 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	cell_loader.cell_added.connect(_on_cell_added)
 	cell_loader.cell_removed.connect(_on_cell_removed)
 
-	cell_data_tree = KDTree.new()
-	print("l: ", len(cell_registry.cells.keys()))
-	cell_data_tree.from_points(cell_registry.cells.keys())
-
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
 	set_process(true)
@@ -68,25 +64,27 @@ func _process(_delta) -> void:
 	if origin_object == null:
 		return
 
-	var coords := world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
-	var nearest := cell_data_tree.radius_search(coords, cell_registry.max_dist)
+	current_cell_coords = world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
+	var nearest = get_nearest(current_cell_coords)
 
 	enqueue(cell_loader.active_cells.keys(), nearest)
 
+	if len(to_add) > 0:
+		print("to_add: ", len(to_add))
+
+	if len(to_remove) > 0:
+		print("to_remove: ", len(to_remove))
+
 	dequeue_active()
 	dequeue_inactive()
-
-	if len(nearest) == 0:
-		return
-
-	update_current_cell(nearest[0])
+	update_current_cell(current_cell_coords)
 
 func update_current_cell(_nearest : Vector3i) -> void:
 	if _nearest not in cell_registry.cells:
 		return
 
-	var new_current : CellData = cell_registry.cells[_nearest]
 	if _nearest != current_cell_key:
+		var new_current : CellData = cell_registry.cells[_nearest]
 		var current_cell : CellData = cell_registry.cells[current_cell_key]
 		current_cell_key = _nearest
 		enter_cell(current_cell, new_current)
@@ -143,6 +141,19 @@ func enqueue(active: Array, nearest: Array) -> void:
 		if !active.has(k) && k not in to_add:
 			to_add[k] = k
 
+func get_nearest(_coords : Vector3i, _radius : int = 2) -> Array:
+	var nearest = []
+
+	for x in range(-_radius, _radius + 1):
+		for y in range(-_radius, _radius + 1):
+			for z in range(-_radius, _radius + 1):
+				var key = Vector3i(_coords.x + x, _coords.y + y, _coords.z + z)
+				if key in cell_registry.cells:
+					nearest.append(key)
+
+	nearest.sort_custom(func(a, b): return a < b)
+	return nearest
+
 func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
 	if len(_mutable_data.keys()) == 0:
 		return
@@ -150,15 +161,10 @@ func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
 	var cell_data := cell_registry.cells[_key]
 	for k in _mutable_data.keys():
 		for object in _mutable_data[k]:
+			# if the object clamps to a new cell that exists, parent it there
 			var actual = world_to_cell_space(object.global_position, cell_registry.cell_size)
-
-			# first try a distance check since in most cases it's faster than scanning the tree
-			if actual.distance_squared_to(_key) < cell_data.max_mutable_travel_dist_sq:
-				continue
-
-			var closest = cell_data_tree.find_closest_point(actual)
-			if closest != _key:
-				reparent_node(_key, closest, object, k)
+			if actual != _key:
+				reparent_node(_key, actual, object, k)
 
 func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String):
 	if _to not in cell_registry.cells:

@@ -1,7 +1,8 @@
 extends CanvasLayer
 
 @onready var fps_label = $GameInterface/PanelContainer/MarginContainer/VBoxContainer/FPSLabel
-@onready var tree_scans_label = $GameInterface/PanelContainer/MarginContainer/VBoxContainer/TreeScansLabel
+@onready var nearest_cell_label = $GameInterface/PanelContainer/MarginContainer/VBoxContainer/NearestCellLabel
+@onready var curren_coords_label = $GameInterface/PanelContainer/MarginContainer/VBoxContainer/CurrentCoordsLabel
 
 func _on_save_button_pressed() -> void:
 	CellManager.save_cells()
@@ -19,4 +20,5 @@ func _on_pause_button_pressed() -> void:
 
 func _process(_delta) -> void:
 	fps_label.text = "FPS: %s" % Engine.get_frames_per_second()
-	tree_scans_label.text = "Average KDTree Iters: %d" % CellManager.cell_data_tree.last_counter
+	nearest_cell_label.text = "Nearest Cell: %v" % CellManager.current_cell_key
+	curren_coords_label.text = "Current Coords: %v" % CellManager.current_cell_coords

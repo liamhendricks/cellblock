@@ -5,7 +5,6 @@ extends Resource
 @export var coordinates : Vector3i = Vector3.ZERO
 @export var world_position : Vector3 = Vector3.ZERO
 @export var scene_path : String = "res://cells/" + cell_name + ".tscn"
-@export var max_mutable_travel_dist_sq : float = 5.0
 
 # runtime storage of cell save data
 var save_data : Dictionary

@@ -29,9 +29,6 @@ enum LOAD_STRATEGY {
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 @export var grid_size : Vector3i = Vector3i(100, 100, 100)
 @export_range(1, 200) var cell_size : int = 10
-
-# the max distance that the kdtree will consider when searching for nearby cells
-@export var max_dist : float = cell_size * 2
 @export var cell_save : CellSave
 @export var cell_directory : String = "res://cells/"
 @export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"

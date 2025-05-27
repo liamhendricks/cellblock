@@ -46,10 +46,12 @@ func _save_active_cell():
 			gc.owner = active_cell
 
 	var scene = PackedScene.new()
+	active_cell.global_position = Vector3.ZERO
 	scene.pack(active_cell)
 	ResourceSaver.save(scene, cell_data.scene_path)
 
 	# now that the scene is saved, we can make the cell editable again
+	active_cell.global_position = cell_data.world_position
 	_enable_cell_editing(active_cell, EditorInterface.get_edited_scene_root())
 
 func _on_load_pressed():

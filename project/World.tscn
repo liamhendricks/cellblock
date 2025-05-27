@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
 [ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
 [ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_js7pq"]
-[ext_resource type="Resource" uid="uid://bt7of7j7en40i" path="res://addons/cellblock/resources/example_cell_registry.tres" id="4_eu7l1"]
+[ext_resource type="Resource" uid="uid://r1v5l44104ti" path="res://addons/cellblock/resources/cell_registry_example.tres" id="4_p1v5b"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_js7pq"]
 frequency = 0.0665
@@ -42,8 +42,8 @@ shape = SubResource("ConcavePolygonShape3D_bcbcq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57055, -5.99115)
 
 [node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000)
-cell_registry = ExtResource("4_eu7l1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
+cell_registry = ExtResource("4_p1v5b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_p1v5b")

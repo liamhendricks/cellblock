@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=7 format=3 uid="uid://r1v5l44104ti"]
+
+[ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="1_a6n2f"]
+[ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_wm04d"]
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_rhhno"]
+
+[sub_resource type="Resource" id="Resource_fv4w7"]
+script = ExtResource("1_a6n2f")
+save_file_name = "user://savegame.save"
+metadata/_custom_type_script = "uid://bfffeg8o5htm1"
+
+[sub_resource type="Resource" id="Resource_fvag4"]
+script = ExtResource("2_wm04d")
+cell_name = "test_cell000"
+coordinates = Vector3i(0, 0, 0)
+world_position = Vector3(0, 0, 0)
+scene_path = "res://cells/test_cell000.tscn"
+
+[sub_resource type="Resource" id="Resource_p1v5b"]
+script = ExtResource("2_wm04d")
+cell_name = "test_cell100"
+coordinates = Vector3i(1, 0, 0)
+world_position = Vector3(50, 0, 0)
+scene_path = "res://cells/test_cell100.tscn"
+
+[resource]
+script = ExtResource("3_rhhno")
+cells = Dictionary[Vector3i, ExtResource("2_wm04d")]({
+Vector3i(0, 0, 0): SubResource("Resource_fvag4"),
+Vector3i(1, 0, 0): SubResource("Resource_p1v5b")
+})
+max_cache_size = 5
+load_strategy = 0
+grid_size = Vector3i(500, 50, 500)
+cell_size = 50
+cell_save = SubResource("Resource_fv4w7")
+cell_directory = "res://cells/"
+base_cell_scene_path = "res://addons/cellblock/cell.tscn"
+metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

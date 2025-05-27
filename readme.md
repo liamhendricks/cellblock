@@ -43,8 +43,7 @@ keep in memory all the time, other games can load all the Cell data into RAM and
 out of the tree. Both situations can be handled with this Addon. There are also customizable 
 in-memory caching options.
 
-Discovering the nearby Cells is done by constructing a `KDTree` from all the `CellData` Vector3i
-coordinates one time on game load. This ensures efficient searching for neighboring Cells.
+Nearby Cells are chosen in a radius around the origin.
 
 ## Installation
 
@@ -74,7 +73,6 @@ chosen `LoadStrategy` is using the LRU cache).
 - grid_size: The size of the cell grid in your game world.
 - cell_size: The size of the 'gap' between cells. Lower value means more cells in the grid, i.e a
 value of 1 would mean 1 cell for every vertex in the grid.
-- max_dist: This value controls the max distance that the `KDTree` will consider searching for nearby
 cells.
 - cell_save: This is a `CellSave` resource that enables saving and loading for your mutable objects.
 - cell_directory: The directory where your `Cell` scenes will be saved.
@@ -156,10 +154,7 @@ if Input.is_action_just_pressed("save"):
 
 ## More about Mutable objects
 
-Mutable objects are automatically reparented to a new Cell if they get farther than the defined
-max_mutable_travel_dist_sq in the parent's `CellData` resource. This is determined at the time a 
-`Cell` is removed. The `KDTree` is used to determine the closest neighboring cell, and the object is
-parented to it, whether it is active or not.
+Mutable objects are automatically reparented to a new Cell if they get closer to a that cell.
 
 ### Caviats
 
