@@ -28,7 +28,7 @@ enum LOAD_STRATEGY {
 @export_range(0, 25) var max_cache_size : int = 5
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 @export var grid_size : Vector3i = Vector3i(100, 100, 100)
-@export_range(1, 100) var cell_size : int = 10
+@export_range(1, 200) var cell_size : int = 10
 
 # the max distance that the kdtree will consider when searching for nearby cells
 @export var max_dist : float = cell_size * 2

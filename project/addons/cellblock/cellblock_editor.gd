@@ -40,7 +40,11 @@ func _save_active_cell():
 	cell_data.coordinates = coordinates
 	ResourceSaver.save(anchor.cell_registry)
 
-	_set_owner_recursive(active_cell, active_cell)
+	for child in active_cell.get_children():
+		child.owner = active_cell
+		for gc in child.get_children():
+			gc.owner = active_cell
+
 	var scene = PackedScene.new()
 	scene.pack(active_cell)
 	ResourceSaver.save(scene, cell_data.scene_path)
@@ -90,16 +94,7 @@ func _on_create_pressed() -> void:
 	cell.global_position = anchor.global_position
 
 	_save_active_cell()
-
-func _set_owner_recursive(node: Node, owner: Node):
-	if node.name == owner.name:
-		node.owner = null
-	else:
-		node.owner = owner
-
-	for child in node.get_children():
-		if child is Node:
-			_set_owner_recursive(child, owner)
+	active_cell.owner = root
 
 func _coordinates_updated(value : float, index : int):
 	match(index):
@@ -133,6 +128,16 @@ func _on_clear_pressed() -> void:
 func _enable_cell_editing(cell : Node, root : Node):
 	_set_owner_recursive(cell, root)
 	cell.scene_file_path = ""
+
+func _set_owner_recursive(node: Node, owner: Node):
+	if node.name == owner.name:
+		node.owner = null
+	else:
+		node.owner = owner
+
+	for child in node.get_children():
+		if child is Node:
+			_set_owner_recursive(child, owner)
 
 func _clear():
 	if active_cell != null && is_instance_valid(active_cell):

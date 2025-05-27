@@ -130,12 +130,18 @@ your game and realize the `Cell` class provided by this addon is insufficient, i
 annoying to try to retroactively fix all your cells. There are some things I can do to enforce this
 behavior, but I haven't done it yet.
 
+An example of a reason you may want to extend `Cell`: you have doors in your game that have mutable
+data (have they been opened, locked, etc), but they do not move. It makes sense to save this data
+along with the other mutable objects, but you may not want to return them in the `Cell.get_mutable()`
+function, because they do not move, and therefore it's not necessary to check if they need to be
+reparented.
+
 In the future I'll also consider making it possible to extend the `CellData` resource.
 
 ## Saving and Loading mutable CellData in game
 
 The `CellSave` resource is available to developers to indicate the filepath for storing mutable cell
-data records. This data is stored as serialized JSON, but fell free to extend the `CellSave` resource
+data records. This data is stored as serialized JSON, but feel free to extend the `CellSave` resource
 and serialize it any way you like. Each `CellData` resource stores a Cell's mutable data in memory in
 a dictionary until a save is initiated.
 
@@ -147,6 +153,13 @@ if Input.is_action_just_pressed("save"):
     CellManager.save_cells()
     return
 ```
+
+## More about Mutable objects
+
+Mutable objects are automatically reparented to a new Cell if they get farther than the defined
+max_mutable_travel_dist_sq in the parent's `CellData` resource. This is determined at the time a 
+`Cell` is removed. The `KDTree` is used to determine the closest neighboring cell, and the object is
+parented to it, whether it is active or not.
 
 ### Caviats
 

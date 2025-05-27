@@ -33,6 +33,10 @@ layout_mode = 2
 layout_mode = 2
 text = "SAVE"
 
+[node name="PauseButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE CELL MANAGER"
+
 [node name="QuitButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
@@ -41,10 +45,15 @@ text = "QUIT"
 layout_mode = 2
 text = "FPS: 60"
 
+[node name="TreeScansLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Average KDTree Iters: 60"
+
 [node name="Label" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "PRESS ESC TO CAPTURE
 AND UNCAPTURE MOUSE"
 
 [connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

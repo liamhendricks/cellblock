@@ -45,6 +45,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	cell_loader.cell_removed.connect(_on_cell_removed)
 
 	cell_data_tree = KDTree.new()
+	print("l: ", len(cell_registry.cells.keys()))
 	cell_data_tree.from_points(cell_registry.cells.keys())
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
@@ -151,6 +152,7 @@ func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
 		for object in _mutable_data[k]:
 			var actual = world_to_cell_space(object.global_position, cell_registry.cell_size)
 
+			# first try a distance check since in most cases it's faster than scanning the tree
 			if actual.distance_squared_to(_key) < cell_data.max_mutable_travel_dist_sq:
 				continue
 
@@ -166,6 +168,7 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	var new := cell_registry.cells[_to]
 
 	var tmp_pos = _node.global_position
+	var resave = _node.on_save()
 	var parent = _node.get_parent()
 	parent.remove_child(_node)
 
@@ -177,8 +180,8 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 		var new_cell := cell_loader.active_cells[_to]
 		new_cell.add_mutable(_node, _data_key, tmp_pos)
 	else:
-		if _node.has_method("on_save"):
-			new.save_data[_data_key].append(_node.on_save())
+		if _node.has_method("on_save") && len(new.save_data.keys()) > 0:
+			new.save_data[_data_key].append(resave)
 
 		_node.queue_free()
 

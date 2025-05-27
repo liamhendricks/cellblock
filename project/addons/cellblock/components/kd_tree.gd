@@ -4,15 +4,21 @@ extends RefCounted
 # Used by Cellblock for efficient scanning of Vector3i keys in a radius.
 
 var root : KDTreeNode
+var counter : int
+var last_counter : int
+var fn_counter : int
 
 func from_points(points : Array):
+	counter = 0
 	root = build(points)
+	print("DONE ", counter)
 
 func build(points : Array, depth : int = 0) -> KDTreeNode:
+	counter += 1
 	if points.is_empty():
 		return null
 
-	var axis = _choose_axis(points)
+	var axis = depth % 3
 	points.sort_custom(func(a, b): return a[axis] < b[axis])
 	var median = points.size() / 2
 
@@ -22,34 +28,20 @@ func build(points : Array, depth : int = 0) -> KDTreeNode:
 
 	return node
 
-# try to ensure kdtree is as balanced as possible
-func _choose_axis(points: Array) -> int:
-	var variances = [0.0, 0.0, 0.0]
-	for i in range(3):
-		var values = points.map(func(p): return p[i])
-		var mean = values.reduce(func(a, b): return a + b) / values.size()
-		var sum_sq = 0.0
-		for v in values:
-			sum_sq += (v - mean) * (v - mean)
-		variances[i] = sum_sq
-
-	var max_index := 0
-	for i in range(1, 3):
-		if variances[i] > variances[max_index]:
-			max_index = i
-	return max_index
-
 # return all points within max_dist
 func radius_search(target : Vector3i, max_dist : float) -> Array:
+	counter = 0
 	var results : Array = []
 	_radius_search(root, target, max_dist, results)
+
 	return results
 
-func _radius_search(node, target : Vector3i, max_dist : float, results : Array, depth : int = 0):
+func _radius_search(node : KDTreeNode, target : Vector3i, max_dist : float, results : Array, depth : int = 0):
+	counter += 1
 	if node == null:
 		return
 
-	var axis = depth % 3
+	var axis = node.axis
 	var dist = node.point.distance_to(target)
 
 	if dist < max_dist:
@@ -74,15 +66,18 @@ func _radius_search(node, target : Vector3i, max_dist : float, results : Array, 
 		_radius_search(far, target, max_dist, results, depth + 1)
 
 func find_closest_point(target: Vector3i) -> Vector3i:
+	fn_counter = 0
 	var best = {"point": null, "dist": INF}
 	_find_closest(root, target, best)
+	last_counter = fn_counter
 	return best.point
 
 func _find_closest(node: KDTreeNode, target: Vector3i, best: Dictionary, depth: int = 0) -> void:
+	fn_counter += 1
 	if node == null:
 		return
 
-	var axis = depth % 3
+	var axis = node.axis
 	var dist = node.point.distance_to(target)
 
 	if dist < best.dist:
