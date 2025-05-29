@@ -28,6 +28,8 @@ her, but how is this possible in the godot editor while developing? The solution
 approach, and easy-to-use editor tools. Cellblock allows devs to build their open world game as
 efficiently as the player exploring it!
 
+![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblock_example1.gif "Cellblock Gif")
+
 ## Cellblock's Design
 
 Cellblock has taken design queues from classic Elder Scrolls games like Morrowind, and it's open
