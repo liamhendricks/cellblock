@@ -1,22 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://fwu6g1dtt5uq"]
+[gd_scene load_steps=4 format=3 uid="uid://fwu6g1dtt5uq"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_udcyo"]
 [ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_5q2s6"]
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_1nwyi"]
-[ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_b50ys"]
 
 [node name="Cell" type="Node3D"]
 script = ExtResource("1_udcyo")
 
 [node name="Statics" type="Node3D" parent="."]
 
-[node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_5q2s6")]
+[node name="block" parent="Statics" instance=ExtResource("2_5q2s6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3275, 0, 8.1564)
+
+[node name="block2" parent="Statics" instance=ExtResource("2_5q2s6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.2267)
+
+[node name="block3" parent="Statics" instance=ExtResource("2_5q2s6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.4632, 0, -22.2267)
 
 [node name="Objects" type="Node3D" parent="."]
 
-[node name="ball" type="RigidBody3D" parent="Objects" instance=ExtResource("3_1nwyi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 2)
-script = ExtResource("4_b50ys")
+[node name="ball" parent="Objects" instance=ExtResource("3_1nwyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.383, 2, 13.759)
 
 [node name="Characters" type="Node3D" parent="."]
 

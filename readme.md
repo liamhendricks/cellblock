@@ -2,9 +2,11 @@
  
 !!! 
 
-I am currently in the process of porting this addon from my game project files, so if you stumble
-across this repository and are still seeing this message, please be aware the addon is not in a 
-usable state. Please reach out to me with any questions or concerns!
+I am currently in the process of porting this addon from my game project files and making frequent
+updates for general purpose community usage. So if you stumble across this repository and are still
+seeing this message, please be aware the addon is in an unstable state, and under active
+development! Once all the kinks are ironed out, I'll create a stable release to begin regular
+semantic versioning and remove this message.
 
 !!!
 
@@ -61,14 +63,12 @@ First, you'll need to create a `CellAnchor` node in your game world, which is pr
 This node is the attachment point for the editor tools, and also the in-game data. Next you will need
 to create a `CellRegistry` resource in the inspector.
 
-![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup1.png "Setup 1")
+![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup2.png "Setup 2")
 
 The `CellRegistry` contains most of the relevant setup variables. Lets go over the properties here.
 
 - cells: This is a dictionary containing all of your `CellData`. More about `CellData` discussed
 below.
-- max_loaded_cells: An int controlling the max number of `Cell` scenes loaded around the player at
-once.
 - max_cache_size: An int controlling the max number of `Cell` scenes kept in the cache (if your 
 chosen `LoadStrategy` is using the LRU cache).
 - load_strategy: This enum controls the way your `Cells` will be loaded and kept in memory.
@@ -121,6 +121,8 @@ If you want, you can also manually create the scene and manually add the `CellDa
 `CellRegistry.cells` dictionary. It's also possible to load scenes in the editor tool created this
 way. Completely up to you.
 
+![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblock_example2.gif "Cellblock Example 2")
+
 ## Building your Cells
 
 The `Cell` node is designed to be extended (see the `CellRegistry` documentation above) to fit your
@@ -150,6 +152,9 @@ as well. Here is the example in the `player.gd` script in this repo's demo proje
 
 ```
 if Input.is_action_just_pressed("save"):
+    // - update your cell_registry.cell_save resource with the game save filepath if necessary
+    // - do any other saving / loading of other game state if you need
+    // - call the CellManager.save_cells() method
     CellManager.save_cells()
     return
 ```

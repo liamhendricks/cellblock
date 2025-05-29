@@ -39,9 +39,10 @@ material = SubResource("StandardMaterial3D_p1v5b")
 shape = SubResource("ConcavePolygonShape3D_bcbcq")
 
 [node name="Player" parent="." instance=ExtResource("2_js7pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57055, -5.99115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.3555, 1.571, -70.9131)
 
 [node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -250)
 cell_registry = ExtResource("4_p1v5b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
