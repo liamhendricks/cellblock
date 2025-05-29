@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsi3m8030ox4u"]
+[gd_scene load_steps=5 format=3 uid="uid://bhhbrg0u5f36o"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_ff6hd"]
 [ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_3judg"]
@@ -15,7 +15,7 @@ script = ExtResource("1_ff6hd")
 [node name="Objects" type="Node3D" parent="."]
 
 [node name="ball" type="RigidBody3D" parent="Objects" instance=ExtResource("3_5assv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1)
 script = ExtResource("4_u17yy")
 
 [node name="Characters" type="Node3D" parent="."]

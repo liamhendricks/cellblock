@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwokfps7c3gnb"]
+[gd_scene load_steps=5 format=3 uid="uid://l7kw3w8kxum8"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_s463k"]
-[ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_gvsi6"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_s463k"]
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_fyeeg"]
 [ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_ojeal"]
 
@@ -10,12 +10,13 @@ script = ExtResource("1_s463k")
 
 [node name="Statics" type="Node3D" parent="."]
 
-[node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_gvsi6")]
+[node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_s463k")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="Objects" type="Node3D" parent="."]
 
 [node name="ball" type="RigidBody3D" parent="Objects" instance=ExtResource("3_fyeeg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 2)
 script = ExtResource("4_ojeal")
 
 [node name="Characters" type="Node3D" parent="."]

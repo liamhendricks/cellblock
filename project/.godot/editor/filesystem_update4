@@ -8,3 +8,9 @@ res://addons/cellblock/cell_save.gd
 res://addons/cellblock/cellblock_editor.tscn
 res://autoloads/UserInterface.tscn
 res://addons/cellblock/components/loaders/cell_loader_in_memory_rm.gd
+res://fill_world_with_random_cells.gd
+res://clear_cells.gd
+res://cells/far/cell_-5_-1_-5.tscn
+res://StaticObjectExample2.tscn
+res://StaticObjectExample.tscn
+res://autoloads/user_interface.gd

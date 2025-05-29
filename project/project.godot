@@ -22,6 +22,7 @@ UserInterface="*res://autoloads/UserInterface.tscn"
 
 [display]
 
+window/size/mode=3
 window/size/resizable=false
 window/vsync/vsync_mode=0
 

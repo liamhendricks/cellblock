@@ -6,18 +6,19 @@ extends EditorScript
 var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example_far.tres"
 #var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example_near.tres"
 
+var high_end_scale : int = 3
+var ball = load("res://MutableObjectExample.tscn")
+var block = load("res://StaticObjectExample2.tscn")
+
 func _run() -> void:
 	var cell_registry = load(registry_resource_path)
 	create_cell_scenes_in_grid(cell_registry)
 
 func create_cell_scenes_in_grid(cell_registry : CellRegistry):
 	print("creating cells...")
-	var total_scenes = cell_registry.grid_size / cell_registry.cell_size
-	var ball = load("res://MutableObjectExample.tscn")
-	var block = load("res://StaticObjectExample.tscn")
-	for x in range(-floor((cell_registry.grid_size.x / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.x / cell_registry.cell_size) / 2)):
-		for y in range(-floor((cell_registry.grid_size.y / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.y / cell_registry.cell_size) / 2)):
-			for z in range(-floor((cell_registry.grid_size.z / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.z / cell_registry.cell_size) / 2)):
+	for x in range(-floor((cell_registry.grid_size.x / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.x / cell_registry.cell_size) / 2) + 1):
+		for y in range(-floor((cell_registry.grid_size.y / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.y / cell_registry.cell_size) / 2) + 1):
+			for z in range(-floor((cell_registry.grid_size.z / cell_registry.cell_size) / 2), floor((cell_registry.grid_size.z / cell_registry.cell_size) / 2) + 1):
 				var coords := Vector3i(x, y, z)
 				var cell_data = CellData.new()
 				cell_data.coordinates = coords
@@ -50,9 +51,8 @@ func create_cell_scenes_in_grid(cell_registry : CellRegistry):
 
 func _randomize_block(block : StaticBody3D) -> void:
 	block.name = "block"
-	var scale = randi_range(2, 3)
-	var box = block.get_node("CSGBox3D")
-	box.transform.scale = Vector3(scale, scale, scale)
+	var scale = randi_range(1, high_end_scale)
+	block.global_scale(Vector3(scale, scale, scale))
 
 func _randomize_ball(ball : RigidBody3D) -> void:
 	ball.name = "ball"

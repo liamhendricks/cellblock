@@ -45,13 +45,9 @@ text = "QUIT"
 layout_mode = 2
 text = "FPS: 60"
 
-[node name="NearestCellLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ActiveCellsLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Nearest Cell: 0,0,0"
-
-[node name="CurrentCoordsLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Current Coords: 0,0,0"
+text = "Active Cells"
 
 [node name="Label" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

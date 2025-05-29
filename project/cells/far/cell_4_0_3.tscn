@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dggxvfby50ijy"]
+[gd_scene load_steps=5 format=3 uid="uid://ykyijhiwi1uy"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_68382"]
-[ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_2ya7k"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_68382"]
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_n0hi6"]
 [ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_flcic"]
 
@@ -10,7 +10,7 @@ script = ExtResource("1_68382")
 
 [node name="Statics" type="Node3D" parent="."]
 
-[node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_2ya7k")]
+[node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_68382")]
 
 [node name="Objects" type="Node3D" parent="."]
 

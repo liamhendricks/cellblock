@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://djufhuw41imt"]
+[gd_scene load_steps=5 format=3 uid="uid://bb3uf0piloqiv"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_fva2h"]
 [ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_t222h"]
