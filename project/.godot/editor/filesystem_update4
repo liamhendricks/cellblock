@@ -1,3 +1,7 @@
 res://addons/cellblock/resources/cell_registry_example.tres
 res://cells/test_cell000.tscn
 res://World.tscn
+res://addons/cellblock/cellblock_editor.tscn
+res://addons/cellblock/cellblock_editor.gd
+res://fill_world_with_random_cells.gd
+res://autoloads/UserInterface.tscn

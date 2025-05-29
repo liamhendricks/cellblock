@@ -3,13 +3,14 @@ extends EditorScript
 
 # this script is for testing purposes, just fills the grid with a bunch of simple cell scenes
 
-var registry_resource_path : String = "res://addons/cellblock/resources/example_cell_registry.tres"
+var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example.tres"
 
 func _run() -> void:
 	var cell_registry = load(registry_resource_path)
 	create_cell_scenes_in_grid(cell_registry)
 
 func create_cell_scenes_in_grid(cell_registry : CellRegistry):
+	print("creating cells...")
 	var total_scenes = cell_registry.grid_size / cell_registry.cell_size
 	var ball = load("res://MutableObjectExample.tscn")
 	var block = load("res://StaticObjectExample.tscn")
