@@ -42,7 +42,6 @@ shape = SubResource("ConcavePolygonShape3D_bcbcq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57055, -5.99115)
 
 [node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
 cell_registry = ExtResource("4_p1v5b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

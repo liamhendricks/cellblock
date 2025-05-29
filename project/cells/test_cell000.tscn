@@ -1,33 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://c05q0xgay4d31"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_1wr3q"]
-[ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_nacfy"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_iv15p"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpa8p"]
-albedo_color = Color(0.352941, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="2_1wr3q"]
+[ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_1wr3q"]
+[ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_3a4ok"]
 
 [node name="Cell" type="Node3D"]
 script = ExtResource("1_1wr3q")
 
 [node name="Statics" type="Node3D" parent="."]
 
-[node name="StaticObjectExample2" type="StaticBody3D" parent="Statics"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9966, 0, 11.7479)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticObjectExample2"]
-shape = SubResource("BoxShape3D_iv15p")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Statics/StaticObjectExample2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-size = Vector3(5, 57, 5)
-material = SubResource("StandardMaterial3D_lpa8p")
+[node name="StaticObjectExample" type="StaticBody3D" parent="Statics" instance=ExtResource("2_1wr3q")]
 
 [node name="Objects" type="Node3D" parent="."]
 
-[node name="MutableObjectExample" parent="Objects" instance=ExtResource("3_nacfy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0545, 8.1565, 15.4805)
+[node name="MutableObjectExample" type="RigidBody3D" parent="Objects" instance=ExtResource("3_1wr3q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.32917, 5)
+script = ExtResource("4_3a4ok")
 
 [node name="Characters" type="Node3D" parent="."]
 

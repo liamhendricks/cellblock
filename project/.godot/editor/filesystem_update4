@@ -1,14 +1,3 @@
-res://World.tscn
-res://addons/cellblock/resources/example_cell_registry.tres
-res://addons/cellblock/autoload/cell_manager.gd
-res://addons/cellblock/cellblock_editor.tscn
-res://autoloads/UserInterface.tscn
-res://autoloads/user_interface.gd
-res://addons/cellblock/cell_data.gd
-res://addons/cellblock/cell_registry.gd
-res://cells/cell_0_0_0.tscn
-res://cells/test_cell000.tscn
-res://cells/cell_1_0_0.tscn
-res://cells/testcell100.tscn
-res://addons/cellblock/cellblock_editor.gd
 res://addons/cellblock/resources/cell_registry_example.tres
+res://cells/test_cell000.tscn
+res://World.tscn

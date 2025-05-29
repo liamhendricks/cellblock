@@ -35,24 +35,25 @@ func _on_save_pressed():
 	_save_active_cell()
 
 func _save_active_cell():
+	print("saving active")
 	var cell_data = anchor.cell_registry.cells[coordinates]
 	cell_data.world_position = active_cell.global_position
 	cell_data.coordinates = coordinates
 	ResourceSaver.save(anchor.cell_registry)
 
-	for child in active_cell.get_children():
-		child.owner = active_cell
-		for gc in child.get_children():
-			gc.owner = active_cell
+	_set_owner_recursive_safe(active_cell, active_cell)
 
+	print("done setting owner temporarily")
 	var scene = PackedScene.new()
 	active_cell.global_position = Vector3.ZERO
 	scene.pack(active_cell)
 	ResourceSaver.save(scene, cell_data.scene_path)
 
+	print("done saving")
 	# now that the scene is saved, we can make the cell editable again
 	active_cell.global_position = cell_data.world_position
 	_enable_cell_editing(active_cell, EditorInterface.get_edited_scene_root())
+	print("done enabling")
 
 func _on_load_pressed():
 	if coordinates not in anchor.cell_registry.cells:
@@ -128,18 +129,23 @@ func _on_clear_pressed() -> void:
 	_clear()
 
 func _enable_cell_editing(cell : Node, root : Node):
-	_set_owner_recursive(cell, root)
+	cell.owner = root
 	cell.scene_file_path = ""
+	_set_owner_recursive_safe(cell, root)
 
-func _set_owner_recursive(node: Node, owner: Node):
-	if node.name == owner.name:
-		node.owner = null
-	else:
+func _set_owner_recursive_safe(node: Node, owner: Node):
+	# If this node is a scene instance, skip it and its subtree
+	if node.scene_file_path != "":
+		print(node.owner, "-", owner)
+		node.owner = owner
+		return
+
+	if node != owner:
 		node.owner = owner
 
 	for child in node.get_children():
 		if child is Node:
-			_set_owner_recursive(child, owner)
+			_set_owner_recursive_safe(child, owner)
 
 func _clear():
 	if active_cell != null && is_instance_valid(active_cell):
