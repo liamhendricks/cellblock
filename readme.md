@@ -61,9 +61,10 @@ This addon has only been tested with godot 4.4.x as of right now.
 
 First, you'll need to create a `CellAnchor` node in your game world, which is provided by the addon.
 This node is the attachment point for the editor tools, and also the in-game data. Next you will need
-to create a `CellRegistry` resource in the inspector.
+to create one or more `CellRegistry` resources in the inspector. One may be fine for your needs, but
+the addon supports multiple grids in case you want some cells to be loaded from farther away.
 
-![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup2.png "Setup 2")
+![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup3.png "Setup 3")
 
 The `CellRegistry` contains most of the relevant setup variables. Lets go over the properties here.
 
@@ -76,7 +77,6 @@ chosen `LoadStrategy` is using the LRU cache).
 - cell_size: The size of the 'gap' between cells. Lower value means more cells in the grid, i.e a
 value of 1 would mean 1 cell for every vertex in the grid.
 cells.
-- cell_save: This is a `CellSave` resource that enables saving and loading for your mutable objects.
 - cell_directory: The directory where your `Cell` scenes will be saved.
 - base_cell_scene_path: This is the base scene that you wish to be created when the editor tool
 creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you may want to extend this
@@ -95,7 +95,7 @@ extends Node3D
 
 func _ready():
 	# here is where you would create your cell save, or update it's filepath. 
-	cell_anchor.cell_registry.cell_save.save_file_name = "user://savegame.save"
+	cell_anchor.cell_save.save_file_name = "user://savegame.save"
 	CellManager.start(player, self, cell_anchor)
 ```
 
@@ -108,14 +108,18 @@ will see the `CellAnchor` node moving to that coordinate in world space. You wil
 1 cell at a time at the current coordinates. The cell data is keyed by this `Vector3i`, which means
 1 cell to 1 vertex in cell space.
 
+If you are using multiple cell registries, you will use the Registry Index spinner to select the 
+registry to work on.
+
 Click the 'Create Cell' button to create a new cell. This will create a new `Cell` scene, and a
 cooresponding `CellData` resource file, which automatically gets added to your `CellRegistry`. You
 are now free to edit the cell scene itself in the editor. When you are done editing, make sure you
 click the 'Save Active' button to save the scene. This scene gets saved in your cell_directory that
 was specified in the `CellRegistry`.
 
-Clicking the 'Clear Active' button will remove the active cell from the editor scene. At any time,
-you can click the `Load Cell` button to load the cell at the current coordinates (if one exists).
+Clicking the 'Clear Active' button will remove the active cell for the current registry from the
+editor scene. At any time, you can click the `Load Cell` button to load the cell at the current
+coordinates (if one exists).
 
 If you want, you can also manually create the scene and manually add the `CellData` record to the
 `CellRegistry.cells` dictionary. It's also possible to load scenes in the editor tool created this

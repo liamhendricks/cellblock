@@ -4,9 +4,11 @@ extends Control
 @onready var x = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/XSpin
 @onready var y = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/YSpin
 @onready var z = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/ZSpin
+@onready var r = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/RegistryIndex
 @onready var container = $PanelContainer/MarginContainer/VBoxContainer
 
-var active_cell : Cell
+var active_cells : Dictionary[int, Cell]
+var active_registry_index : int = 0
 var coordinates : Vector3i
 var anchor : CellAnchor
 var plugin : EditorPlugin
@@ -16,13 +18,15 @@ func _ready():
 
 func init():
 	coordinates = Vector3i(x.value, y.value, z.value)
-	if anchor != null && anchor.cell_registry != null:
-		x.min_value = floor(-(anchor.cell_registry.grid_size.x / 2) / anchor.cell_registry.cell_size)
-		y.min_value = floor(-(anchor.cell_registry.grid_size.y / 2) / anchor.cell_registry.cell_size)
-		z.min_value = floor(-(anchor.cell_registry.grid_size.z / 2) / anchor.cell_registry.cell_size)
-		x.max_value = floor((anchor.cell_registry.grid_size.x / 2) / anchor.cell_registry.cell_size)
-		y.max_value = floor((anchor.cell_registry.grid_size.y / 2) / anchor.cell_registry.cell_size)
-		z.max_value = floor((anchor.cell_registry.grid_size.z / 2) / anchor.cell_registry.cell_size)
+	if anchor != null && len(anchor.cell_registries) > 0:
+		x.min_value = floor(-(anchor.cell_registries[active_registry_index].grid_size.x / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		y.min_value = floor(-(anchor.cell_registries[active_registry_index].grid_size.y / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		z.min_value = floor(-(anchor.cell_registries[active_registry_index].grid_size.z / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		x.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.x / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		y.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.y / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		z.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.z / 2) / anchor.cell_registries[active_registry_index].cell_size)
+		r.max_value = len(anchor.cell_registries)
+		r.min_value = 0
 
 	if !x.value_changed.is_connected(_coordinates_updated.bind(0)):
 		x.value_changed.connect(_coordinates_updated.bind(0))
@@ -30,43 +34,46 @@ func init():
 		y.value_changed.connect(_coordinates_updated.bind(1))
 	if !z.value_changed.is_connected(_coordinates_updated.bind(2)):
 		z.value_changed.connect(_coordinates_updated.bind(2))
+	if !r.value_changed.is_connected(_registry_updated):
+		r.value_changed.connect(_registry_updated)
 
 func _on_save_pressed():
-	_save_active_cell()
+	_save_active_cell(active_cells[active_registry_index])
 
-func _save_active_cell():
+func _save_active_cell(_active_cell : Cell):
 	print("saving active")
-	var cell_data = anchor.cell_registry.cells[coordinates]
-	cell_data.world_position = active_cell.global_position
+	var cell_data = anchor.cell_registries[active_registry_index].cells[coordinates]
+	cell_data.world_position = _active_cell.global_position
 	cell_data.coordinates = coordinates
-	ResourceSaver.save(anchor.cell_registry)
+	ResourceSaver.save(anchor.cell_registries[active_registry_index])
 
-	_set_owner_recursive_safe(active_cell, active_cell)
+	_set_owner_recursive_safe(_active_cell, _active_cell)
 
 	print("done setting owner temporarily")
 	var scene = PackedScene.new()
-	active_cell.global_position = Vector3.ZERO
-	scene.pack(active_cell)
+	_active_cell.global_position = Vector3.ZERO
+	scene.pack(_active_cell)
 	ResourceSaver.save(scene, cell_data.scene_path)
 
 	print("done saving")
 	# now that the scene is saved, we can make the cell editable again
-	active_cell.global_position = cell_data.world_position
-	_enable_cell_editing(active_cell, EditorInterface.get_edited_scene_root())
+	_active_cell.global_position = cell_data.world_position
+	_enable_cell_editing(_active_cell, EditorInterface.get_edited_scene_root())
 	print("done enabling")
 
 func _on_load_pressed():
-	if coordinates not in anchor.cell_registry.cells:
+	if coordinates not in anchor.cell_registries[active_registry_index].cells:
 		push_warning("no cell exists at the coordinates: %v, create new cell instead" % coordinates)
 		return
 
 	_clear()
 
-	var data = anchor.cell_registry.cells[coordinates]
+	var data = anchor.cell_registries[active_registry_index].cells[coordinates]
 	var scene = load(data.scene_path)
 	if scene:
 		var cell = scene.instantiate()
-		active_cell = cell
+
+		active_cells[active_registry_index] = cell
 
 		var root = EditorInterface.get_edited_scene_root()
 		print("cell loaded at %v: %s" % [coordinates, data.cell_name])
@@ -75,7 +82,7 @@ func _on_load_pressed():
 		_enable_cell_editing(cell, root)
 
 func _on_create_pressed() -> void:
-	if coordinates in anchor.cell_registry.cells:
+	if coordinates in anchor.cell_registries[active_registry_index].cells:
 		push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
 		return
 
@@ -84,20 +91,20 @@ func _on_create_pressed() -> void:
 	var cell_data = CellData.new()
 	cell_data.coordinates = coordinates
 	cell_data.cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
-	cell_data.scene_path = anchor.cell_registry.cell_directory + cell_data.cell_name + ".tscn"
+	cell_data.scene_path = anchor.cell_registries[active_registry_index].cell_directory + cell_data.cell_name + ".tscn"
 	cell_data.world_position = anchor.global_position
-	anchor.cell_registry.cells[coordinates] = cell_data
+	anchor.cell_registries[active_registry_index].cells[coordinates] = cell_data
 
-	var cell_scene = load(anchor.cell_registry.base_cell_scene_path)
+	var cell_scene = load(anchor.cell_registries[active_registry_index].base_cell_scene_path)
 	var cell = cell_scene.instantiate()
-	active_cell = cell
+	active_cells[active_registry_index] = cell
 	var root = EditorInterface.get_edited_scene_root()
 	print("cell created at %v with name: %s" % [coordinates, cell_data.cell_name])
 	root.add_child(cell)
 	cell.global_position = anchor.global_position
 
-	_save_active_cell()
-	active_cell.owner = root
+	_save_active_cell(active_cells[active_registry_index])
+	active_cells[active_registry_index].owner = root
 
 func _coordinates_updated(value : float, index : int):
 	match(index):
@@ -106,6 +113,14 @@ func _coordinates_updated(value : float, index : int):
 		2: coordinates.z = value
 
 	init()
+	_update_cursor()
+
+func _registry_updated(value : float):
+	if value > len(anchor.cell_registries) - 1:
+		return
+
+	print("registry index updated ", value)
+	active_registry_index = value
 	_update_cursor()
 
 func cell_to_world_space(_coords : Vector3i, _cell_size : int) -> Vector3:
@@ -123,7 +138,7 @@ func world_to_cell_space(_pos : Vector3, _grid_size : Vector3i) -> Vector3i:
 	)
 
 func _update_cursor():
-	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registry.cell_size)
+	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
 
 func _on_clear_pressed() -> void:
 	_clear()
@@ -147,12 +162,9 @@ func _set_owner_recursive_safe(node: Node, owner: Node):
 			_set_owner_recursive_safe(child, owner)
 
 func _clear():
-	if active_cell != null && is_instance_valid(active_cell):
-		active_cell.free()
+	if active_registry_index not in active_cells:
+		return
 
-	active_cell = null
-
-	var root = EditorInterface.get_edited_scene_root()
-	for child in root.get_children():
-		if child is Cell:
-			child.queue_free()
+	var active_cell = active_cells[active_registry_index]
+	active_cells.erase(active_registry_index)
+	active_cell.queue_free()

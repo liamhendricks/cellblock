@@ -28,7 +28,10 @@ enum LOAD_STRATEGY {
 @export_range(0, 25) var max_cache_size : int = 5
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 @export var grid_size : Vector3i = Vector3i(100, 100, 100)
-@export_range(1, 200) var cell_size : int = 10
-@export var cell_save : CellSave
+@export var cell_size : int = 10
 @export var cell_directory : String = "res://cells/"
 @export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"
+@export_range(1, 3) var radius : int = 2
+
+func _validate_property(property: Dictionary):
+	pass

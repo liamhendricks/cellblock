@@ -3,7 +3,8 @@ extends EditorScript
 
 # this script is for testing purposes, just fills the grid with a bunch of simple cell scenes
 
-var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example.tres"
+var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example_far.tres"
+#var registry_resource_path : String = "res://addons/cellblock/resources/cell_registry_example_near.tres"
 
 func _run() -> void:
 	var cell_registry = load(registry_resource_path)
@@ -49,9 +50,9 @@ func create_cell_scenes_in_grid(cell_registry : CellRegistry):
 
 func _randomize_block(block : StaticBody3D) -> void:
 	block.name = "block"
-	var height = randi_range(0, 20)
+	var scale = randi_range(2, 3)
 	var box = block.get_node("CSGBox3D")
-	box.rotation_degrees.x = height
+	box.transform.scale = Vector3(scale, scale, scale)
 
 func _randomize_ball(ball : RigidBody3D) -> void:
 	ball.name = "ball"

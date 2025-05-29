@@ -14,11 +14,13 @@ var origin_object : Node3D = null
 var current_cell_key : Vector3i = Vector3.ZERO
 var current_cell_coords : Vector3i = Vector3.ZERO
 
-var cell_registry : CellRegistry
-var cell_loader : CellLoader
+var cell_registries : Array[CellRegistry]
+var cell_loaders : Array[CellLoader]
+var current_registry_index : int = 0
+var cell_save : CellSave
 
-var to_add : Dictionary[Vector3i, Vector3i] = {}
-var to_remove : Dictionary[Vector3i, Vector3i] = {}
+var to_add : Dictionary[Vector3i, int] = {}
+var to_remove : Dictionary[Vector3i, int] = {}
 
 func _ready() -> void:
 	set_process(false)
@@ -28,34 +30,73 @@ func set_origin_object(_origin_object : Node3D) -> void:
 
 # entrypoint to start the cell_manager
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
+	cell_loaders.clear()
+	cell_registries.clear()
 	origin_object = _origin_object
-	cell_registry = _anchor.cell_registry
-	cell_loader = _get_loader(_world)
-	if  cell_registry == null || cell_registry.cell_save == null || origin_object == null || cell_loader == null:
-		push_error("cell_manager not started correctly, please review the docs if any below are null")
-		push_error("cell_registry: %s" % cell_registry)
-		push_error("cell_save: %s" % cell_registry.cell_save)
-		push_error("origin_object: %s" % origin_object)
-		push_error("cell_loader: %s" % cell_loader)
+	cell_registries = _anchor.cell_registries
+
+	if _anchor.cell_save == null:
+		push_error("cell_save is null")
 		return
 
-	cell_loader.configure(cell_registry)
+	cell_save = _anchor.cell_save
 
-	cell_loader.cell_added.connect(_on_cell_added)
-	cell_loader.cell_removed.connect(_on_cell_removed)
+	var dedup = {}
+	for registry in cell_registries:
+		var loader = _get_loader(_world, registry)
+		cell_loaders.append(loader)
+		if  registry == null || origin_object == null || loader == null:
+			push_error("cell_manager not started correctly, please review the docs if any below are null")
+			push_error("cell_registry: %s" % registry)
+			push_error("origin_object: %s" % origin_object)
+			push_error("cell_loader: %s" % loader)
+			return
+
+		loader.configure(registry, cell_save)
+		loader.cell_added.connect(_on_cell_added)
+		loader.cell_removed.connect(_on_cell_removed)
+		if registry.resource_path in dedup:
+			push_error("duplicate cell_registry detected: %s" % registry.resource_path)
+			return
+
+		dedup[registry.resource_path] = true
+
+	dedup.clear()
+
+	if len(cell_registries) != len(cell_loaders):
+		push_error("mismatch in number of loaders to registries")
+		return
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
 	set_process(true)
 
-func _get_loader(_world : Node3D) -> CellLoader:
-	match(cell_registry.load_strategy):
-		CellRegistry.LOAD_STRATEGY.IN_MEMORY_REMOVE: return CellLoaderInMemoryRemove.new(_world, cell_registry.max_cache_size)
+func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
+	match(_registry.load_strategy):
+		CellRegistry.LOAD_STRATEGY.IN_MEMORY_REMOVE: return CellLoaderInMemoryRemove.new(_world, _registry.max_cache_size)
 
 	return null
 
 func save_cells():
-	cell_loader.save_cells(cell_registry)
+	var count = 0
+	var save_data = {}
+	for cell_loader : CellLoader in cell_loaders:
+		var registry := cell_registries[count]
+		var active_cells := cell_loader.get_active_cells()
+		count += 1
+		save_data[registry.resource_path] = {}
+		for k in registry.cells.keys():
+			var cell_data := registry.cells[k]
+			var key = "%v" % k
+			save_data[registry.resource_path][key] = cell_data.save_data
+
+		for k in active_cells.keys():
+			var cell := active_cells[k]
+			var key = "%v" % k
+			cell.cell_data.save_data = cell.save_cell(key)
+			save_data[registry.resource_path][key] = cell.cell_data.save_data
+
+	cell_save.write_save(save_data)
 
 func stop() -> void:
 	set_process(false)
@@ -64,22 +105,29 @@ func _process(_delta) -> void:
 	if origin_object == null:
 		return
 
+	var cell_registry = cell_registries[current_registry_index]
+	var cell_loader = cell_loaders[current_registry_index]
 	current_cell_coords = world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
-	var nearest = get_nearest(current_cell_coords)
+	var nearest = get_nearest(current_cell_coords, cell_registry.radius)
 
 	enqueue(cell_loader.active_cells.keys(), nearest)
 
-	if len(to_add) > 0:
-		print("to_add: ", len(to_add))
+	if len(to_add.keys()) > 0:
+		print("to_add: ", len(to_add.keys()))
 
-	if len(to_remove) > 0:
-		print("to_remove: ", len(to_remove))
+	if len(to_remove.keys()) > 0:
+		print("to_remove: ", len(to_remove.keys()))
 
 	dequeue_active()
 	dequeue_inactive()
 	update_current_cell(current_cell_coords)
 
+	current_registry_index += 1
+	if current_registry_index > len(cell_registries) - 1:
+		current_registry_index = 0
+
 func update_current_cell(_nearest : Vector3i) -> void:
+	var cell_registry = cell_registries[current_registry_index]
 	if _nearest not in cell_registry.cells:
 		return
 
@@ -110,9 +158,12 @@ func dequeue_active():
 	if len(to_add.keys()) == 0:
 		return
 
-	var last = to_add.keys().back()
-	var cell_data : CellData = cell_registry.cells[last]
-	to_add.erase(last)
+	var lk = to_add.keys().back()
+	var last = to_add[lk]
+	var cell_registry := cell_registries[last]
+	var cell_loader := cell_loaders[last]
+	var cell_data : CellData = cell_registry.cells[lk]
+	to_add.erase(lk)
 
 	cell_loader.add(cell_data)
 
@@ -120,14 +171,17 @@ func dequeue_inactive():
 	if len(to_remove.keys()) == 0:
 		return
 
-	var last = to_remove.keys().back()
-	var cell_data : CellData = cell_registry.cells[last]
-	to_remove.erase(last)
+	var lk = to_remove.keys().back()
+	var last = to_remove[lk]
+	var cell_registry := cell_registries[last]
+	var cell_loader := cell_loaders[last]
+	var cell_data : CellData = cell_registry.cells[lk]
+	to_remove.erase(lk)
 
 	# some mutable objects may have moved out of range of the current cell
-	var cell : Cell = cell_loader.active_cells[last]
+	var cell : Cell = cell_loader.active_cells[lk]
 	var mutable_objects := cell.get_mutable()
-	try_reparent_mutable(mutable_objects, last)
+	try_reparent_mutable(mutable_objects, lk, last)
 
 	cell_loader.remove(cell_data)
 
@@ -135,14 +189,16 @@ func dequeue_inactive():
 func enqueue(active: Array, nearest: Array) -> void:
 	for k in active:
 		if !nearest.has(k) && k not in to_remove:
-			to_remove[k] = k
+			to_remove[k] = current_registry_index
 
 	for k in nearest:
 		if !active.has(k) && k not in to_add:
-			to_add[k] = k
+			to_add[k] = current_registry_index
 
 func get_nearest(_coords : Vector3i, _radius : int = 2) -> Array:
 	var nearest = []
+
+	var cell_registry := cell_registries[current_registry_index]
 
 	for x in range(-_radius, _radius + 1):
 		for y in range(-_radius, _radius + 1):
@@ -154,9 +210,11 @@ func get_nearest(_coords : Vector3i, _radius : int = 2) -> Array:
 	nearest.sort_custom(func(a, b): return a < b)
 	return nearest
 
-func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
+func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i, _loader_idx : int):
 	if len(_mutable_data.keys()) == 0:
 		return
+
+	var cell_registry := cell_registries[_loader_idx]
 
 	var cell_data := cell_registry.cells[_key]
 	for k in _mutable_data.keys():
@@ -164,9 +222,11 @@ func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i):
 			# if the object clamps to a new cell that exists, parent it there
 			var actual = world_to_cell_space(object.global_position, cell_registry.cell_size)
 			if actual != _key:
-				reparent_node(_key, actual, object, k)
+				reparent_node(_key, actual, object, k, _loader_idx)
 
-func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String):
+func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String, _loader_idx : int):
+	var cell_registry := cell_registries[_loader_idx]
+	var cell_loader := cell_loaders[_loader_idx]
 	if _to not in cell_registry.cells:
 		return
 
@@ -198,7 +258,8 @@ func _on_anchor_exited():
 	stop()
 	to_add.clear()
 	to_remove.clear()
-	cell_loader.on_exit()
+	for loader in cell_loaders:
+		loader.on_exit()
 
 func _on_cell_added(_cell_data : CellData):
 	emit_signal("cell_added", _cell_data)

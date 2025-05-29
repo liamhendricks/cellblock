@@ -7,20 +7,24 @@ extends CellLoader
 
 var cells : Dictionary[Vector3i, Cell]
 
-func configure(cell_registry : CellRegistry):
-	var save_data = cell_registry.cell_save.load_save()
-	for k in cell_registry.cells.keys():
-		var cell_data : CellData = cell_registry.cells[k]
+func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
+	var all_save_data = _cell_save.load_save()
+	for k in _cell_registry.cells.keys():
+		var cell_data : CellData = _cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
 		cell.cell_data = cell_data
 		if cell == null:
 			continue
 
-		var key = "%v" % k
-		if key in save_data:
-			cell_data.save_data = save_data[key]
-		else:
+		if _cell_registry.resource_path not in all_save_data:
 			cell_data.save_data = {}
+		else:
+			var save_data = all_save_data[_cell_registry.resource_path]
+			var key = "%v" % k
+			if key in save_data:
+				cell_data.save_data = save_data[key]
+			else:
+				cell_data.save_data = {}
 
 		cells[cell_data.coordinates] = cell
 

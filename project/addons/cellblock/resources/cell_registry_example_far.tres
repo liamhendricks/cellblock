@@ -1,0 +1,1617 @@
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=203 format=3 uid="uid://ca5rcb602gxwi"]
+
+[ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_cb6ba"]
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_a2qk6"]
+
+[sub_resource type="Resource" id="Resource_foq6k"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_-5"
+coordinates = Vector3i(-5, -1, -5)
+world_position = Vector3(-2500, -500, -2500)
+scene_path = "res://cells/far/cell_-5_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_cb6ba"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_-4"
+coordinates = Vector3i(-5, -1, -4)
+world_position = Vector3(-2500, -500, -2000)
+scene_path = "res://cells/far/cell_-5_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_a2qk6"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_-3"
+coordinates = Vector3i(-5, -1, -3)
+world_position = Vector3(-2500, -500, -1500)
+scene_path = "res://cells/far/cell_-5_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_xyl8k"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_-2"
+coordinates = Vector3i(-5, -1, -2)
+world_position = Vector3(-2500, -500, -1000)
+scene_path = "res://cells/far/cell_-5_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_46qvy"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_-1"
+coordinates = Vector3i(-5, -1, -1)
+world_position = Vector3(-2500, -500, -500)
+scene_path = "res://cells/far/cell_-5_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_lhp4g"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_0"
+coordinates = Vector3i(-5, -1, 0)
+world_position = Vector3(-2500, -500, 0)
+scene_path = "res://cells/far/cell_-5_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_ov2td"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_1"
+coordinates = Vector3i(-5, -1, 1)
+world_position = Vector3(-2500, -500, 500)
+scene_path = "res://cells/far/cell_-5_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_mes1v"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_2"
+coordinates = Vector3i(-5, -1, 2)
+world_position = Vector3(-2500, -500, 1000)
+scene_path = "res://cells/far/cell_-5_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_ra0f3"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_3"
+coordinates = Vector3i(-5, -1, 3)
+world_position = Vector3(-2500, -500, 1500)
+scene_path = "res://cells/far/cell_-5_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_xerc5"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_-1_4"
+coordinates = Vector3i(-5, -1, 4)
+world_position = Vector3(-2500, -500, 2000)
+scene_path = "res://cells/far/cell_-5_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_0yn1w"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_-5"
+coordinates = Vector3i(-5, 0, -5)
+world_position = Vector3(-2500, 0, -2500)
+scene_path = "res://cells/far/cell_-5_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_i4ypt"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_-4"
+coordinates = Vector3i(-5, 0, -4)
+world_position = Vector3(-2500, 0, -2000)
+scene_path = "res://cells/far/cell_-5_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_xu18a"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_-3"
+coordinates = Vector3i(-5, 0, -3)
+world_position = Vector3(-2500, 0, -1500)
+scene_path = "res://cells/far/cell_-5_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_vtxej"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_-2"
+coordinates = Vector3i(-5, 0, -2)
+world_position = Vector3(-2500, 0, -1000)
+scene_path = "res://cells/far/cell_-5_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_sg8hg"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_-1"
+coordinates = Vector3i(-5, 0, -1)
+world_position = Vector3(-2500, 0, -500)
+scene_path = "res://cells/far/cell_-5_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_r8s1d"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_0"
+coordinates = Vector3i(-5, 0, 0)
+world_position = Vector3(-2500, 0, 0)
+scene_path = "res://cells/far/cell_-5_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_3wiwv"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_1"
+coordinates = Vector3i(-5, 0, 1)
+world_position = Vector3(-2500, 0, 500)
+scene_path = "res://cells/far/cell_-5_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_ugndn"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_2"
+coordinates = Vector3i(-5, 0, 2)
+world_position = Vector3(-2500, 0, 1000)
+scene_path = "res://cells/far/cell_-5_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_pc41w"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_3"
+coordinates = Vector3i(-5, 0, 3)
+world_position = Vector3(-2500, 0, 1500)
+scene_path = "res://cells/far/cell_-5_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_6jmfn"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-5_0_4"
+coordinates = Vector3i(-5, 0, 4)
+world_position = Vector3(-2500, 0, 2000)
+scene_path = "res://cells/far/cell_-5_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_oq0xc"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_-5"
+coordinates = Vector3i(-4, -1, -5)
+world_position = Vector3(-2000, -500, -2500)
+scene_path = "res://cells/far/cell_-4_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_kvq78"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_-4"
+coordinates = Vector3i(-4, -1, -4)
+world_position = Vector3(-2000, -500, -2000)
+scene_path = "res://cells/far/cell_-4_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_d0bcm"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_-3"
+coordinates = Vector3i(-4, -1, -3)
+world_position = Vector3(-2000, -500, -1500)
+scene_path = "res://cells/far/cell_-4_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_dw4tc"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_-2"
+coordinates = Vector3i(-4, -1, -2)
+world_position = Vector3(-2000, -500, -1000)
+scene_path = "res://cells/far/cell_-4_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_7f6rj"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_-1"
+coordinates = Vector3i(-4, -1, -1)
+world_position = Vector3(-2000, -500, -500)
+scene_path = "res://cells/far/cell_-4_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_trs07"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_0"
+coordinates = Vector3i(-4, -1, 0)
+world_position = Vector3(-2000, -500, 0)
+scene_path = "res://cells/far/cell_-4_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_12u81"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_1"
+coordinates = Vector3i(-4, -1, 1)
+world_position = Vector3(-2000, -500, 500)
+scene_path = "res://cells/far/cell_-4_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_sn6hs"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_2"
+coordinates = Vector3i(-4, -1, 2)
+world_position = Vector3(-2000, -500, 1000)
+scene_path = "res://cells/far/cell_-4_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_x8rpl"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_3"
+coordinates = Vector3i(-4, -1, 3)
+world_position = Vector3(-2000, -500, 1500)
+scene_path = "res://cells/far/cell_-4_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_3e7qj"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_-1_4"
+coordinates = Vector3i(-4, -1, 4)
+world_position = Vector3(-2000, -500, 2000)
+scene_path = "res://cells/far/cell_-4_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_rjkd8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_-5"
+coordinates = Vector3i(-4, 0, -5)
+world_position = Vector3(-2000, 0, -2500)
+scene_path = "res://cells/far/cell_-4_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_67a62"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_-4"
+coordinates = Vector3i(-4, 0, -4)
+world_position = Vector3(-2000, 0, -2000)
+scene_path = "res://cells/far/cell_-4_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_rt8uu"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_-3"
+coordinates = Vector3i(-4, 0, -3)
+world_position = Vector3(-2000, 0, -1500)
+scene_path = "res://cells/far/cell_-4_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_x0xxl"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_-2"
+coordinates = Vector3i(-4, 0, -2)
+world_position = Vector3(-2000, 0, -1000)
+scene_path = "res://cells/far/cell_-4_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_ajdb1"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_-1"
+coordinates = Vector3i(-4, 0, -1)
+world_position = Vector3(-2000, 0, -500)
+scene_path = "res://cells/far/cell_-4_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_wpb8n"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_0"
+coordinates = Vector3i(-4, 0, 0)
+world_position = Vector3(-2000, 0, 0)
+scene_path = "res://cells/far/cell_-4_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_pyh8r"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_1"
+coordinates = Vector3i(-4, 0, 1)
+world_position = Vector3(-2000, 0, 500)
+scene_path = "res://cells/far/cell_-4_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_yxy54"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_2"
+coordinates = Vector3i(-4, 0, 2)
+world_position = Vector3(-2000, 0, 1000)
+scene_path = "res://cells/far/cell_-4_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_j8n82"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_3"
+coordinates = Vector3i(-4, 0, 3)
+world_position = Vector3(-2000, 0, 1500)
+scene_path = "res://cells/far/cell_-4_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_mn70o"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-4_0_4"
+coordinates = Vector3i(-4, 0, 4)
+world_position = Vector3(-2000, 0, 2000)
+scene_path = "res://cells/far/cell_-4_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_xmsg1"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_-5"
+coordinates = Vector3i(-3, -1, -5)
+world_position = Vector3(-1500, -500, -2500)
+scene_path = "res://cells/far/cell_-3_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_vn57u"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_-4"
+coordinates = Vector3i(-3, -1, -4)
+world_position = Vector3(-1500, -500, -2000)
+scene_path = "res://cells/far/cell_-3_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_flu2k"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_-3"
+coordinates = Vector3i(-3, -1, -3)
+world_position = Vector3(-1500, -500, -1500)
+scene_path = "res://cells/far/cell_-3_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_f73mk"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_-2"
+coordinates = Vector3i(-3, -1, -2)
+world_position = Vector3(-1500, -500, -1000)
+scene_path = "res://cells/far/cell_-3_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_xe458"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_-1"
+coordinates = Vector3i(-3, -1, -1)
+world_position = Vector3(-1500, -500, -500)
+scene_path = "res://cells/far/cell_-3_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_8s1jw"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_0"
+coordinates = Vector3i(-3, -1, 0)
+world_position = Vector3(-1500, -500, 0)
+scene_path = "res://cells/far/cell_-3_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_nhebl"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_1"
+coordinates = Vector3i(-3, -1, 1)
+world_position = Vector3(-1500, -500, 500)
+scene_path = "res://cells/far/cell_-3_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_c7kcs"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_2"
+coordinates = Vector3i(-3, -1, 2)
+world_position = Vector3(-1500, -500, 1000)
+scene_path = "res://cells/far/cell_-3_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_eg3ul"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_3"
+coordinates = Vector3i(-3, -1, 3)
+world_position = Vector3(-1500, -500, 1500)
+scene_path = "res://cells/far/cell_-3_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_pplkp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_-1_4"
+coordinates = Vector3i(-3, -1, 4)
+world_position = Vector3(-1500, -500, 2000)
+scene_path = "res://cells/far/cell_-3_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_4urpc"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_-5"
+coordinates = Vector3i(-3, 0, -5)
+world_position = Vector3(-1500, 0, -2500)
+scene_path = "res://cells/far/cell_-3_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_8yjia"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_-4"
+coordinates = Vector3i(-3, 0, -4)
+world_position = Vector3(-1500, 0, -2000)
+scene_path = "res://cells/far/cell_-3_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_qbfa4"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_-3"
+coordinates = Vector3i(-3, 0, -3)
+world_position = Vector3(-1500, 0, -1500)
+scene_path = "res://cells/far/cell_-3_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_crjgf"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_-2"
+coordinates = Vector3i(-3, 0, -2)
+world_position = Vector3(-1500, 0, -1000)
+scene_path = "res://cells/far/cell_-3_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_hu5v2"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_-1"
+coordinates = Vector3i(-3, 0, -1)
+world_position = Vector3(-1500, 0, -500)
+scene_path = "res://cells/far/cell_-3_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_8w8qa"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_0"
+coordinates = Vector3i(-3, 0, 0)
+world_position = Vector3(-1500, 0, 0)
+scene_path = "res://cells/far/cell_-3_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_k3dgu"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_1"
+coordinates = Vector3i(-3, 0, 1)
+world_position = Vector3(-1500, 0, 500)
+scene_path = "res://cells/far/cell_-3_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_2s0i6"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_2"
+coordinates = Vector3i(-3, 0, 2)
+world_position = Vector3(-1500, 0, 1000)
+scene_path = "res://cells/far/cell_-3_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_jgm8w"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_3"
+coordinates = Vector3i(-3, 0, 3)
+world_position = Vector3(-1500, 0, 1500)
+scene_path = "res://cells/far/cell_-3_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_0a3w5"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-3_0_4"
+coordinates = Vector3i(-3, 0, 4)
+world_position = Vector3(-1500, 0, 2000)
+scene_path = "res://cells/far/cell_-3_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_jxgip"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_-5"
+coordinates = Vector3i(-2, -1, -5)
+world_position = Vector3(-1000, -500, -2500)
+scene_path = "res://cells/far/cell_-2_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_7rye0"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_-4"
+coordinates = Vector3i(-2, -1, -4)
+world_position = Vector3(-1000, -500, -2000)
+scene_path = "res://cells/far/cell_-2_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_j7nyq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_-3"
+coordinates = Vector3i(-2, -1, -3)
+world_position = Vector3(-1000, -500, -1500)
+scene_path = "res://cells/far/cell_-2_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_s7f6d"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_-2"
+coordinates = Vector3i(-2, -1, -2)
+world_position = Vector3(-1000, -500, -1000)
+scene_path = "res://cells/far/cell_-2_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_6g5hh"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_-1"
+coordinates = Vector3i(-2, -1, -1)
+world_position = Vector3(-1000, -500, -500)
+scene_path = "res://cells/far/cell_-2_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_c027o"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_0"
+coordinates = Vector3i(-2, -1, 0)
+world_position = Vector3(-1000, -500, 0)
+scene_path = "res://cells/far/cell_-2_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_w5rkt"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_1"
+coordinates = Vector3i(-2, -1, 1)
+world_position = Vector3(-1000, -500, 500)
+scene_path = "res://cells/far/cell_-2_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_qi3cp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_2"
+coordinates = Vector3i(-2, -1, 2)
+world_position = Vector3(-1000, -500, 1000)
+scene_path = "res://cells/far/cell_-2_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_3pa6q"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_3"
+coordinates = Vector3i(-2, -1, 3)
+world_position = Vector3(-1000, -500, 1500)
+scene_path = "res://cells/far/cell_-2_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_aimdx"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_-1_4"
+coordinates = Vector3i(-2, -1, 4)
+world_position = Vector3(-1000, -500, 2000)
+scene_path = "res://cells/far/cell_-2_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_1dkcd"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_-5"
+coordinates = Vector3i(-2, 0, -5)
+world_position = Vector3(-1000, 0, -2500)
+scene_path = "res://cells/far/cell_-2_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_aiyo3"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_-4"
+coordinates = Vector3i(-2, 0, -4)
+world_position = Vector3(-1000, 0, -2000)
+scene_path = "res://cells/far/cell_-2_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_1cmln"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_-3"
+coordinates = Vector3i(-2, 0, -3)
+world_position = Vector3(-1000, 0, -1500)
+scene_path = "res://cells/far/cell_-2_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_4n63b"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_-2"
+coordinates = Vector3i(-2, 0, -2)
+world_position = Vector3(-1000, 0, -1000)
+scene_path = "res://cells/far/cell_-2_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_2jokm"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_-1"
+coordinates = Vector3i(-2, 0, -1)
+world_position = Vector3(-1000, 0, -500)
+scene_path = "res://cells/far/cell_-2_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_dco8b"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_0"
+coordinates = Vector3i(-2, 0, 0)
+world_position = Vector3(-1000, 0, 0)
+scene_path = "res://cells/far/cell_-2_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_17sfq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_1"
+coordinates = Vector3i(-2, 0, 1)
+world_position = Vector3(-1000, 0, 500)
+scene_path = "res://cells/far/cell_-2_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_taiqp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_2"
+coordinates = Vector3i(-2, 0, 2)
+world_position = Vector3(-1000, 0, 1000)
+scene_path = "res://cells/far/cell_-2_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_klaed"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_3"
+coordinates = Vector3i(-2, 0, 3)
+world_position = Vector3(-1000, 0, 1500)
+scene_path = "res://cells/far/cell_-2_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_u744x"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-2_0_4"
+coordinates = Vector3i(-2, 0, 4)
+world_position = Vector3(-1000, 0, 2000)
+scene_path = "res://cells/far/cell_-2_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_57khn"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_-5"
+coordinates = Vector3i(-1, -1, -5)
+world_position = Vector3(-500, -500, -2500)
+scene_path = "res://cells/far/cell_-1_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_yt1oo"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_-4"
+coordinates = Vector3i(-1, -1, -4)
+world_position = Vector3(-500, -500, -2000)
+scene_path = "res://cells/far/cell_-1_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_e56if"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_-3"
+coordinates = Vector3i(-1, -1, -3)
+world_position = Vector3(-500, -500, -1500)
+scene_path = "res://cells/far/cell_-1_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_t2el8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_-2"
+coordinates = Vector3i(-1, -1, -2)
+world_position = Vector3(-500, -500, -1000)
+scene_path = "res://cells/far/cell_-1_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_p81d8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_-1"
+coordinates = Vector3i(-1, -1, -1)
+world_position = Vector3(-500, -500, -500)
+scene_path = "res://cells/far/cell_-1_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_34e4e"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_0"
+coordinates = Vector3i(-1, -1, 0)
+world_position = Vector3(-500, -500, 0)
+scene_path = "res://cells/far/cell_-1_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_ayo5n"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_1"
+coordinates = Vector3i(-1, -1, 1)
+world_position = Vector3(-500, -500, 500)
+scene_path = "res://cells/far/cell_-1_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_5f0ht"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_2"
+coordinates = Vector3i(-1, -1, 2)
+world_position = Vector3(-500, -500, 1000)
+scene_path = "res://cells/far/cell_-1_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_evn3x"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_3"
+coordinates = Vector3i(-1, -1, 3)
+world_position = Vector3(-500, -500, 1500)
+scene_path = "res://cells/far/cell_-1_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_8p0ek"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_-1_4"
+coordinates = Vector3i(-1, -1, 4)
+world_position = Vector3(-500, -500, 2000)
+scene_path = "res://cells/far/cell_-1_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_n15jo"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_-5"
+coordinates = Vector3i(-1, 0, -5)
+world_position = Vector3(-500, 0, -2500)
+scene_path = "res://cells/far/cell_-1_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_amf1b"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_-4"
+coordinates = Vector3i(-1, 0, -4)
+world_position = Vector3(-500, 0, -2000)
+scene_path = "res://cells/far/cell_-1_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_1mi6j"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_-3"
+coordinates = Vector3i(-1, 0, -3)
+world_position = Vector3(-500, 0, -1500)
+scene_path = "res://cells/far/cell_-1_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_85ddg"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_-2"
+coordinates = Vector3i(-1, 0, -2)
+world_position = Vector3(-500, 0, -1000)
+scene_path = "res://cells/far/cell_-1_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_fwbli"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_-1"
+coordinates = Vector3i(-1, 0, -1)
+world_position = Vector3(-500, 0, -500)
+scene_path = "res://cells/far/cell_-1_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_02pwj"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_0"
+coordinates = Vector3i(-1, 0, 0)
+world_position = Vector3(-500, 0, 0)
+scene_path = "res://cells/far/cell_-1_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_7pes8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_1"
+coordinates = Vector3i(-1, 0, 1)
+world_position = Vector3(-500, 0, 500)
+scene_path = "res://cells/far/cell_-1_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_amgwd"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_2"
+coordinates = Vector3i(-1, 0, 2)
+world_position = Vector3(-500, 0, 1000)
+scene_path = "res://cells/far/cell_-1_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_saeut"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_3"
+coordinates = Vector3i(-1, 0, 3)
+world_position = Vector3(-500, 0, 1500)
+scene_path = "res://cells/far/cell_-1_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_utgxk"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_-1_0_4"
+coordinates = Vector3i(-1, 0, 4)
+world_position = Vector3(-500, 0, 2000)
+scene_path = "res://cells/far/cell_-1_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_skejh"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_-5"
+coordinates = Vector3i(0, -1, -5)
+world_position = Vector3(0, -500, -2500)
+scene_path = "res://cells/far/cell_0_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_ocsuu"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_-4"
+coordinates = Vector3i(0, -1, -4)
+world_position = Vector3(0, -500, -2000)
+scene_path = "res://cells/far/cell_0_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_xur0s"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_-3"
+coordinates = Vector3i(0, -1, -3)
+world_position = Vector3(0, -500, -1500)
+scene_path = "res://cells/far/cell_0_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_tgmkw"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_-2"
+coordinates = Vector3i(0, -1, -2)
+world_position = Vector3(0, -500, -1000)
+scene_path = "res://cells/far/cell_0_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_8ecpp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_-1"
+coordinates = Vector3i(0, -1, -1)
+world_position = Vector3(0, -500, -500)
+scene_path = "res://cells/far/cell_0_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_bf8jj"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_0"
+coordinates = Vector3i(0, -1, 0)
+world_position = Vector3(0, -500, 0)
+scene_path = "res://cells/far/cell_0_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_82dmr"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_1"
+coordinates = Vector3i(0, -1, 1)
+world_position = Vector3(0, -500, 500)
+scene_path = "res://cells/far/cell_0_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_5dah0"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_2"
+coordinates = Vector3i(0, -1, 2)
+world_position = Vector3(0, -500, 1000)
+scene_path = "res://cells/far/cell_0_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_8rang"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_3"
+coordinates = Vector3i(0, -1, 3)
+world_position = Vector3(0, -500, 1500)
+scene_path = "res://cells/far/cell_0_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_iysur"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_-1_4"
+coordinates = Vector3i(0, -1, 4)
+world_position = Vector3(0, -500, 2000)
+scene_path = "res://cells/far/cell_0_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_773yp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_-5"
+coordinates = Vector3i(0, 0, -5)
+world_position = Vector3(0, 0, -2500)
+scene_path = "res://cells/far/cell_0_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_o42uq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_-4"
+coordinates = Vector3i(0, 0, -4)
+world_position = Vector3(0, 0, -2000)
+scene_path = "res://cells/far/cell_0_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_dfusy"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_-3"
+coordinates = Vector3i(0, 0, -3)
+world_position = Vector3(0, 0, -1500)
+scene_path = "res://cells/far/cell_0_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_gl8jg"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_-2"
+coordinates = Vector3i(0, 0, -2)
+world_position = Vector3(0, 0, -1000)
+scene_path = "res://cells/far/cell_0_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_04onf"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_-1"
+coordinates = Vector3i(0, 0, -1)
+world_position = Vector3(0, 0, -500)
+scene_path = "res://cells/far/cell_0_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_4jggi"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_0"
+coordinates = Vector3i(0, 0, 0)
+world_position = Vector3(0, 0, 0)
+scene_path = "res://cells/far/cell_0_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_3u5bm"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_1"
+coordinates = Vector3i(0, 0, 1)
+world_position = Vector3(0, 0, 500)
+scene_path = "res://cells/far/cell_0_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_3litq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_2"
+coordinates = Vector3i(0, 0, 2)
+world_position = Vector3(0, 0, 1000)
+scene_path = "res://cells/far/cell_0_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_3x0dv"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_3"
+coordinates = Vector3i(0, 0, 3)
+world_position = Vector3(0, 0, 1500)
+scene_path = "res://cells/far/cell_0_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_6xf4j"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_0_0_4"
+coordinates = Vector3i(0, 0, 4)
+world_position = Vector3(0, 0, 2000)
+scene_path = "res://cells/far/cell_0_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_fdhjx"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_-5"
+coordinates = Vector3i(1, -1, -5)
+world_position = Vector3(500, -500, -2500)
+scene_path = "res://cells/far/cell_1_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_6jijl"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_-4"
+coordinates = Vector3i(1, -1, -4)
+world_position = Vector3(500, -500, -2000)
+scene_path = "res://cells/far/cell_1_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_arwpr"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_-3"
+coordinates = Vector3i(1, -1, -3)
+world_position = Vector3(500, -500, -1500)
+scene_path = "res://cells/far/cell_1_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_okrpj"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_-2"
+coordinates = Vector3i(1, -1, -2)
+world_position = Vector3(500, -500, -1000)
+scene_path = "res://cells/far/cell_1_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_e7ciu"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_-1"
+coordinates = Vector3i(1, -1, -1)
+world_position = Vector3(500, -500, -500)
+scene_path = "res://cells/far/cell_1_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_reuy4"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_0"
+coordinates = Vector3i(1, -1, 0)
+world_position = Vector3(500, -500, 0)
+scene_path = "res://cells/far/cell_1_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_b82ci"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_1"
+coordinates = Vector3i(1, -1, 1)
+world_position = Vector3(500, -500, 500)
+scene_path = "res://cells/far/cell_1_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_4twnf"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_2"
+coordinates = Vector3i(1, -1, 2)
+world_position = Vector3(500, -500, 1000)
+scene_path = "res://cells/far/cell_1_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_urvjx"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_3"
+coordinates = Vector3i(1, -1, 3)
+world_position = Vector3(500, -500, 1500)
+scene_path = "res://cells/far/cell_1_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_6m4uq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_-1_4"
+coordinates = Vector3i(1, -1, 4)
+world_position = Vector3(500, -500, 2000)
+scene_path = "res://cells/far/cell_1_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_65l6u"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_-5"
+coordinates = Vector3i(1, 0, -5)
+world_position = Vector3(500, 0, -2500)
+scene_path = "res://cells/far/cell_1_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_u8ifd"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_-4"
+coordinates = Vector3i(1, 0, -4)
+world_position = Vector3(500, 0, -2000)
+scene_path = "res://cells/far/cell_1_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_d22px"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_-3"
+coordinates = Vector3i(1, 0, -3)
+world_position = Vector3(500, 0, -1500)
+scene_path = "res://cells/far/cell_1_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_3pupd"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_-2"
+coordinates = Vector3i(1, 0, -2)
+world_position = Vector3(500, 0, -1000)
+scene_path = "res://cells/far/cell_1_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_03k4k"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_-1"
+coordinates = Vector3i(1, 0, -1)
+world_position = Vector3(500, 0, -500)
+scene_path = "res://cells/far/cell_1_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_6vqon"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_0"
+coordinates = Vector3i(1, 0, 0)
+world_position = Vector3(500, 0, 0)
+scene_path = "res://cells/far/cell_1_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_eqihy"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_1"
+coordinates = Vector3i(1, 0, 1)
+world_position = Vector3(500, 0, 500)
+scene_path = "res://cells/far/cell_1_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_b47nn"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_2"
+coordinates = Vector3i(1, 0, 2)
+world_position = Vector3(500, 0, 1000)
+scene_path = "res://cells/far/cell_1_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_l7tka"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_3"
+coordinates = Vector3i(1, 0, 3)
+world_position = Vector3(500, 0, 1500)
+scene_path = "res://cells/far/cell_1_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_3s2bb"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_1_0_4"
+coordinates = Vector3i(1, 0, 4)
+world_position = Vector3(500, 0, 2000)
+scene_path = "res://cells/far/cell_1_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_6bf0d"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_-5"
+coordinates = Vector3i(2, -1, -5)
+world_position = Vector3(1000, -500, -2500)
+scene_path = "res://cells/far/cell_2_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_jsxvr"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_-4"
+coordinates = Vector3i(2, -1, -4)
+world_position = Vector3(1000, -500, -2000)
+scene_path = "res://cells/far/cell_2_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_tgoa5"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_-3"
+coordinates = Vector3i(2, -1, -3)
+world_position = Vector3(1000, -500, -1500)
+scene_path = "res://cells/far/cell_2_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_0xiok"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_-2"
+coordinates = Vector3i(2, -1, -2)
+world_position = Vector3(1000, -500, -1000)
+scene_path = "res://cells/far/cell_2_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_ggbyn"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_-1"
+coordinates = Vector3i(2, -1, -1)
+world_position = Vector3(1000, -500, -500)
+scene_path = "res://cells/far/cell_2_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_4p2j7"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_0"
+coordinates = Vector3i(2, -1, 0)
+world_position = Vector3(1000, -500, 0)
+scene_path = "res://cells/far/cell_2_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_2cp17"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_1"
+coordinates = Vector3i(2, -1, 1)
+world_position = Vector3(1000, -500, 500)
+scene_path = "res://cells/far/cell_2_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_y3ycq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_2"
+coordinates = Vector3i(2, -1, 2)
+world_position = Vector3(1000, -500, 1000)
+scene_path = "res://cells/far/cell_2_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_adwjh"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_3"
+coordinates = Vector3i(2, -1, 3)
+world_position = Vector3(1000, -500, 1500)
+scene_path = "res://cells/far/cell_2_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_oy71h"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_-1_4"
+coordinates = Vector3i(2, -1, 4)
+world_position = Vector3(1000, -500, 2000)
+scene_path = "res://cells/far/cell_2_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_usb26"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_-5"
+coordinates = Vector3i(2, 0, -5)
+world_position = Vector3(1000, 0, -2500)
+scene_path = "res://cells/far/cell_2_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_e3lkw"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_-4"
+coordinates = Vector3i(2, 0, -4)
+world_position = Vector3(1000, 0, -2000)
+scene_path = "res://cells/far/cell_2_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_naian"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_-3"
+coordinates = Vector3i(2, 0, -3)
+world_position = Vector3(1000, 0, -1500)
+scene_path = "res://cells/far/cell_2_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_kxdwh"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_-2"
+coordinates = Vector3i(2, 0, -2)
+world_position = Vector3(1000, 0, -1000)
+scene_path = "res://cells/far/cell_2_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_6hf6i"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_-1"
+coordinates = Vector3i(2, 0, -1)
+world_position = Vector3(1000, 0, -500)
+scene_path = "res://cells/far/cell_2_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_em1ck"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_0"
+coordinates = Vector3i(2, 0, 0)
+world_position = Vector3(1000, 0, 0)
+scene_path = "res://cells/far/cell_2_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_mdo6m"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_1"
+coordinates = Vector3i(2, 0, 1)
+world_position = Vector3(1000, 0, 500)
+scene_path = "res://cells/far/cell_2_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_kakx0"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_2"
+coordinates = Vector3i(2, 0, 2)
+world_position = Vector3(1000, 0, 1000)
+scene_path = "res://cells/far/cell_2_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_bu8n4"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_3"
+coordinates = Vector3i(2, 0, 3)
+world_position = Vector3(1000, 0, 1500)
+scene_path = "res://cells/far/cell_2_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_cbiy8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_2_0_4"
+coordinates = Vector3i(2, 0, 4)
+world_position = Vector3(1000, 0, 2000)
+scene_path = "res://cells/far/cell_2_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_adey3"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_-5"
+coordinates = Vector3i(3, -1, -5)
+world_position = Vector3(1500, -500, -2500)
+scene_path = "res://cells/far/cell_3_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_vap4n"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_-4"
+coordinates = Vector3i(3, -1, -4)
+world_position = Vector3(1500, -500, -2000)
+scene_path = "res://cells/far/cell_3_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_jbyac"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_-3"
+coordinates = Vector3i(3, -1, -3)
+world_position = Vector3(1500, -500, -1500)
+scene_path = "res://cells/far/cell_3_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_mw8g3"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_-2"
+coordinates = Vector3i(3, -1, -2)
+world_position = Vector3(1500, -500, -1000)
+scene_path = "res://cells/far/cell_3_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_b4yql"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_-1"
+coordinates = Vector3i(3, -1, -1)
+world_position = Vector3(1500, -500, -500)
+scene_path = "res://cells/far/cell_3_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_i6ly5"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_0"
+coordinates = Vector3i(3, -1, 0)
+world_position = Vector3(1500, -500, 0)
+scene_path = "res://cells/far/cell_3_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_hibh5"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_1"
+coordinates = Vector3i(3, -1, 1)
+world_position = Vector3(1500, -500, 500)
+scene_path = "res://cells/far/cell_3_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_vl2rs"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_2"
+coordinates = Vector3i(3, -1, 2)
+world_position = Vector3(1500, -500, 1000)
+scene_path = "res://cells/far/cell_3_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_i73hd"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_3"
+coordinates = Vector3i(3, -1, 3)
+world_position = Vector3(1500, -500, 1500)
+scene_path = "res://cells/far/cell_3_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_nhwgg"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_-1_4"
+coordinates = Vector3i(3, -1, 4)
+world_position = Vector3(1500, -500, 2000)
+scene_path = "res://cells/far/cell_3_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_li1qq"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_-5"
+coordinates = Vector3i(3, 0, -5)
+world_position = Vector3(1500, 0, -2500)
+scene_path = "res://cells/far/cell_3_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_s1wxo"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_-4"
+coordinates = Vector3i(3, 0, -4)
+world_position = Vector3(1500, 0, -2000)
+scene_path = "res://cells/far/cell_3_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_g2koc"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_-3"
+coordinates = Vector3i(3, 0, -3)
+world_position = Vector3(1500, 0, -1500)
+scene_path = "res://cells/far/cell_3_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_j707k"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_-2"
+coordinates = Vector3i(3, 0, -2)
+world_position = Vector3(1500, 0, -1000)
+scene_path = "res://cells/far/cell_3_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_b4t08"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_-1"
+coordinates = Vector3i(3, 0, -1)
+world_position = Vector3(1500, 0, -500)
+scene_path = "res://cells/far/cell_3_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_cuv2e"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_0"
+coordinates = Vector3i(3, 0, 0)
+world_position = Vector3(1500, 0, 0)
+scene_path = "res://cells/far/cell_3_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_gjyac"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_1"
+coordinates = Vector3i(3, 0, 1)
+world_position = Vector3(1500, 0, 500)
+scene_path = "res://cells/far/cell_3_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_7mfka"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_2"
+coordinates = Vector3i(3, 0, 2)
+world_position = Vector3(1500, 0, 1000)
+scene_path = "res://cells/far/cell_3_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_sodn8"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_3"
+coordinates = Vector3i(3, 0, 3)
+world_position = Vector3(1500, 0, 1500)
+scene_path = "res://cells/far/cell_3_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_sog7n"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_3_0_4"
+coordinates = Vector3i(3, 0, 4)
+world_position = Vector3(1500, 0, 2000)
+scene_path = "res://cells/far/cell_3_0_4.tscn"
+
+[sub_resource type="Resource" id="Resource_gs7u7"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_-5"
+coordinates = Vector3i(4, -1, -5)
+world_position = Vector3(2000, -500, -2500)
+scene_path = "res://cells/far/cell_4_-1_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_8g7cp"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_-4"
+coordinates = Vector3i(4, -1, -4)
+world_position = Vector3(2000, -500, -2000)
+scene_path = "res://cells/far/cell_4_-1_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_fbybm"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_-3"
+coordinates = Vector3i(4, -1, -3)
+world_position = Vector3(2000, -500, -1500)
+scene_path = "res://cells/far/cell_4_-1_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_1a0pu"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_-2"
+coordinates = Vector3i(4, -1, -2)
+world_position = Vector3(2000, -500, -1000)
+scene_path = "res://cells/far/cell_4_-1_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_sg2v6"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_-1"
+coordinates = Vector3i(4, -1, -1)
+world_position = Vector3(2000, -500, -500)
+scene_path = "res://cells/far/cell_4_-1_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_cdeea"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_0"
+coordinates = Vector3i(4, -1, 0)
+world_position = Vector3(2000, -500, 0)
+scene_path = "res://cells/far/cell_4_-1_0.tscn"
+
+[sub_resource type="Resource" id="Resource_tybjo"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_1"
+coordinates = Vector3i(4, -1, 1)
+world_position = Vector3(2000, -500, 500)
+scene_path = "res://cells/far/cell_4_-1_1.tscn"
+
+[sub_resource type="Resource" id="Resource_w14a4"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_2"
+coordinates = Vector3i(4, -1, 2)
+world_position = Vector3(2000, -500, 1000)
+scene_path = "res://cells/far/cell_4_-1_2.tscn"
+
+[sub_resource type="Resource" id="Resource_0ro61"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_3"
+coordinates = Vector3i(4, -1, 3)
+world_position = Vector3(2000, -500, 1500)
+scene_path = "res://cells/far/cell_4_-1_3.tscn"
+
+[sub_resource type="Resource" id="Resource_0m8c0"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_-1_4"
+coordinates = Vector3i(4, -1, 4)
+world_position = Vector3(2000, -500, 2000)
+scene_path = "res://cells/far/cell_4_-1_4.tscn"
+
+[sub_resource type="Resource" id="Resource_qh4ij"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_-5"
+coordinates = Vector3i(4, 0, -5)
+world_position = Vector3(2000, 0, -2500)
+scene_path = "res://cells/far/cell_4_0_-5.tscn"
+
+[sub_resource type="Resource" id="Resource_8wxtw"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_-4"
+coordinates = Vector3i(4, 0, -4)
+world_position = Vector3(2000, 0, -2000)
+scene_path = "res://cells/far/cell_4_0_-4.tscn"
+
+[sub_resource type="Resource" id="Resource_2sjaf"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_-3"
+coordinates = Vector3i(4, 0, -3)
+world_position = Vector3(2000, 0, -1500)
+scene_path = "res://cells/far/cell_4_0_-3.tscn"
+
+[sub_resource type="Resource" id="Resource_b8v0p"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_-2"
+coordinates = Vector3i(4, 0, -2)
+world_position = Vector3(2000, 0, -1000)
+scene_path = "res://cells/far/cell_4_0_-2.tscn"
+
+[sub_resource type="Resource" id="Resource_2mdff"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_-1"
+coordinates = Vector3i(4, 0, -1)
+world_position = Vector3(2000, 0, -500)
+scene_path = "res://cells/far/cell_4_0_-1.tscn"
+
+[sub_resource type="Resource" id="Resource_rwwks"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_0"
+coordinates = Vector3i(4, 0, 0)
+world_position = Vector3(2000, 0, 0)
+scene_path = "res://cells/far/cell_4_0_0.tscn"
+
+[sub_resource type="Resource" id="Resource_prdrx"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_1"
+coordinates = Vector3i(4, 0, 1)
+world_position = Vector3(2000, 0, 500)
+scene_path = "res://cells/far/cell_4_0_1.tscn"
+
+[sub_resource type="Resource" id="Resource_m073v"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_2"
+coordinates = Vector3i(4, 0, 2)
+world_position = Vector3(2000, 0, 1000)
+scene_path = "res://cells/far/cell_4_0_2.tscn"
+
+[sub_resource type="Resource" id="Resource_4r0na"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_3"
+coordinates = Vector3i(4, 0, 3)
+world_position = Vector3(2000, 0, 1500)
+scene_path = "res://cells/far/cell_4_0_3.tscn"
+
+[sub_resource type="Resource" id="Resource_a8e6b"]
+script = ExtResource("2_cb6ba")
+cell_name = "cell_4_0_4"
+coordinates = Vector3i(4, 0, 4)
+world_position = Vector3(2000, 0, 2000)
+scene_path = "res://cells/far/cell_4_0_4.tscn"
+
+[resource]
+script = ExtResource("3_a2qk6")
+cells = Dictionary[Vector3i, ExtResource("2_cb6ba")]({
+Vector3i(-5, -1, -5): SubResource("Resource_foq6k"),
+Vector3i(-5, -1, -4): SubResource("Resource_cb6ba"),
+Vector3i(-5, -1, -3): SubResource("Resource_a2qk6"),
+Vector3i(-5, -1, -2): SubResource("Resource_xyl8k"),
+Vector3i(-5, -1, -1): SubResource("Resource_46qvy"),
+Vector3i(-5, -1, 0): SubResource("Resource_lhp4g"),
+Vector3i(-5, -1, 1): SubResource("Resource_ov2td"),
+Vector3i(-5, -1, 2): SubResource("Resource_mes1v"),
+Vector3i(-5, -1, 3): SubResource("Resource_ra0f3"),
+Vector3i(-5, -1, 4): SubResource("Resource_xerc5"),
+Vector3i(-5, 0, -5): SubResource("Resource_0yn1w"),
+Vector3i(-5, 0, -4): SubResource("Resource_i4ypt"),
+Vector3i(-5, 0, -3): SubResource("Resource_xu18a"),
+Vector3i(-5, 0, -2): SubResource("Resource_vtxej"),
+Vector3i(-5, 0, -1): SubResource("Resource_sg8hg"),
+Vector3i(-5, 0, 0): SubResource("Resource_r8s1d"),
+Vector3i(-5, 0, 1): SubResource("Resource_3wiwv"),
+Vector3i(-5, 0, 2): SubResource("Resource_ugndn"),
+Vector3i(-5, 0, 3): SubResource("Resource_pc41w"),
+Vector3i(-5, 0, 4): SubResource("Resource_6jmfn"),
+Vector3i(-4, -1, -5): SubResource("Resource_oq0xc"),
+Vector3i(-4, -1, -4): SubResource("Resource_kvq78"),
+Vector3i(-4, -1, -3): SubResource("Resource_d0bcm"),
+Vector3i(-4, -1, -2): SubResource("Resource_dw4tc"),
+Vector3i(-4, -1, -1): SubResource("Resource_7f6rj"),
+Vector3i(-4, -1, 0): SubResource("Resource_trs07"),
+Vector3i(-4, -1, 1): SubResource("Resource_12u81"),
+Vector3i(-4, -1, 2): SubResource("Resource_sn6hs"),
+Vector3i(-4, -1, 3): SubResource("Resource_x8rpl"),
+Vector3i(-4, -1, 4): SubResource("Resource_3e7qj"),
+Vector3i(-4, 0, -5): SubResource("Resource_rjkd8"),
+Vector3i(-4, 0, -4): SubResource("Resource_67a62"),
+Vector3i(-4, 0, -3): SubResource("Resource_rt8uu"),
+Vector3i(-4, 0, -2): SubResource("Resource_x0xxl"),
+Vector3i(-4, 0, -1): SubResource("Resource_ajdb1"),
+Vector3i(-4, 0, 0): SubResource("Resource_wpb8n"),
+Vector3i(-4, 0, 1): SubResource("Resource_pyh8r"),
+Vector3i(-4, 0, 2): SubResource("Resource_yxy54"),
+Vector3i(-4, 0, 3): SubResource("Resource_j8n82"),
+Vector3i(-4, 0, 4): SubResource("Resource_mn70o"),
+Vector3i(-3, -1, -5): SubResource("Resource_xmsg1"),
+Vector3i(-3, -1, -4): SubResource("Resource_vn57u"),
+Vector3i(-3, -1, -3): SubResource("Resource_flu2k"),
+Vector3i(-3, -1, -2): SubResource("Resource_f73mk"),
+Vector3i(-3, -1, -1): SubResource("Resource_xe458"),
+Vector3i(-3, -1, 0): SubResource("Resource_8s1jw"),
+Vector3i(-3, -1, 1): SubResource("Resource_nhebl"),
+Vector3i(-3, -1, 2): SubResource("Resource_c7kcs"),
+Vector3i(-3, -1, 3): SubResource("Resource_eg3ul"),
+Vector3i(-3, -1, 4): SubResource("Resource_pplkp"),
+Vector3i(-3, 0, -5): SubResource("Resource_4urpc"),
+Vector3i(-3, 0, -4): SubResource("Resource_8yjia"),
+Vector3i(-3, 0, -3): SubResource("Resource_qbfa4"),
+Vector3i(-3, 0, -2): SubResource("Resource_crjgf"),
+Vector3i(-3, 0, -1): SubResource("Resource_hu5v2"),
+Vector3i(-3, 0, 0): SubResource("Resource_8w8qa"),
+Vector3i(-3, 0, 1): SubResource("Resource_k3dgu"),
+Vector3i(-3, 0, 2): SubResource("Resource_2s0i6"),
+Vector3i(-3, 0, 3): SubResource("Resource_jgm8w"),
+Vector3i(-3, 0, 4): SubResource("Resource_0a3w5"),
+Vector3i(-2, -1, -5): SubResource("Resource_jxgip"),
+Vector3i(-2, -1, -4): SubResource("Resource_7rye0"),
+Vector3i(-2, -1, -3): SubResource("Resource_j7nyq"),
+Vector3i(-2, -1, -2): SubResource("Resource_s7f6d"),
+Vector3i(-2, -1, -1): SubResource("Resource_6g5hh"),
+Vector3i(-2, -1, 0): SubResource("Resource_c027o"),
+Vector3i(-2, -1, 1): SubResource("Resource_w5rkt"),
+Vector3i(-2, -1, 2): SubResource("Resource_qi3cp"),
+Vector3i(-2, -1, 3): SubResource("Resource_3pa6q"),
+Vector3i(-2, -1, 4): SubResource("Resource_aimdx"),
+Vector3i(-2, 0, -5): SubResource("Resource_1dkcd"),
+Vector3i(-2, 0, -4): SubResource("Resource_aiyo3"),
+Vector3i(-2, 0, -3): SubResource("Resource_1cmln"),
+Vector3i(-2, 0, -2): SubResource("Resource_4n63b"),
+Vector3i(-2, 0, -1): SubResource("Resource_2jokm"),
+Vector3i(-2, 0, 0): SubResource("Resource_dco8b"),
+Vector3i(-2, 0, 1): SubResource("Resource_17sfq"),
+Vector3i(-2, 0, 2): SubResource("Resource_taiqp"),
+Vector3i(-2, 0, 3): SubResource("Resource_klaed"),
+Vector3i(-2, 0, 4): SubResource("Resource_u744x"),
+Vector3i(-1, -1, -5): SubResource("Resource_57khn"),
+Vector3i(-1, -1, -4): SubResource("Resource_yt1oo"),
+Vector3i(-1, -1, -3): SubResource("Resource_e56if"),
+Vector3i(-1, -1, -2): SubResource("Resource_t2el8"),
+Vector3i(-1, -1, -1): SubResource("Resource_p81d8"),
+Vector3i(-1, -1, 0): SubResource("Resource_34e4e"),
+Vector3i(-1, -1, 1): SubResource("Resource_ayo5n"),
+Vector3i(-1, -1, 2): SubResource("Resource_5f0ht"),
+Vector3i(-1, -1, 3): SubResource("Resource_evn3x"),
+Vector3i(-1, -1, 4): SubResource("Resource_8p0ek"),
+Vector3i(-1, 0, -5): SubResource("Resource_n15jo"),
+Vector3i(-1, 0, -4): SubResource("Resource_amf1b"),
+Vector3i(-1, 0, -3): SubResource("Resource_1mi6j"),
+Vector3i(-1, 0, -2): SubResource("Resource_85ddg"),
+Vector3i(-1, 0, -1): SubResource("Resource_fwbli"),
+Vector3i(-1, 0, 0): SubResource("Resource_02pwj"),
+Vector3i(-1, 0, 1): SubResource("Resource_7pes8"),
+Vector3i(-1, 0, 2): SubResource("Resource_amgwd"),
+Vector3i(-1, 0, 3): SubResource("Resource_saeut"),
+Vector3i(-1, 0, 4): SubResource("Resource_utgxk"),
+Vector3i(0, -1, -5): SubResource("Resource_skejh"),
+Vector3i(0, -1, -4): SubResource("Resource_ocsuu"),
+Vector3i(0, -1, -3): SubResource("Resource_xur0s"),
+Vector3i(0, -1, -2): SubResource("Resource_tgmkw"),
+Vector3i(0, -1, -1): SubResource("Resource_8ecpp"),
+Vector3i(0, -1, 0): SubResource("Resource_bf8jj"),
+Vector3i(0, -1, 1): SubResource("Resource_82dmr"),
+Vector3i(0, -1, 2): SubResource("Resource_5dah0"),
+Vector3i(0, -1, 3): SubResource("Resource_8rang"),
+Vector3i(0, -1, 4): SubResource("Resource_iysur"),
+Vector3i(0, 0, -5): SubResource("Resource_773yp"),
+Vector3i(0, 0, -4): SubResource("Resource_o42uq"),
+Vector3i(0, 0, -3): SubResource("Resource_dfusy"),
+Vector3i(0, 0, -2): SubResource("Resource_gl8jg"),
+Vector3i(0, 0, -1): SubResource("Resource_04onf"),
+Vector3i(0, 0, 0): SubResource("Resource_4jggi"),
+Vector3i(0, 0, 1): SubResource("Resource_3u5bm"),
+Vector3i(0, 0, 2): SubResource("Resource_3litq"),
+Vector3i(0, 0, 3): SubResource("Resource_3x0dv"),
+Vector3i(0, 0, 4): SubResource("Resource_6xf4j"),
+Vector3i(1, -1, -5): SubResource("Resource_fdhjx"),
+Vector3i(1, -1, -4): SubResource("Resource_6jijl"),
+Vector3i(1, -1, -3): SubResource("Resource_arwpr"),
+Vector3i(1, -1, -2): SubResource("Resource_okrpj"),
+Vector3i(1, -1, -1): SubResource("Resource_e7ciu"),
+Vector3i(1, -1, 0): SubResource("Resource_reuy4"),
+Vector3i(1, -1, 1): SubResource("Resource_b82ci"),
+Vector3i(1, -1, 2): SubResource("Resource_4twnf"),
+Vector3i(1, -1, 3): SubResource("Resource_urvjx"),
+Vector3i(1, -1, 4): SubResource("Resource_6m4uq"),
+Vector3i(1, 0, -5): SubResource("Resource_65l6u"),
+Vector3i(1, 0, -4): SubResource("Resource_u8ifd"),
+Vector3i(1, 0, -3): SubResource("Resource_d22px"),
+Vector3i(1, 0, -2): SubResource("Resource_3pupd"),
+Vector3i(1, 0, -1): SubResource("Resource_03k4k"),
+Vector3i(1, 0, 0): SubResource("Resource_6vqon"),
+Vector3i(1, 0, 1): SubResource("Resource_eqihy"),
+Vector3i(1, 0, 2): SubResource("Resource_b47nn"),
+Vector3i(1, 0, 3): SubResource("Resource_l7tka"),
+Vector3i(1, 0, 4): SubResource("Resource_3s2bb"),
+Vector3i(2, -1, -5): SubResource("Resource_6bf0d"),
+Vector3i(2, -1, -4): SubResource("Resource_jsxvr"),
+Vector3i(2, -1, -3): SubResource("Resource_tgoa5"),
+Vector3i(2, -1, -2): SubResource("Resource_0xiok"),
+Vector3i(2, -1, -1): SubResource("Resource_ggbyn"),
+Vector3i(2, -1, 0): SubResource("Resource_4p2j7"),
+Vector3i(2, -1, 1): SubResource("Resource_2cp17"),
+Vector3i(2, -1, 2): SubResource("Resource_y3ycq"),
+Vector3i(2, -1, 3): SubResource("Resource_adwjh"),
+Vector3i(2, -1, 4): SubResource("Resource_oy71h"),
+Vector3i(2, 0, -5): SubResource("Resource_usb26"),
+Vector3i(2, 0, -4): SubResource("Resource_e3lkw"),
+Vector3i(2, 0, -3): SubResource("Resource_naian"),
+Vector3i(2, 0, -2): SubResource("Resource_kxdwh"),
+Vector3i(2, 0, -1): SubResource("Resource_6hf6i"),
+Vector3i(2, 0, 0): SubResource("Resource_em1ck"),
+Vector3i(2, 0, 1): SubResource("Resource_mdo6m"),
+Vector3i(2, 0, 2): SubResource("Resource_kakx0"),
+Vector3i(2, 0, 3): SubResource("Resource_bu8n4"),
+Vector3i(2, 0, 4): SubResource("Resource_cbiy8"),
+Vector3i(3, -1, -5): SubResource("Resource_adey3"),
+Vector3i(3, -1, -4): SubResource("Resource_vap4n"),
+Vector3i(3, -1, -3): SubResource("Resource_jbyac"),
+Vector3i(3, -1, -2): SubResource("Resource_mw8g3"),
+Vector3i(3, -1, -1): SubResource("Resource_b4yql"),
+Vector3i(3, -1, 0): SubResource("Resource_i6ly5"),
+Vector3i(3, -1, 1): SubResource("Resource_hibh5"),
+Vector3i(3, -1, 2): SubResource("Resource_vl2rs"),
+Vector3i(3, -1, 3): SubResource("Resource_i73hd"),
+Vector3i(3, -1, 4): SubResource("Resource_nhwgg"),
+Vector3i(3, 0, -5): SubResource("Resource_li1qq"),
+Vector3i(3, 0, -4): SubResource("Resource_s1wxo"),
+Vector3i(3, 0, -3): SubResource("Resource_g2koc"),
+Vector3i(3, 0, -2): SubResource("Resource_j707k"),
+Vector3i(3, 0, -1): SubResource("Resource_b4t08"),
+Vector3i(3, 0, 0): SubResource("Resource_cuv2e"),
+Vector3i(3, 0, 1): SubResource("Resource_gjyac"),
+Vector3i(3, 0, 2): SubResource("Resource_7mfka"),
+Vector3i(3, 0, 3): SubResource("Resource_sodn8"),
+Vector3i(3, 0, 4): SubResource("Resource_sog7n"),
+Vector3i(4, -1, -5): SubResource("Resource_gs7u7"),
+Vector3i(4, -1, -4): SubResource("Resource_8g7cp"),
+Vector3i(4, -1, -3): SubResource("Resource_fbybm"),
+Vector3i(4, -1, -2): SubResource("Resource_1a0pu"),
+Vector3i(4, -1, -1): SubResource("Resource_sg2v6"),
+Vector3i(4, -1, 0): SubResource("Resource_cdeea"),
+Vector3i(4, -1, 1): SubResource("Resource_tybjo"),
+Vector3i(4, -1, 2): SubResource("Resource_w14a4"),
+Vector3i(4, -1, 3): SubResource("Resource_0ro61"),
+Vector3i(4, -1, 4): SubResource("Resource_0m8c0"),
+Vector3i(4, 0, -5): SubResource("Resource_qh4ij"),
+Vector3i(4, 0, -4): SubResource("Resource_8wxtw"),
+Vector3i(4, 0, -3): SubResource("Resource_2sjaf"),
+Vector3i(4, 0, -2): SubResource("Resource_b8v0p"),
+Vector3i(4, 0, -1): SubResource("Resource_2mdff"),
+Vector3i(4, 0, 0): SubResource("Resource_rwwks"),
+Vector3i(4, 0, 1): SubResource("Resource_prdrx"),
+Vector3i(4, 0, 2): SubResource("Resource_m073v"),
+Vector3i(4, 0, 3): SubResource("Resource_4r0na"),
+Vector3i(4, 0, 4): SubResource("Resource_a8e6b")
+})
+max_cache_size = 5
+load_strategy = 0
+grid_size = Vector3i(5000, 1000, 5000)
+cell_size = 500
+cell_directory = "res://cells/far/"
+base_cell_scene_path = "res://addons/cellblock/cell.tscn"
+radius = 1
+metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"
