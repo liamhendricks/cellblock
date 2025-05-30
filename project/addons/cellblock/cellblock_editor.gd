@@ -25,7 +25,7 @@ func init():
 		x.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.x / 2) / anchor.cell_registries[active_registry_index].cell_size)
 		y.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.y / 2) / anchor.cell_registries[active_registry_index].cell_size)
 		z.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.z / 2) / anchor.cell_registries[active_registry_index].cell_size)
-		r.max_value = len(anchor.cell_registries)
+		r.max_value = len(anchor.cell_registries) - 1
 		r.min_value = 0
 
 	if !x.value_changed.is_connected(_coordinates_updated.bind(0)):
@@ -117,6 +117,7 @@ func _coordinates_updated(value : float, index : int):
 
 func _registry_updated(value : float):
 	if value > len(anchor.cell_registries) - 1:
+		value = len(anchor.cell_registries) - 1
 		return
 
 	print("registry index updated ", value)

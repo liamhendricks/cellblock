@@ -207,7 +207,6 @@ func get_nearest(_coords : Vector3i, _radius : int = 2) -> Array:
 				if key in cell_registry.cells:
 					nearest.append(key)
 
-	nearest.sort_custom(func(a, b): return a < b)
 	return nearest
 
 func try_reparent_mutable(_mutable_data : Dictionary, _key : Vector3i, _loader_idx : int):
