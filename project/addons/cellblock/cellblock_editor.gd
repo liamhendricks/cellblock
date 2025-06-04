@@ -18,14 +18,13 @@ var anchor : CellAnchor
 var plugin : EditorPlugin
 
 func _ready():
-	init()
-
-func init():
 	for active_cell in active_cells:
 		active_cell.free()
 
 	active_cells.clear()
+	init()
 
+func init():
 	active_registry_index = 0
 	coordinates = Vector3i(x.value, y.value, z.value)
 	registry_options.clear()
@@ -52,17 +51,21 @@ func init():
 	if !z.value_changed.is_connected(_coordinates_updated.bind(2)):
 		z.value_changed.connect(_coordinates_updated.bind(2))
 
-func _on_save_pressed():
-	pass
+func _on_save_pressed(item : ActiveCellUiItem):
+	var active_cell_index = item.cell_index
+	var cell_data = item.cell_data
+	var registry_index = item.registry_index
+	var cell := active_cells[active_cell_index]
+	_save_active_cell(cell, cell_data, registry_index)
 
 func _on_save_all_pressed():
-	pass
+	_save_all()
 
-func _save_active_cell(_active_cell : Cell):
+func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
 	print("saving active")
-	var cell_data = anchor.cell_registries[active_registry_index].cells[coordinates]
-	cell_data.world_position = _active_cell.global_position
-	cell_data.coordinates = coordinates
+	_cell_data.world_position = _active_cell.global_position
+	var cell_size = anchor.cell_registries[_idx].cell_size
+	_cell_data.coordinates = world_to_cell_space(_active_cell.global_position, cell_size)
 	ResourceSaver.save(anchor.cell_registries[active_registry_index])
 
 	_set_owner_recursive_safe(_active_cell, _active_cell)
@@ -71,18 +74,22 @@ func _save_active_cell(_active_cell : Cell):
 	var scene = PackedScene.new()
 	_active_cell.global_position = Vector3.ZERO
 	scene.pack(_active_cell)
-	ResourceSaver.save(scene, cell_data.scene_path)
+	ResourceSaver.save(scene, _cell_data.scene_path)
 
 	print("done saving")
 	# now that the scene is saved, we can make the cell editable again
-	_active_cell.global_position = cell_data.world_position
+	_active_cell.global_position = _cell_data.world_position
 	_enable_cell_editing(_active_cell, EditorInterface.get_edited_scene_root())
 	print("done enabling")
 
 func _save_all():
-	pass
+	for child in active_cell_container.get_children():
+		var active_cell_index = child.cell_index
+		var cell_data = child.cell_data
+		var registry_index = child.registry_index
+		var cell := active_cells[active_cell_index]
+		_save_active_cell(cell, cell_data, registry_index)
 
-#TODO WHY NOT ADDING TO SCENE TREE
 func _on_load_pressed():
 	if cell_to_load == null:
 		push_warning("no cell chosen to load")
@@ -110,8 +117,6 @@ func _on_create_pressed() -> void:
 		push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
 		return
 
-	_clear()
-
 	var cell_data = CellData.new()
 	cell_data.coordinates = coordinates
 	cell_data.cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
@@ -128,7 +133,7 @@ func _on_create_pressed() -> void:
 	cell.name = "Cell%d" % active_registry_index
 	cell.global_position = anchor.global_position
 
-	_save_active_cell(cell)
+	_save_active_cell(cell, cell_data, active_registry_index)
 	cell.owner = root
 
 func _coordinates_updated(value : float, index : int):
@@ -162,15 +167,16 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 func _update_active_cell_items():
 	for child in active_cell_container.get_children():
 		active_cell_container.remove_child(child)
-		child.free()
+		child.queue_free()
 
-	for cell in active_cells:
+	for i in active_cells.size():
+		var cell = active_cells[i]
 		var cell_ui_item = active_cell_ui_item_scene.instantiate()
 		active_cell_container.add_child(cell_ui_item)
 		var cell_size = anchor.cell_registries[active_registry_index].cell_size
 		var coords = world_to_cell_space(cell.global_position, cell_size)
 		var cell_data = anchor.cell_registries[active_registry_index].cells[coords]
-		cell_ui_item.configure(cell_data.cell_name, "%d" % active_registry_index, _on_save_pressed, _on_clear_pressed)
+		cell_ui_item.configure(cell_data, active_registry_index, i, _on_save_pressed, _on_clear_pressed)
 
 func _update_cursor():
 	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
@@ -182,11 +188,11 @@ func _update_cell_options():
 		cell_options.add_item(cell_data.cell_name)
 		cell_options.set_item_metadata(cell_options.item_count - 1, key)
 
-func _on_clear_pressed() -> void:
-	_clear()
+func _on_clear_pressed(item : ActiveCellUiItem) -> void:
+	_clear(item.cell_index)
 
 func _on_clear_all_pressed() -> void:
-	pass
+	_clear_all()
 
 func _enable_cell_editing(cell : Node, root : Node):
 	cell.owner = root
@@ -206,11 +212,24 @@ func _set_owner_recursive_safe(node: Node, owner: Node):
 		if child is Node:
 			_set_owner_recursive_safe(child, owner)
 
-func _clear():
+func _clear(_cell_idx : int):
+	var root = EditorInterface.get_edited_scene_root()
+	var active_cell = active_cells[_cell_idx]
+	root.remove_child(active_cell)
+	active_cell.queue_free()
+	active_cells.remove_at(_cell_idx)
+
+	_update_active_cell_items()
+
+func _clear_all():
+	var root = EditorInterface.get_edited_scene_root()
 	for active_cell in active_cells:
 		print("clearing cell ", active_cell.name)
-		active_cells.erase(active_registry_index)
+		root.remove_child(active_cell)
 		active_cell.queue_free()
+
+	active_cells.clear()
+	_update_active_cell_items()
 
 func _on_scene_saved(scene: Node) -> void:
 	for child in scene.get_children():
