@@ -1,3 +1,14 @@
+Control
+LineEdit
+Button
+Label
+HBoxContainer
+VBoxContainer
+MarginContainer
+Panel
+ScrollContainer
+OptionButton
+Container
 SpinBox
 CollisionShape3D
 CSGBox3D

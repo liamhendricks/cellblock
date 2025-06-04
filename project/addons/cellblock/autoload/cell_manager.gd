@@ -178,7 +178,7 @@ func dequeue_inactive():
 	var cell_data : CellData = cell_registry.cells[lk]
 	to_remove.erase(lk)
 
-	# some mutable objects may have moved out of range of the current cell
+	# mutable objects may have moved out of range of their current cell
 	var cell : Cell = cell_loader.active_cells[lk]
 	var mutable_objects := cell.get_mutable()
 	try_reparent_mutable(mutable_objects, lk, last)

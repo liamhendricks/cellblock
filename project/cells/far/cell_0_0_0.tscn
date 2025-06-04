@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_h81e2"]
 [ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_nywvl"]
 
-[node name="Cell" type="Node3D"]
+[node name="Cell1" type="Node3D"]
 script = ExtResource("1_bqkaq")
 
 [node name="Statics" type="Node3D" parent="."]
