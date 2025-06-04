@@ -98,7 +98,6 @@ func _on_load_pressed():
 		var root = EditorInterface.get_edited_scene_root()
 		print("cell loaded at %v: %s, registry index: %d" % [cell_to_load.coordinates, cell_to_load.cell_name, active_registry_index])
 		root.add_child(cell)
-		cell.name = "Cell"
 		var c = cell_to_world_space(cell_to_load.coordinates, anchor.cell_registries[active_registry_index].cell_size)
 		cell.global_position = c
 		anchor.global_position = c
@@ -209,6 +208,7 @@ func _set_owner_recursive_safe(node: Node, owner: Node):
 
 func _clear():
 	for active_cell in active_cells:
+		print("clearing cell ", active_cell.name)
 		active_cells.erase(active_registry_index)
 		active_cell.queue_free()
 

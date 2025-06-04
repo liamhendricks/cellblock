@@ -90,6 +90,7 @@ text = "Registry:"
 [node name="RegistryOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry"]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 4
 
 [node name="CellName" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
