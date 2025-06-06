@@ -159,6 +159,10 @@ control over which objects are affected by this reparenting behavior by which no
 the `Cell`'s `get_mutable()` method. By default, all nodes that are children of the Objects or Characters
 nodes will be returned by `get_mutable()`, and auto reparented to the closest node.
 
+### Working with other addons
+
+Combine Cellblock with Terrain3D, Extra Snaps and Proton Scatter for the ultimate open world dev kit!
+
 ### Caviats and Known Issues
 
 - 'Cell space' and 'world space' are decoupled from each other, so changing the grid_size and cell_size
@@ -168,7 +172,7 @@ of, say, 1000, 50, 1000. Then create a cell at a very high number. Then if you c
 to be lower than that cell vertex, it will be unreachable. Additionally, changing the size of the grid
 or the size of cells drastically, may necessitate changing cells to belong in different coordinates.
 Otherwise the world position of the cell would be too far from the cell coordinates and it could result
-in cells getting loaded to soon, or not soon enough.
+in cells getting loaded too soon, or not soon enough.
 
 - As you are editing cells, the `Cell` scene gets added to the editor scene tree. If you save the scene 
 and forget to press 'Clear Active'. That active `Cell` scene in the editor will be attached to the scene
