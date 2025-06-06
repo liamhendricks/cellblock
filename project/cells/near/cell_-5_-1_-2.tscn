@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_34uu6"]
 [ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="4_c0keh"]
 
-[node name="Cell" type="Node3D"]
+[node name="cell_-5_-1_-2" type="Node3D"]
 script = ExtResource("1_4kx2o")
 
 [node name="Statics" type="Node3D" parent="."]
 
 [node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_h2ule")]
+transform = Transform3D(1, 0, 0, 0, 0.847974, 0.530038, 0, -0.530038, 0.847974, -26.03, 53.9211, 0)
 
 [node name="Objects" type="Node3D" parent="."]
 

@@ -108,7 +108,7 @@ func _process(_delta) -> void:
 	var cell_registry = cell_registries[current_registry_index]
 	var cell_loader = cell_loaders[current_registry_index]
 	current_cell_coords = world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
-	var nearest = get_nearest(current_cell_coords, cell_registry.radius)
+	var nearest = get_nearest(current_cell_coords, cell_registry.radius, cell_registry.min_y_depth, cell_registry.max_y_depth)
 
 	enqueue(cell_loader.active_cells.keys(), nearest)
 
@@ -195,13 +195,13 @@ func enqueue(active: Array, nearest: Array) -> void:
 		if !active.has(k) && k not in to_add:
 			to_add[k] = current_registry_index
 
-func get_nearest(_coords : Vector3i, _radius : int = 2) -> Array:
+func get_nearest(_coords : Vector3i, _radius : int = 2, _min_y_depth : int = _radius, _max_y_depth : int = _radius) -> Array:
 	var nearest = []
 
 	var cell_registry := cell_registries[current_registry_index]
 
 	for x in range(-_radius, _radius + 1):
-		for y in range(-_radius, _radius + 1):
+		for y in range(_min_y_depth, _max_y_depth):
 			for z in range(-_radius, _radius + 1):
 				var key = Vector3i(_coords.x + x, _coords.y + y, _coords.z + z)
 				if key in cell_registry.cells:

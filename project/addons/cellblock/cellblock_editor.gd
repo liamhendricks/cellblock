@@ -95,6 +95,10 @@ func _on_load_pressed():
 		push_warning("no cell chosen to load")
 		return
 
+	if _check_cell_active(cell_to_load.coordinates):
+		push_warning("cell already active at those coordinates")
+		return
+
 	print("path ", cell_to_load.scene_path)
 	var scene = load(cell_to_load.scene_path)
 	if scene:
@@ -256,3 +260,10 @@ func _pick_cell_to_load(index: int) -> void:
 	var v: Vector3i = cell_options.get_item_metadata(index)
 	var cell_data := anchor.cell_registries[active_registry_index].cells[v]
 	cell_to_load = cell_data
+
+func _check_cell_active(_coords : Vector3i) -> bool:
+	for editing_cell in active_cells:
+		if editing_cell.cell_data.coordinates == _coords:
+			return true
+
+	return false

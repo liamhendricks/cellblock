@@ -32,6 +32,8 @@ enum LOAD_STRATEGY {
 @export var cell_directory : String = "res://cells/"
 @export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"
 @export_range(1, 3) var radius : int = 2
+@export_range(-3, 0) var min_y_depth : int = -3
+@export_range(0, 3) var max_y_depth : int = 3
 
 func _validate_property(property: Dictionary):
 	pass

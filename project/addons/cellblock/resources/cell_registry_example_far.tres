@@ -2918,4 +2918,6 @@ cell_size = 500
 cell_directory = "res://cells/far/"
 base_cell_scene_path = "res://addons/cellblock/cell.tscn"
 radius = 1
+min_y_depth = 0
+max_y_depth = 1
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"
