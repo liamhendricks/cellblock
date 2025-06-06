@@ -200,9 +200,11 @@ func _enable_cell_editing(cell : Node, root : Node):
 	_set_owner_recursive_safe(cell, root)
 
 func _set_owner_recursive_safe(node: Node, owner: Node):
-	# if this node is a scene instance, skip it and its subtree
 	if node.scene_file_path != "":
 		node.owner = owner
+		for child in node.get_children():
+			if child.owner != node:
+				_set_owner_recursive_safe(child, owner)
 		return
 
 	if node != owner:

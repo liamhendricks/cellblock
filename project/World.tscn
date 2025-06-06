@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cs6u7ruomaxi5"]
+[gd_scene load_steps=20 format=3 uid="uid://cs6u7ruomaxi5"]
 
 [ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
 [ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
@@ -7,6 +7,10 @@
 [ext_resource type="Resource" uid="uid://or7ra5w1ycyv" path="res://addons/cellblock/resources/cell_registry_example_near.tres" id="5_p1v5b"]
 [ext_resource type="Resource" uid="uid://ca5rcb602gxwi" path="res://addons/cellblock/resources/cell_registry_example_far.tres" id="6_wygdx"]
 [ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="7_wygdx"]
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="8_kva58"]
+[ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://StaticObjectExample.tscn" id="9_f5c0m"]
+[ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="10_b2ar6"]
+[ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="11_ee7l0"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_js7pq"]
 frequency = 0.0665
@@ -50,6 +54,7 @@ shape = SubResource("ConcavePolygonShape3D_wygdx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.571, 0)
 
 [node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, -50, -250)
 cell_registries = Array[ExtResource("4_eu7l1")]([ExtResource("5_p1v5b"), ExtResource("6_wygdx")])
 cell_save = SubResource("Resource_bah7m")
 
@@ -58,5 +63,30 @@ environment = SubResource("Environment_p1v5b")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.6264, 0.779502, 0, -0.779502, -0.6264, 0, 21.326, 0)
+
+[node name="Cell" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, -50, -250)
+script = ExtResource("8_kva58")
+
+[node name="Statics" type="Node3D" parent="Cell"]
+
+[node name="StaticObjectExample" type="StaticBody3D" parent="Cell/Statics" instance=ExtResource("9_f5c0m")]
+transform = Transform3D(0.0041676, -0.00520793, 0.999978, -0.99116, 0.132587, 0.00482135, -0.132609, -0.991158, -0.0046093, 0, 67.8766, 0)
+
+[node name="StaticObjectExample2" type="StaticBody3D" parent="Cell/Statics" instance=ExtResource("9_f5c0m")]
+transform = Transform3D(0.0041676, -0.00520793, 0.999978, 0.861165, 0.508325, -0.00094169, -0.508309, 0.86115, 0.00660335, -34.3073, 88.8331, -43.5773)
+
+[node name="wolf" type="Node3D" parent="Cell/Statics/StaticObjectExample2"]
+
+[node name="Objects" type="Node3D" parent="Cell"]
+
+[node name="MutableObjectExample" type="RigidBody3D" parent="Cell/Objects" instance=ExtResource("10_b2ar6")]
+script = ExtResource("11_ee7l0")
+
+[node name="Characters" type="Node3D" parent="Cell"]
+
+[node name="Doors" type="Node3D" parent="Cell"]
+
+[node name="Spawners" type="Node3D" parent="Cell"]
 
 [connection signal="editor_state_changed" from="CellAnchor" to="CellAnchor" method="_on_editor_state_changed"]
