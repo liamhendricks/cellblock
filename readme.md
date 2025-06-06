@@ -1,15 +1,5 @@
 # Disclaimer
  
-!!! 
-
-I am currently in the process of porting this addon from my game project files and making frequent
-updates for general purpose community usage. So if you stumble across this repository and are still
-seeing this message, please be aware the addon is in an unstable state, and under active
-development! Once all the kinks are ironed out, I'll create a stable release to begin regular
-semantic versioning and remove this message.
-
-!!!
-
 ![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblockicon.png "Cellblock Icon")
 
 # Cellblock
@@ -19,13 +9,14 @@ Open world scene management in gdscript.
 ## Making an open world game?
 
 Cellblock provides a simple and performant framework for developing open world games with a lot of
-assets. Open world games have unique problems with asset management. As the player moves around the
+assets. Open world games have unique problems with scene management. As the player moves around the
 world, content should seamlessly load and unload from the scene to keep framerate stable. There's no
 reason to load assets into the scene tree if the player is nowhere near them. Building world assets
-with Cellblock allows for real time loading and unloading of world content.
+with Cellblock allows for real time loading and unloading of world content that is nearest to the
+player.
 
 There is also a central workflow problem to solve while developing your game. How do you build the
-world content efficiently without blowing up your machine? The player only sees the content around
+world content efficiently without slowing down the godot editor? The player only sees the content around
 her, but how is this possible in the godot editor while developing? The solution is a data driven
 approach, and easy-to-use editor tools. Cellblock allows devs to build their open world game as
 efficiently as the player exploring it!
@@ -47,7 +38,7 @@ keep in memory all the time, other games can load all the Cell data into RAM and
 out of the tree. Both situations can be handled with this Addon. There are also customizable 
 in-memory caching options.
 
-Nearby Cells are chosen in a radius around the origin.
+Nearby Cells are chosen in a radius around a user-defined origin node.
 
 ## Installation
 
@@ -81,6 +72,8 @@ cells.
 - base_cell_scene_path: This is the base scene that you wish to be created when the editor tool
 creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you may want to extend this
 node and use that one instead.
+- radius: the coordinate radius in which to load cells. This cooresponds to the how many loops of the
+x, y, z axis will occur per frame, so it is bounded to max 3 to avoid too many loops.
 
 Cellblock registers a singleton called `CellManager` that you need to hook into. Once you have
 created a `CellRegistry`, somewhere you will need to start the `CellManager`. In this repo's demo
@@ -104,26 +97,22 @@ func _ready():
 In the editor, when you click on your `CellAnchor` node, you'll notice some options in the bottom
 right area of the editor, below the inspector window. This is how you will create, save and load the
 cells you are editing. You'll notice X, Y and Z spinner buttons. When updating these coordinates, you
-will see the `CellAnchor` node moving to that coordinate in world space. You will be interacting with
-1 cell at a time at the current coordinates. The cell data is keyed by this `Vector3i`, which means
-1 cell to 1 vertex in cell space.
-
-If you are using multiple cell registries, you will use the Registry Index spinner to select the 
-registry to work on.
+will see the `CellAnchor` node moving to that coordinate in world space. If you are using multiple 
+cell registries, you will use the Registry Index spinner to select the registry to work on.
 
 Click the 'Create Cell' button to create a new cell. This will create a new `Cell` scene, and a
 cooresponding `CellData` resource file, which automatically gets added to your `CellRegistry`. You
 are now free to edit the cell scene itself in the editor. When you are done editing, make sure you
 click the 'Save Active' button to save the scene. This scene gets saved in your cell_directory that
-was specified in the `CellRegistry`.
+was specified in the `CellRegistry`. Also, you will see the cell in the active cells panel.
 
-Clicking the 'Clear Active' button will remove the active cell for the current registry from the
-editor scene. At any time, you can click the `Load Cell` button to load the cell at the current
-coordinates (if one exists).
 
 If you want, you can also manually create the scene and manually add the `CellData` record to the
 `CellRegistry.cells` dictionary. It's also possible to load scenes in the editor tool created this
 way. Completely up to you.
+
+You can also load a cell by choosing it from the dropdown. Only 1 cell can exist at a given coordinate
+per registry. You can load and edit many cells at once, and save and clear them as you please.
 
 ![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblock_example2.gif "Cellblock Example 2")
 
@@ -165,26 +154,40 @@ if Input.is_action_just_pressed("save"):
 
 ## More about Mutable objects
 
-Mutable objects are automatically reparented to a new Cell if they get closer to a that cell.
+Mutable objects are automatically reparented to a new Cell if they get closer to a that cell. You have
+control over which objects are affected by this reparenting behavior by which nodes are returned in
+the `Cell`'s `get_mutable()` method. By default, all nodes that are children of the Objects or Characters
+nodes will be returned by `get_mutable()`, and auto reparented to the closest node.
 
-### Caviats
+### Caviats and Known Issues
 
 - 'Cell space' and 'world space' are decoupled from each other, so changing the grid_size and cell_size
 properties will not mess up the positioning of your cells. However, changing these properties might
 mean that your coordinates become 'invisible' to the grid. I.e, it is possible to create a large grid
 of, say, 1000, 50, 1000. Then create a cell at a very high number. Then if you change the grid_size
-to be lower than that cell vertex, it will be unreachable.
+to be lower than that cell vertex, it will be unreachable. Additionally, changing the size of the grid
+or the size of cells drastically, may necessitate changing cells to belong in different coordinates.
+Otherwise the world position of the cell would be too far from the cell coordinates and it could result
+in cells getting loaded to soon, or not soon enough.
 
-- As you are editing cells, the `Cell` scene gets added to the tree. If you save the scene and forget
-to press 'Clear Active'. That active `Cell` scene in the editor will be attached to the scene
+- As you are editing cells, the `Cell` scene gets added to the editor scene tree. If you save the scene 
+and forget to press 'Clear Active'. That active `Cell` scene in the editor will be attached to the scene
 in-game, which is likely not desired behavior. Make sure to 'Clear Active' after you are done editing
-so this doesn't happen, until I can figure out a better way of dealing with this :/
+so this doesn't happen, until I can figure out a better way of dealing with this :/. In my personal
+project that uses this addon, I have a function in my world.gd script that just removes all the nodes
+that accidentally got saved, but surely there is a more graceful way of handling this.
 
 - When you save a `Cell` scene using the editor tool, it saves the actual scene in the file system.
 This means that if you have that scene open in another editor tab, it will override it and you will
 lose progress in that tab. I think there is a way to inspect other editor tab scenes, so I think I
 can fix this by just prompting the user to save and close that tab (like the engine editor does in
 this kind of scenario) so this will likely get fixed in the future.
+
+### Future Updates and Features
+
+- Create implementations of the rest of the `LoadStrategy` classes.
+- Gracefully handle editor cells that get saved during development.
+- When updating grid_size or cell_size, calculate new coordinates for cells based on new nearest cell.
 
 ## LICENCE
 
