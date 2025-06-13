@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://1kaji4ylxaxo"]
+
+[ext_resource type="Script" uid="uid://bxy0yt6t2f8e2" path="res://autoloads/user_interface.gd" id="1_euuc7"]
+
+[node name="UserInterface" type="CanvasLayer"]
+script = ExtResource("1_euuc7")
+
+[node name="GameInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="GameInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="GameInterface/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameInterface/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SAVE"
+
+[node name="PauseButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE CELL MANAGER"
+
+[node name="QuitButton" type="Button" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="FPSLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FPS: 60"
+
+[node name="ActiveCellsLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Active Cells"
+
+[node name="WSLabel" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GameInterface/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PRESS ESC TO CAPTURE
+AND UNCAPTURE MOUSE"
+
+[connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="GameInterface/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cswobu00da4n7"]
+
+[ext_resource type="Script" uid="uid://bwdhqelgek348" path="res://addons/cellblock/cell_anchor.gd" id="1_jxfri"]
+
+[node name="CellAnchor" type="Node3D"]
+script = ExtResource("1_jxfri")

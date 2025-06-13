@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq2c2r7bxwclg"]
+
+[ext_resource type="Script" uid="uid://cvkrq521y6cgl" path="res://player.gd" id="1_xhfnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2dftf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bcbcq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js7pq"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_xhfnw")
+speed = 20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2dftf")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("CapsuleMesh_bcbcq")
+material = SubResource("StandardMaterial3D_js7pq")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]

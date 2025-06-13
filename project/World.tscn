@@ -1,0 +1,63 @@
+[gd_scene load_steps=16 format=3 uid="uid://cs6u7ruomaxi5"]
+
+[ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
+[ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
+[ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_js7pq"]
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="4_eu7l1"]
+[ext_resource type="Resource" uid="uid://or7ra5w1ycyv" path="res://addons/cellblock/resources/cell_registry_example_near.tres" id="5_p1v5b"]
+[ext_resource type="Resource" uid="uid://ca5rcb602gxwi" path="res://addons/cellblock/resources/cell_registry_example_far.tres" id="6_wygdx"]
+[ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="7_wygdx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_js7pq"]
+frequency = 0.0665
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eu7l1"]
+seamless = true
+noise = SubResource("FastNoiseLite_js7pq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1v5b"]
+albedo_color = Color(0.643137, 0.32549, 1, 1)
+albedo_texture = SubResource("NoiseTexture2D_eu7l1")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wygdx"]
+data = PackedVector3Array(-2500, -0.5, 2500, -2500, -0.5, -2500, -2500, 0.5, -2500, 2500, -0.5, -2500, -2500, -0.5, -2500, -2500, -0.5, 2500, -2500, 0.5, -2500, -2500, -0.5, -2500, 2500, -0.5, -2500, -2500, 0.5, -2500, -2500, 0.5, 2500, -2500, -0.5, 2500, -2500, -0.5, 2500, -2500, 0.5, 2500, 2500, 0.5, 2500, 2500, 0.5, 2500, -2500, 0.5, 2500, -2500, 0.5, -2500, -2500, -0.5, 2500, 2500, -0.5, 2500, 2500, -0.5, -2500, 2500, 0.5, 2500, 2500, -0.5, 2500, -2500, -0.5, 2500, 2500, -0.5, -2500, 2500, -0.5, 2500, 2500, 0.5, 2500, 2500, -0.5, -2500, 2500, 0.5, -2500, -2500, 0.5, -2500, -2500, 0.5, -2500, 2500, 0.5, -2500, 2500, 0.5, 2500, 2500, 0.5, 2500, 2500, 0.5, -2500, 2500, -0.5, -2500)
+
+[sub_resource type="Resource" id="Resource_bah7m"]
+script = ExtResource("7_wygdx")
+save_file_name = "user://savegame.save"
+metadata/_custom_type_script = "uid://bfffeg8o5htm1"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_js7pq"]
+
+[sub_resource type="Sky" id="Sky_eu7l1"]
+sky_material = SubResource("ProceduralSkyMaterial_js7pq")
+
+[sub_resource type="Environment" id="Environment_p1v5b"]
+sky = SubResource("Sky_eu7l1")
+ambient_light_source = 3
+
+[node name="World" type="StaticBody3D"]
+script = ExtResource("1_c6gwx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(5000, 1, 5000)
+material = SubResource("StandardMaterial3D_p1v5b")
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_wygdx")
+
+[node name="Player" parent="." instance=ExtResource("2_js7pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7599, 1.571, 0)
+speed = 40.0
+
+[node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
+cell_registries = Array[ExtResource("4_eu7l1")]([ExtResource("5_p1v5b"), ExtResource("6_wygdx")])
+cell_save = SubResource("Resource_bah7m")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p1v5b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.6264, 0.779502, 0, -0.779502, -0.6264, 0, 21.326, 0)
+
+[connection signal="editor_state_changed" from="CellAnchor" to="CellAnchor" method="_on_editor_state_changed"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cww4lnt7mtgb2"]
+
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_bqkaq"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_bqkaq"]
+[ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_h81e2"]
+
+[node name="middle" type="Node3D"]
+script = ExtResource("1_bqkaq")
+
+[node name="Statics" type="Node3D" parent="."]
+
+[node name="block" parent="Statics" instance=ExtResource("2_bqkaq")]
+transform = Transform3D(-0.470389, 2.89169, 0.645628, 2.66454e-15, 0.653714, -2.92791, -2.96289, -0.459086, -0.1025, 0, 41.2595, 0)
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="ball" parent="Objects" instance=ExtResource("3_h81e2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 1)
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="Spawners" type="Node3D" parent="."]

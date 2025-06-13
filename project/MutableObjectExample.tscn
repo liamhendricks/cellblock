@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhl8wnvosccbo"]
+
+[ext_resource type="Script" uid="uid://x1pkhw7yjo6v" path="res://mutable_object.gd" id="1_u6a0j"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u6a0j"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dvu1j"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_u6a0j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6a0j"]
+albedo_color = Color(1, 0.945098, 0.305882, 1)
+albedo_texture = SubResource("NoiseTexture2D_dvu1j")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u6a0j"]
+
+[node name="MutableObjectExample" type="RigidBody3D"]
+script = ExtResource("1_u6a0j")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+material = SubResource("StandardMaterial3D_u6a0j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_u6a0j")
