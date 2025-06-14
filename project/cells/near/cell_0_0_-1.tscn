@@ -11,6 +11,7 @@ script = ExtResource("1_pblcs")
 [node name="Statics" type="Node3D" parent="."]
 
 [node name="block" type="StaticBody3D" parent="Statics" instance=ExtResource("2_yqpqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.58443, 0)
 
 [node name="Objects" type="Node3D" parent="."]
 

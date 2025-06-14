@@ -99,7 +99,6 @@ func _on_load_pressed():
 		push_warning("cell already active at those coordinates")
 		return
 
-	print("path ", cell_to_load.scene_path)
 	var scene = load(cell_to_load.scene_path)
 	if scene:
 		var cell : Cell = scene.instantiate()
@@ -107,9 +106,9 @@ func _on_load_pressed():
 		var editing_cell = EditingCellData.new()
 		editing_cell.cell_data = cell_to_load
 		editing_cell.cell_ref = cell
-		active_cells.append(editing_cell)
 		editing_cell.active_cell_index = len(active_cells) - 1
 		editing_cell.registry_index = active_registry_index
+		active_cells.append(editing_cell)
 
 		var root = EditorInterface.get_edited_scene_root()
 		print("cell loaded at %v: %s, registry index: %d" % [cell_to_load.coordinates, cell_to_load.cell_name, active_registry_index])
@@ -137,20 +136,20 @@ func _on_create_pressed() -> void:
 	var cell_scene = load(anchor.cell_registries[active_registry_index].base_cell_scene_path)
 	var cell = cell_scene.instantiate()
 	var editing_cell = EditingCellData.new()
-	editing_cell.cell_data = cell_to_load
+	editing_cell.cell_data = cell_data
 	editing_cell.cell_ref = cell
-	active_cells.append(editing_cell)
 	editing_cell.active_cell_index = len(active_cells) - 1
 	editing_cell.registry_index = active_registry_index
 
 	var root = EditorInterface.get_edited_scene_root()
 	print("cell created at %v with name: %s, registry index: %d" % [coordinates, cell_data.cell_name, active_registry_index])
-	root.add_child(cell)
-	cell.name = cell_to_load.cell_name
-	cell.global_position = anchor.global_position
 
+	root.add_child(cell)
+	cell.global_position = anchor.global_position
+	_enable_cell_editing(cell, root)
+	cell.name = cell_data.cell_name
 	_save_active_cell(cell, cell_data, active_registry_index)
-	cell.owner = root
+	_update_active_cell_items()
 
 func _coordinates_updated(value : float, index : int):
 	match(index):
@@ -225,7 +224,6 @@ func _set_owner_recursive_safe(node: Node, owner: Node):
 
 	if node != owner:
 		node.owner = owner
-
 	for child in node.get_children():
 		if child is Node:
 			_set_owner_recursive_safe(child, owner)
@@ -258,6 +256,9 @@ func _on_scene_saved(scene: Node) -> void:
 			return
 
 func _pick_cell_to_load(index: int) -> void:
+	if index > (cell_options.item_count - 1):
+		return
+
 	var v: Vector3i = cell_options.get_item_metadata(index)
 	var cell_data := anchor.cell_registries[active_registry_index].cells[v]
 	cell_to_load = cell_data

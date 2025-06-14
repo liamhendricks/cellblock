@@ -2912,7 +2912,7 @@ Vector3i(5, 1, 4): SubResource("Resource_aeb70"),
 Vector3i(5, 1, 5): SubResource("Resource_xe2gh")
 })
 max_cache_size = 6
-load_strategy = 2
+load_strategy = 1
 grid_size = Vector3i(5000, 1000, 5000)
 cell_size = 500
 cell_directory = "res://cells/far/"

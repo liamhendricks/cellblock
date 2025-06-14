@@ -191,7 +191,7 @@ this kind of scenario) so this will likely get fixed in the future.
 
 ### Future Updates and Features
 
-- Create implementations of the rest of the `LoadStrategy` classes.
+- Add visible grid to editor tool with mouse snapping.
 - Gracefully handle editor cells that get saved during development.
 - When updating grid_size or cell_size, calculate new coordinates for cells based on new nearest cell.
 - Filtering / sorting active cell UI items.
