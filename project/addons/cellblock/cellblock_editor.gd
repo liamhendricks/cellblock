@@ -13,6 +13,7 @@ var active_cell_ui_item_scene = load("res://addons/cellblock/active_cell_ui_item
 var active_cells : Array[EditingCellData]
 var active_registry_index : int = 0
 var cell_to_load : CellData
+var create_cell_name : String
 var coordinates : Vector3i
 var anchor : CellAnchor
 var plugin : EditorPlugin
@@ -128,7 +129,9 @@ func _on_create_pressed() -> void:
 
 	var cell_data = CellData.new()
 	cell_data.coordinates = coordinates
-	cell_data.cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
+	if create_cell_name == "":
+		create_cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
+	cell_data.cell_name = create_cell_name
 	cell_data.scene_path = anchor.cell_registries[active_registry_index].cell_directory + cell_data.cell_name + ".tscn"
 	cell_data.world_position = anchor.global_position
 	anchor.cell_registries[active_registry_index].cells[coordinates] = cell_data
@@ -140,6 +143,7 @@ func _on_create_pressed() -> void:
 	editing_cell.cell_ref = cell
 	editing_cell.active_cell_index = len(active_cells) - 1
 	editing_cell.registry_index = active_registry_index
+	active_cells.append(editing_cell)
 
 	var root = EditorInterface.get_edited_scene_root()
 	print("cell created at %v with name: %s, registry index: %d" % [coordinates, cell_data.cell_name, active_registry_index])
@@ -192,6 +196,9 @@ func _update_active_cell_items():
 		cell_ui_item.configure(editing_cell.cell_data, editing_cell.registry_index, i, _on_save_pressed, _on_clear_pressed)
 
 func _update_cursor():
+	if anchor.cell_registries.size() == 0:
+		return
+
 	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
 
 func _update_cell_options():
@@ -269,3 +276,6 @@ func _check_cell_active(_coords : Vector3i) -> bool:
 			return true
 
 	return false
+
+func _on_cell_name_text_changed(new_text : String) -> void:
+	create_cell_name = new_text

@@ -241,6 +241,7 @@ size_flags_horizontal = 3
 text = "Clear All"
 
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry/RegistryOptions" to="." method="_registry_updated"]
+[connection signal="text_changed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName/LineEdit" to="." method="_on_cell_name_text_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CreateButton" to="." method="_on_create_pressed"]
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells/CellOptions" to="." method="_pick_cell_to_load"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/LoadButton" to="." method="_on_load_pressed"]

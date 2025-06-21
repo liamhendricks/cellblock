@@ -1277,13 +1277,6 @@ coordinates = Vector3i(0, 0, 0)
 world_position = Vector3(0, 0, 0)
 scene_path = "res://cells/near/middle.tscn"
 
-[sub_resource type="Resource" id="Resource_4m6q8"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_0_0_1"
-coordinates = Vector3i(0, 0, 1)
-world_position = Vector3(0, 0, 50)
-scene_path = "res://cells/near/cell_0_0_1.tscn"
-
 [sub_resource type="Resource" id="Resource_53njd"]
 script = ExtResource("2_h5nag")
 cell_name = "cell_0_0_2"
@@ -2543,6 +2536,13 @@ cell_name = "cell_5_1_5"
 coordinates = Vector3i(5, 1, 5)
 world_position = Vector3(250, 50, 250)
 scene_path = "res://cells/near/cell_5_1_5.tscn"
+
+[sub_resource type="Resource" id="Resource_4m6q8"]
+script = ExtResource("2_h5nag")
+cell_name = "my_new_cell"
+coordinates = Vector3i(0, 0, 1)
+world_position = Vector3(0, 0, 50)
+scene_path = "res://cells/near/my_new_cell.tscn"
 
 [resource]
 script = ExtResource("3_5jsnv")

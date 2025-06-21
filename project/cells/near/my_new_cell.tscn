@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkx5bt62xm1wf"]
+
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_gkdj7"]
+
+[node name="my_new_cell" type="Node3D"]
+script = ExtResource("1_gkdj7")
+
+[node name="Statics" type="Node3D" parent="."]
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Characters" type="Node3D" parent="."]
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="Spawners" type="Node3D" parent="."]
