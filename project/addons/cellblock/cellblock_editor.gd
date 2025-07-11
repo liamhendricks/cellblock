@@ -116,7 +116,6 @@ func _on_save_all_pressed():
 	_save_all()
 
 func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
-	print("saving active cell: %s" % _cell_data.cell_name)
 	_cell_data.world_position = _active_cell.global_position
 	var cell_size = anchor.cell_registries[_idx].cell_size
 	_cell_data.coordinates = world_to_cell_space(_active_cell.global_position, cell_size)

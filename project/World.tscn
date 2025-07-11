@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
 [ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_js7pq"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="4_eu7l1"]
-[ext_resource type="Resource" uid="uid://or7ra5w1ycyv" path="res://addons/cellblock/resources/cell_registry_example_near.tres" id="5_p1v5b"]
+[ext_resource type="Resource" path="res://addons/cellblock/resources/cell_registry_example_near.tres" id="5_p1v5b"]
 [ext_resource type="Resource" uid="uid://ca5rcb602gxwi" path="res://addons/cellblock/resources/cell_registry_example_far.tres" id="6_wygdx"]
 [ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="7_wygdx"]
 
