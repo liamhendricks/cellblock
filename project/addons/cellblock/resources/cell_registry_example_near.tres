@@ -1,63 +1,7 @@
-[gd_resource type="Resource" script_class="CellRegistry" load_steps=366 format=3 uid="uid://or7ra5w1ycyv"]
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=358 format=3 uid="uid://or7ra5w1ycyv"]
 
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_h5nag"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_5jsnv"]
-
-[sub_resource type="Resource" id="Resource_rvhwf"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_-5"
-coordinates = Vector3i(-5, -1, -5)
-world_position = Vector3(-250, -50, -250)
-scene_path = "res://cells/near/cell_-5_-1_-5.tscn"
-
-[sub_resource type="Resource" id="Resource_05xkj"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_-4"
-coordinates = Vector3i(-5, -1, -4)
-world_position = Vector3(-250, -50, -200)
-scene_path = "res://cells/near/cell_-5_-1_-4.tscn"
-
-[sub_resource type="Resource" id="Resource_h5nag"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_-3"
-coordinates = Vector3i(-5, -1, -3)
-world_position = Vector3(-250, -50, -150)
-scene_path = "res://cells/near/cell_-5_-1_-3.tscn"
-
-[sub_resource type="Resource" id="Resource_5jsnv"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_-2"
-coordinates = Vector3i(-5, -1, -2)
-world_position = Vector3(-250, -50, -100)
-scene_path = "res://cells/near/cell_-5_-1_-2.tscn"
-
-[sub_resource type="Resource" id="Resource_qf07m"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_-1"
-coordinates = Vector3i(-5, -1, -1)
-world_position = Vector3(-250, -50, -50)
-scene_path = "res://cells/near/cell_-5_-1_-1.tscn"
-
-[sub_resource type="Resource" id="Resource_267vs"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_0"
-coordinates = Vector3i(-5, -1, 0)
-world_position = Vector3(-250, -50, 0)
-scene_path = "res://cells/near/cell_-5_-1_0.tscn"
-
-[sub_resource type="Resource" id="Resource_e0lcm"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_1"
-coordinates = Vector3i(-5, -1, 1)
-world_position = Vector3(-250, -50, 50)
-scene_path = "res://cells/near/cell_-5_-1_1.tscn"
-
-[sub_resource type="Resource" id="Resource_pkimy"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_2"
-coordinates = Vector3i(-5, -1, 2)
-world_position = Vector3(-250, -50, 100)
-scene_path = "res://cells/near/cell_-5_-1_2.tscn"
 
 [sub_resource type="Resource" id="Resource_tcgen"]
 script = ExtResource("2_h5nag")
@@ -1276,6 +1220,13 @@ cell_name = "middle_near"
 coordinates = Vector3i(0, 0, 0)
 world_position = Vector3(0, 0, 0)
 scene_path = "res://cells/near/middle.tscn"
+
+[sub_resource type="Resource" id="Resource_4m6q8"]
+script = ExtResource("2_h5nag")
+cell_name = "my_new_cell"
+coordinates = Vector3i(0, 0, 1)
+world_position = Vector3(0, 0, 50)
+scene_path = "res://cells/near/my_new_cell.tscn"
 
 [sub_resource type="Resource" id="Resource_53njd"]
 script = ExtResource("2_h5nag")
@@ -2537,24 +2488,9 @@ coordinates = Vector3i(5, 1, 5)
 world_position = Vector3(250, 50, 250)
 scene_path = "res://cells/near/cell_5_1_5.tscn"
 
-[sub_resource type="Resource" id="Resource_4m6q8"]
-script = ExtResource("2_h5nag")
-cell_name = "my_new_cell"
-coordinates = Vector3i(0, 0, 1)
-world_position = Vector3(0, 0, 50)
-scene_path = "res://cells/near/my_new_cell.tscn"
-
 [resource]
 script = ExtResource("3_5jsnv")
 cells = Dictionary[Vector3i, ExtResource("2_h5nag")]({
-Vector3i(-5, -1, -5): SubResource("Resource_rvhwf"),
-Vector3i(-5, -1, -4): SubResource("Resource_05xkj"),
-Vector3i(-5, -1, -3): SubResource("Resource_h5nag"),
-Vector3i(-5, -1, -2): SubResource("Resource_5jsnv"),
-Vector3i(-5, -1, -1): SubResource("Resource_qf07m"),
-Vector3i(-5, -1, 0): SubResource("Resource_267vs"),
-Vector3i(-5, -1, 1): SubResource("Resource_e0lcm"),
-Vector3i(-5, -1, 2): SubResource("Resource_pkimy"),
 Vector3i(-5, -1, 3): SubResource("Resource_tcgen"),
 Vector3i(-5, -1, 4): SubResource("Resource_ga0l2"),
 Vector3i(-5, -1, 5): SubResource("Resource_k2aio"),

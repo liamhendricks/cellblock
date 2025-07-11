@@ -16,7 +16,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 		if cell == null:
 			continue
 
-		load_from(all_save_data, cell_data, _cell_registry.resource_path)
+		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
 		world.add_child(cell)
 		cell.name = cell_data.cell_name
 		cell.global_position = cell_data.world_position

@@ -112,7 +112,9 @@ func update_current_cell(_nearest : Vector3i) -> void:
 
 	if _nearest != current_cell_key:
 		var new_current : CellData = cell_registry.cells[_nearest]
-		var current_cell : CellData = cell_registry.cells[current_cell_key]
+		var current_cell : CellData = CellData.new()
+		if current_cell_key in cell_registry.cells:
+			current_cell = cell_registry.cells[current_cell_key]
 		current_cell_key = _nearest
 		enter_cell(current_cell, new_current)
 
@@ -186,4 +188,10 @@ func _on_cell_removed(_cell_data : CellData):
 	emit_signal("cell_removed", _cell_data)
 
 func on_exit():
+	nearest.clear()
+	to_add.clear()
+	to_remove.clear()
+	current_cell_key = Vector3.ZERO
+	current_cell_coords = Vector3.ZERO
+	search_coords = Vector3.ZERO
 	cell_loader.on_exit()

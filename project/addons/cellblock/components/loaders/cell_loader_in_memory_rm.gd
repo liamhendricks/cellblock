@@ -20,7 +20,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 		if cell == null:
 			continue
 
-		load_from(all_save_data, cell_data, _cell_registry.resource_path)
+		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
 
 		cells[cell_data.coordinates] = cell
 
@@ -61,4 +61,5 @@ func on_exit():
 
 	for k in cells.keys():
 		var cell = cells[k]
-		cell.queue_free()
+		if is_instance_valid(cell):
+			cell.queue_free()

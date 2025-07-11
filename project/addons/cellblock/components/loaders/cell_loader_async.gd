@@ -20,6 +20,22 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 
+func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
+	var key = "%v" % _cell_data.coordinates
+	if _resource_path not in _all_save_data:
+		_cell_data.save_data = {}
+	else:
+		var save_data = _all_save_data[_resource_path]
+		if key in save_data:
+			_cell_data.save_data = save_data[key]
+		else:
+			_cell_data.save_data = {}
+
+	# if we didn't have any previously saved data, we can try to load it directly from the cell
+	# likely this is a first load scenario
+	if len(_cell_data.save_data.keys()) == 0:
+		_cell_data.save_data = _cell.save_cell(key)
+
 func add(_cell_data : CellData):
 	if _cell_data.coordinates in active_cells:
 		return
@@ -66,7 +82,7 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 	active_cells[_cell_data.coordinates] = _cell
 	world.add_child(_cell)
 	_cell.global_position = _cell_data.world_position
-	load_from(all_save_data, _cell_data, cell_registry.resource_path)
+	load_from(_cell, all_save_data, _cell_data, cell_registry.resource_path)
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 

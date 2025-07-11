@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bolhal1a0dnwg"]
+[gd_scene load_steps=4 format=3 uid="uid://bolhal1a0dnwg"]
 
 [ext_resource type="Script" uid="uid://dy422ha6gotu3" path="res://addons/cellblock/cellblock_editor.gd" id="1_imwrm"]
 
@@ -8,6 +8,18 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qn7ru"]
+bg_color = Color(0.226707, 0.226708, 0.226707, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="CellblockEditor" type="Control"]
 layout_mode = 3
@@ -175,6 +187,36 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Load"
 
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Load all in Radius around Coordinates"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Radius"
+
+[node name="Radius" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 3.0
+value = 1.0
+
+[node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Load"
+
 [node name="Panel2" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -240,10 +282,73 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Clear All"
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="DeleteCellPopup" type="Panel" parent="PanelContainer/MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qn7ru")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DeleteCellLabel" type="Label" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Delete Cell:"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Warning! You are about to delete your cell. This will permanently delete the scene itself in your file system, the record inside the cell_registry, and the cell in your editor right now. "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DeleteCellButton" type="Button" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "Permanently Delete Cell"
+
+[node name="Cancel" type="Button" parent="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "Cancel"
+
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry/RegistryOptions" to="." method="_registry_updated"]
 [connection signal="text_changed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName/LineEdit" to="." method="_on_cell_name_text_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CreateButton" to="." method="_on_create_pressed"]
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells/CellOptions" to="." method="_pick_cell_to_load"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/LoadButton" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer/LoadButton" to="." method="_on_radius_load_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer/SaveAll" to="." method="_on_save_all_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer/ClearAll" to="." method="_on_clear_all_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer/DeleteCellButton" to="." method="_delete_cell"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
