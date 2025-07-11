@@ -26,3 +26,8 @@ text = "Save"
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Clear"
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Delete"

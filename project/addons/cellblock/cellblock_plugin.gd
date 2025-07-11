@@ -33,7 +33,7 @@ func _edit(object):
 		dock.visible = true
 		dock.anchor = object
 		dock.init()
-		dock._update_cursor()
+		dock.on_update()
 	else:
 		dock.visible = false
 

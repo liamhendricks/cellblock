@@ -55,6 +55,8 @@ func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 
 func stop() -> void:
 	set_process(false)
+	for proc in cell_processors:
+		proc.on_exit()
 
 func _process(_delta) -> void:
 	if origin_object == null:
@@ -88,5 +90,3 @@ func save_cells():
 
 func _on_anchor_exited():
 	stop()
-	for p in cell_processors:
-		p.on_exit()

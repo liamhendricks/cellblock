@@ -23,12 +23,12 @@ func add(cell_data : CellData):
 func remove(cell_data : CellData):
 	pass
 
-func load_from(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
+func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
+	var key = "%v" % _cell_data.coordinates
 	if _resource_path not in _all_save_data:
 		_cell_data.save_data = {}
 	else:
 		var save_data = _all_save_data[_resource_path]
-		var key = "%v" % _cell_data.coordinates
 		if key in save_data:
 			_cell_data.save_data = save_data[key]
 		else:
@@ -53,6 +53,7 @@ func on_exit():
 			cell.queue_free()
 
 	active_cells.clear()
+	world = null
 
 func get_active_cells() -> Dictionary[Vector3i, Cell]:
 	return active_cells
