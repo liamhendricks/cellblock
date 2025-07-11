@@ -1,14 +1,7 @@
-[gd_resource type="Resource" script_class="CellRegistry" load_steps=359 format=3 uid="uid://or7ra5w1ycyv"]
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=358 format=3 uid="uid://or7ra5w1ycyv"]
 
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_h5nag"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_5jsnv"]
-
-[sub_resource type="Resource" id="Resource_pkimy"]
-script = ExtResource("2_h5nag")
-cell_name = "cell_-5_-1_2"
-coordinates = Vector3i(-5, -1, 2)
-world_position = Vector3(-250, -50, 100)
-scene_path = "res://cells/near/cell_-5_-1_2.tscn"
 
 [sub_resource type="Resource" id="Resource_tcgen"]
 script = ExtResource("2_h5nag")
@@ -2498,7 +2491,6 @@ scene_path = "res://cells/near/cell_5_1_5.tscn"
 [resource]
 script = ExtResource("3_5jsnv")
 cells = Dictionary[Vector3i, ExtResource("2_h5nag")]({
-Vector3i(-5, -1, 2): SubResource("Resource_pkimy"),
 Vector3i(-5, -1, 3): SubResource("Resource_tcgen"),
 Vector3i(-5, -1, 4): SubResource("Resource_ga0l2"),
 Vector3i(-5, -1, 5): SubResource("Resource_k2aio"),

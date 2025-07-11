@@ -98,7 +98,6 @@ func _delete_cell():
 	var root = EditorInterface.get_edited_scene_root()
 	var active_cell = to_delete.cell_ref
 	active_cell.queue_free()
-	print(to_delete.active_cell_index)
 	active_cells.remove_at(to_delete.active_cell_index)
 
 	EditorInterface.get_resource_filesystem().scan()
@@ -117,7 +116,7 @@ func _on_save_all_pressed():
 	_save_all()
 
 func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
-	print("saving active cell: %s" % _active_cell.cell_data.cell_name)
+	print("saving active cell: %s" % _cell_data.cell_name)
 	_cell_data.world_position = _active_cell.global_position
 	var cell_size = anchor.cell_registries[_idx].cell_size
 	_cell_data.coordinates = world_to_cell_space(_active_cell.global_position, cell_size)
@@ -215,9 +214,9 @@ func _on_create_pressed() -> void:
 	var editing_cell = EditingCellData.new()
 	editing_cell.cell_data = cell_data
 	editing_cell.cell_ref = cell
-	editing_cell.active_cell_index = len(active_cells) - 1
 	editing_cell.registry_index = active_registry_index
 	active_cells.append(editing_cell)
+	editing_cell.active_cell_index = len(active_cells) - 1
 
 	var root = EditorInterface.get_edited_scene_root()
 	print("cell created at %v with name: %s, registry index: %d" % [coordinates, cell_data.cell_name, active_registry_index])
