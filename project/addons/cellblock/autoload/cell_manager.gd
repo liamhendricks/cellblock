@@ -1,7 +1,5 @@
 extends Node
 
-signal cell_manager_started()
-
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
 
@@ -43,19 +41,21 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 		add_child(loader)
 		loader.configure(registry, cell_save)
-		processor.initial_load_complete.connect(_on_processor_up_to_date)
 		count += 1
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
 	set_process(true)
 
+	#load everything
+	for proc in cell_processors:
+		proc.work_all_cells(origin_object)
+
 func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	match(_registry.load_strategy):
 		CellRegistry.LOAD_STRATEGY.IN_MEMORY_VISUAL: return CellLoaderInMemoryVisual.new(_world, _registry.max_cache_size)
 		CellRegistry.LOAD_STRATEGY.IN_MEMORY_REMOVE: return CellLoaderInMemoryRemove.new(_world, _registry.max_cache_size)
 		CellRegistry.LOAD_STRATEGY.ASYNC_LOAD: return CellLoaderAsync.new(_world, _registry.max_cache_size)
-		
 	return null
 
 func stop() -> void:
@@ -68,6 +68,9 @@ func stop() -> void:
 	cell_processors.clear()
 
 func _process(_delta) -> void:
+	work()
+
+func work():
 	if origin_object == null:
 		return
 
@@ -96,18 +99,6 @@ func save_cells():
 		save_data.merge(p.get_cell_save_data())
 
 	cell_save.write_save(save_data)
-
-func _on_processor_up_to_date(proc : CellProcessor):
-	if loaded:
-		return
-
-	if proc.loaded:
-		procs_loaded[proc.proc_name] = true
-
-	if len(procs_loaded.keys()) == len(cell_processors):
-		loaded = true
-		procs_loaded.clear()
-		emit_signal("cell_manager_started")
 
 func _on_anchor_exited():
 	pass

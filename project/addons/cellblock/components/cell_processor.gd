@@ -9,7 +9,6 @@ signal reparented_node(old_cell : CellData, new_cell : CellData, node_name : Str
 
 signal cell_added(cell_data : CellData)
 signal cell_removed(cell_data : CellData)
-signal initial_load_complete(cell_processor : CellProcessor)
 
 var proc_name : String = ""
 var cell_registry : CellRegistry
@@ -39,8 +38,23 @@ func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : Str
 	loaded = false
 	done_processing = false
 
+func work_all_cells(origin_object : Node3D):
+	current_cell_coords = CellManager.world_to_cell_space(origin_object.global_position, cell_registry.cell_size)
+	search_coords = current_cell_coords + radius
+
+	get_nearest(cell_registry.radius, false)
+	enqueue(cell_loader.active_cells.keys(), nearest)
+	nearest.clear()
+
+	for k in to_add.keys():
+		var cell_data : CellData = cell_registry.cells[k]
+		cell_loader.add(cell_data)
+
+	search_coords = current_cell_coords + radius
+	update_current_cell(current_cell_coords)
+
 func _work(origin_object : Node3D):
-	get_nearest(cell_registry.radius)
+	get_nearest(cell_registry.radius, true)
 
 	if done_processing:
 		enqueue(cell_loader.active_cells.keys(), nearest)
@@ -55,7 +69,7 @@ func _work(origin_object : Node3D):
 	update_current_cell(current_cell_coords)
 
 # work through the entire radius search over the course of a few frames
-func get_nearest(_radius : int = 2) -> void:
+func get_nearest(_radius : int = 2, limit : bool = true) -> void:
 	done_processing = false
 	var count := 0
 	var min := (current_cell_coords + radius)
@@ -66,16 +80,18 @@ func get_nearest(_radius : int = 2) -> void:
 			while search_coords.z < max + current_cell_coords.z:
 				if search_coords in cell_registry.cells:
 					nearest.append(search_coords)
+
 				search_coords.z += 1
 				count += 1
 
-				if count >= iterations_per_frame:
+				if limit && count >= iterations_per_frame:
 					return
 
 			search_coords.z = min.z
 			search_coords.y += 1
 		search_coords.y = min.y
 		search_coords.x += 1
+
 		if search_coords.x >= max + current_cell_coords.x:
 			done_processing = true
 
@@ -188,21 +204,11 @@ func get_cell_save_data() -> Dictionary:
 
 func _on_cell_added(_cell_data : CellData):
 	to_add.erase(_cell_data.coordinates)
-	_check_initial_load_complete()
 	emit_signal("cell_added", _cell_data)
 
 func _on_cell_removed(_cell_data : CellData):
 	to_remove.erase(_cell_data.coordinates)
-	_check_initial_load_complete()
 	emit_signal("cell_removed", _cell_data)
-
-func _check_initial_load_complete():
-	if loaded:
-		return
-
-	if to_add.is_empty() and to_remove.is_empty():
-		loaded = true
-		emit_signal("initial_load_complete", self)
 
 func on_exit():
 	cell_loader.on_exit()

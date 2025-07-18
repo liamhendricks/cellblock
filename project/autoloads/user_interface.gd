@@ -21,7 +21,6 @@ func _on_pause_button_pressed() -> void:
 
 func _ready():
 	set_process(false)
-	CellManager.cell_manager_started.connect(_on_manager_start)
 
 func _on_manager_start():
 	for k in CellManager.cell_processors.size():
