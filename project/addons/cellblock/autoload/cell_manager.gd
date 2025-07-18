@@ -8,8 +8,11 @@ var origin_object : Node3D = null
 var current_processor_index : int = 0
 var cell_save : CellSave
 var cell_processors : Array[CellProcessor]
+var procs_loaded : Dictionary
+var loaded : bool = false
 
 func _ready() -> void:
+	loaded = false
 	set_process(false)
 
 func set_origin_object(_origin_object : Node3D) -> void:
@@ -26,9 +29,10 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 	cell_save = _anchor.cell_save
 
+	var count = 0
 	for registry in cell_registries:
 		var loader = _get_loader(_world, registry)
-		var processor = CellProcessor.new(registry, loader)
+		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
 		if  registry == null || origin_object == null || loader == null:
 			push_error("cell_manager not started correctly, please review the docs if any below are null")
@@ -39,11 +43,12 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 		add_child(loader)
 		loader.configure(registry, cell_save)
+		processor.initial_load_complete.connect(_on_processor_up_to_date)
+		count += 1
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
 	set_process(true)
-	emit_signal("cell_manager_started")
 
 func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	match(_registry.load_strategy):
@@ -54,9 +59,13 @@ func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	return null
 
 func stop() -> void:
+	loaded = false
 	set_process(false)
 	for proc in cell_processors:
 		proc.on_exit()
+		proc.cell_loader.queue_free()
+
+	cell_processors.clear()
 
 func _process(_delta) -> void:
 	if origin_object == null:
@@ -88,5 +97,17 @@ func save_cells():
 
 	cell_save.write_save(save_data)
 
+func _on_processor_up_to_date(proc : CellProcessor):
+	if loaded:
+		return
+
+	if proc.loaded:
+		procs_loaded[proc.proc_name] = true
+
+	if len(procs_loaded.keys()) == len(cell_processors):
+		loaded = true
+		procs_loaded.clear()
+		emit_signal("cell_manager_started")
+
 func _on_anchor_exited():
-	stop()
+	pass

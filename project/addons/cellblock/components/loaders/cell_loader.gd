@@ -53,7 +53,6 @@ func on_exit():
 			cell.queue_free()
 
 	active_cells.clear()
-	world = null
 
 func get_active_cells() -> Dictionary[Vector3i, Cell]:
 	return active_cells

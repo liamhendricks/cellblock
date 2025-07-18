@@ -9,7 +9,9 @@ signal reparented_node(old_cell : CellData, new_cell : CellData, node_name : Str
 
 signal cell_added(cell_data : CellData)
 signal cell_removed(cell_data : CellData)
+signal initial_load_complete(cell_processor : CellProcessor)
 
+var proc_name : String = ""
 var cell_registry : CellRegistry
 var cell_loader : CellLoader
 var nearest : Array[Vector3i]
@@ -20,18 +22,22 @@ var current_cell_coords : Vector3i = Vector3.ZERO
 var search_coords : Vector3i = Vector3.ZERO
 var iterations_per_frame := 10
 var done_processing : bool = false
+var loaded : bool = false
 
 var count : int = 0
 
 var to_add : Dictionary[Vector3i, bool] = {}
 var to_remove : Dictionary[Vector3i, bool] = {}
 
-func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader) -> void:
+func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : String) -> void:
+	proc_name = _name
 	cell_registry = _cell_registry
 	cell_loader = _cell_loader
 	cell_loader.cell_removed.connect(_on_cell_removed)
 	cell_loader.cell_added.connect(_on_cell_added)
 	radius = Vector3i(-cell_registry.radius, -cell_registry.radius, -cell_registry.radius)
+	loaded = false
+	done_processing = false
 
 func _work(origin_object : Node3D):
 	get_nearest(cell_registry.radius)
@@ -45,6 +51,7 @@ func _work(origin_object : Node3D):
 
 	dequeue_active()
 	dequeue_inactive()
+
 	update_current_cell(current_cell_coords)
 
 # work through the entire radius search over the course of a few frames
@@ -181,17 +188,21 @@ func get_cell_save_data() -> Dictionary:
 
 func _on_cell_added(_cell_data : CellData):
 	to_add.erase(_cell_data.coordinates)
+	_check_initial_load_complete()
 	emit_signal("cell_added", _cell_data)
 
 func _on_cell_removed(_cell_data : CellData):
 	to_remove.erase(_cell_data.coordinates)
+	_check_initial_load_complete()
 	emit_signal("cell_removed", _cell_data)
 
+func _check_initial_load_complete():
+	if loaded:
+		return
+
+	if to_add.is_empty() and to_remove.is_empty():
+		loaded = true
+		emit_signal("initial_load_complete", self)
+
 func on_exit():
-	nearest.clear()
-	to_add.clear()
-	to_remove.clear()
-	current_cell_key = Vector3.ZERO
-	current_cell_coords = Vector3.ZERO
-	search_coords = Vector3.ZERO
 	cell_loader.on_exit()

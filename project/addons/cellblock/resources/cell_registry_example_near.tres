@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CellRegistry" load_steps=358 format=3 uid="uid://or7ra5w1ycyv"]
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=358 format=3 uid="uid://q4dwrypexwwa"]
 
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_h5nag"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_5jsnv"]
@@ -2848,7 +2848,7 @@ Vector3i(5, 1, 4): SubResource("Resource_yp041"),
 Vector3i(5, 1, 5): SubResource("Resource_v1dxj")
 })
 max_cache_size = 25
-load_strategy = 1
+load_strategy = 2
 grid_size = Vector3i(500, 100, 500)
 cell_size = 50
 cell_directory = "res://cells/near/"
