@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhof7kee88n1i"]
+[gd_scene load_steps=5 format=3 uid="uid://bhof7kee88n1i"]
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_ljouk"]
 [ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_ljouk"]
 [ext_resource type="PackedScene" uid="uid://dhl8wnvosccbo" path="res://MutableObjectExample.tscn" id="3_1k8fp"]
+[ext_resource type="PackedScene" uid="uid://yvk66kqc4ijr" path="res://monkey.glb" id="3_ljouk"]
 
 [node name="Cell" type="Node3D"]
 script = ExtResource("1_ljouk")
@@ -11,6 +12,15 @@ script = ExtResource("1_ljouk")
 
 [node name="block" parent="Statics" instance=ExtResource("2_ljouk")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="block2" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -107.764, 0, 157.847)
+
+[node name="block3" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -107.764, 0, -7.60339)
+
+[node name="block4" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 171.994, 0, -7.60339)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Statics"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.45001, 21.9713, 0)
@@ -263,6 +273,53 @@ light_color = Color(0.757386, 0.648684, 0.302771, 1)
 light_energy = 3.0
 distance_fade_enabled = true
 omni_range = 20.0
+
+[node name="StaticObjectExample2" parent="Statics" instance=ExtResource("2_ljouk")]
+
+[node name="StaticObjectExample3" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -116.1)
+
+[node name="StaticObjectExample4" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.732, 0, -116.1)
+
+[node name="StaticObjectExample5" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.732, 0, -227.661)
+
+[node name="StaticObjectExample6" parent="Statics" instance=ExtResource("2_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5317, 0, -227.661)
+
+[node name="monkey" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.7119, 71.2913, 0)
+
+[node name="monkey2" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.7119, 71.2913, -51.88)
+
+[node name="monkey3" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7261, 71.2913, -51.88)
+
+[node name="monkey4" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.74716, 71.2913, -51.88)
+
+[node name="monkey5" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.3698, 71.2913, -51.88)
+
+[node name="monkey6" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.9685, 71.2913, -51.88)
+
+[node name="monkey7" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.9685, 71.2913, -16.6595)
+
+[node name="monkey8" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.2469, 71.2913, -16.6595)
+
+[node name="monkey9" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.2469, 71.2913, 40.8169)
+
+[node name="monkey10" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.2469, 301.525, 40.8169)
+
+[node name="monkey11" parent="Statics" instance=ExtResource("3_ljouk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.2469, 301.525, 40.8169)
 
 [node name="Objects" type="Node3D" parent="."]
 

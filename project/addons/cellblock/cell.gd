@@ -7,6 +7,15 @@ var cell_data : CellData
 @onready var objects = $Objects
 @onready var characters = $Characters
 
+func _enter_tree() -> void:
+	visible = false
+
+func _ready():
+	call_deferred("set_visible", true)
+
+func _process(delta : float) -> void:
+	pass
+
 # check mutable object positions for movement to different cells
 func get_mutable() -> Dictionary:
 	var mutable = {
