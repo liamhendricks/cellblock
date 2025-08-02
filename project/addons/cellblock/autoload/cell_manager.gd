@@ -1,5 +1,7 @@
 extends Node
 
+signal manager_started()
+
 # this is the node to do distance checks from, normally the player, or a camera
 var origin_object : Node3D = null
 
@@ -46,6 +48,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
 	set_process(true)
+	emit_signal("manager_started")
 
 	#load everything
 	for proc in cell_processors:
