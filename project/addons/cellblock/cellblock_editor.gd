@@ -329,6 +329,9 @@ func _clear(_cell_idx : int):
 
 func _clear_all():
 	var root = EditorInterface.get_edited_scene_root()
+	if !root:
+		return
+
 	for editing_cell in active_cells:
 		var active_cell = editing_cell.cell_ref
 		print("clearing cell ", active_cell.name)

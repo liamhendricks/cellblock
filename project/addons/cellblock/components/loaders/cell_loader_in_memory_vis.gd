@@ -39,7 +39,7 @@ func add(cell_data : CellData):
 	cell.visible = true
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 
-	emit_signal("cell_added", cell_data)
+	emit_signal("cell_added", cell_data, cell)
 
 func remove(cell_data : CellData):
 	if cell_data.coordinates not in active_cells:
@@ -50,7 +50,7 @@ func remove(cell_data : CellData):
 	cell.visible = false
 	active_cells.erase(cell_data.coordinates)
 
-	emit_signal("cell_removed", cell_data)
+	emit_signal("cell_removed", cell_data, cell)
 
 func on_exit():
 	super()

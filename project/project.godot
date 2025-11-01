@@ -12,7 +12,7 @@ config_version=5
 
 config/name="CellBlock Example"
 run/main_scene="uid://cs6u7ruomaxi5"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,6 +22,7 @@ UserInterface="*res://autoloads/UserInterface.tscn"
 
 [display]
 
+window/size/mode=3
 window/size/resizable=false
 
 [editor_plugins]

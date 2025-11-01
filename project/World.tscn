@@ -12,8 +12,8 @@
 frequency = 0.0665
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eu7l1"]
-seamless = true
 noise = SubResource("FastNoiseLite_js7pq")
+seamless = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1v5b"]
 albedo_color = Color(0.643137, 0.32549, 1, 1)
@@ -24,7 +24,6 @@ data = PackedVector3Array(-2500, -0.5, 2500, -2500, -0.5, -2500, -2500, 0.5, -25
 
 [sub_resource type="Resource" id="Resource_bah7m"]
 script = ExtResource("7_wygdx")
-save_file_name = "user://savegame.save"
 metadata/_custom_type_script = "uid://bfffeg8o5htm1"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_js7pq"]

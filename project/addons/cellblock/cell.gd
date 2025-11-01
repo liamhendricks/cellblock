@@ -9,12 +9,10 @@ var cell_data : CellData
 
 func _enter_tree() -> void:
 	visible = false
+	request_ready()
 
 func _ready():
 	call_deferred("set_visible", true)
-
-func _process(delta : float) -> void:
-	pass
 
 # check mutable object positions for movement to different cells
 func get_mutable() -> Dictionary:
@@ -36,6 +34,9 @@ func add_mutable(_node : Node3D, _key : String, _pos : Vector3):
 			characters.add_child(_node)
 			_node.owner = characters
 			_node.global_position = _pos
+
+func should_dequeue(mutable : Dictionary) -> bool:
+	return true
 
 # construct a keyed save dictionary of all mutable cell children
 func save_cell(_key : String) -> Dictionary:

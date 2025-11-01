@@ -1,8 +1,8 @@
 class_name CellLoader
 extends Node
 
-signal cell_added(cell_data : CellData)
-signal cell_removed(cell_data : CellData)
+signal cell_added(cell_data : CellData, cell : Cell)
+signal cell_removed(cell_data : CellData, cell : Cell)
 
 var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]

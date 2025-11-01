@@ -64,7 +64,7 @@ func remove(_cell_data : CellData):
 	if !cell_cache.exists(_cell_data.coordinates):
 		cell_cache.add(_cell_data.coordinates, cell)
 
-	emit_signal("cell_removed", _cell_data)
+	emit_signal("cell_removed", _cell_data, cell)
 
 func _deferred_load(_cell_data : CellData):
 	var res = ResourceLoader.load_threaded_request(_cell_data.scene_path)
@@ -80,14 +80,19 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 	_cell.cell_data = _cell_data
 
 	active_cells[_cell_data.coordinates] = _cell
+	var time_start = Time.get_ticks_msec()
 	world.add_child(_cell)
+	var time_after_add = Time.get_ticks_msec()
+	print("load cell %s took %d milliseconds" % [_cell_data.cell_name, time_after_add - time_start])
 	_cell.global_position = _cell_data.world_position
 	load_from(_cell, all_save_data, _cell_data, cell_registry.resource_path)
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 
 	pending_scenes.erase(_cell_data.coordinates)
-	emit_signal("cell_added", _cell_data)
+	var time_end = Time.get_ticks_msec()
+	print("done configuring cell %s took %d milliseconds" % [_cell_data.cell_name, time_end - time_after_add])
+	emit_signal("cell_added", _cell_data, _cell)
 
 func _process(_delta):
 	for k in pending_scenes.keys():

@@ -14,12 +14,14 @@ var loaded : bool = false
 func _ready() -> void:
 	loaded = false
 	set_process(false)
+	current_processor_index = 0
 
 func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
 
 # entrypoint to start the cell_manager
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
+	current_processor_index = 0
 	origin_object = _origin_object
 	var cell_registries = _anchor.cell_registries
 
@@ -74,7 +76,7 @@ func _process(_delta) -> void:
 	work()
 
 func work():
-	if origin_object == null:
+	if origin_object == null || len(cell_processors) == 0:
 		return
 
 	cell_processors[current_processor_index]._work(origin_object)

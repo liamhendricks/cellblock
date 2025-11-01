@@ -26,4 +26,4 @@ enum LOAD_STRATEGY {
 @export var cell_size : int = 10
 @export var cell_directory : String = "res://cells/"
 @export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"
-@export_range(1, 3) var radius : int = 2
+@export var default_distance : float = 200.0
