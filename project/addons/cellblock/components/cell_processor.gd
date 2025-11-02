@@ -80,7 +80,7 @@ func try_reparent_mutable(_cell : Cell, _key : Vector3i):
 	if len(_mutable_data.keys()) == 0:
 		return
 
-	var cell_data := cell_registry.cells[_key]
+	var cell_data = cell_registry.cells[_key]
 	for k in _mutable_data.keys():
 		for object in _mutable_data[k]:
 			# if the object clamps to a new cell that exists, parent it there
@@ -94,8 +94,8 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	if _to not in cell_registry.cells:
 		return
 
-	var old := cell_registry.cells[_from]
-	var new := cell_registry.cells[_to]
+	var old = cell_registry.cells[_from]
+	var new = cell_registry.cells[_to]
 
 	var tmp_pos = _node.global_position
 	var resave = _node.on_save()
@@ -124,7 +124,7 @@ func get_cell_save_data() -> Dictionary:
 	count += 1
 	save_data[cell_registry.resource_path] = {}
 	for k in cell_registry.cells.keys():
-		var cell_data := cell_registry.cells[k]
+		var cell_data = cell_registry.cells[k]
 		var key = "%v" % k
 		save_data[cell_registry.resource_path][key] = cell_data.save_data
 

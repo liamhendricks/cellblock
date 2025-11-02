@@ -45,11 +45,15 @@ func init():
 	registry_options.clear()
 	if anchor != null && len(anchor.cell_registries) > 0:
 		for registry in anchor.cell_registries:
+			print(registry.resource_path)
 			registry_options.add_item(registry.resource_path)
 
 		registry_options.selected = 0
 
 func on_update():
+	if len(anchor.cell_registries) == 0:
+		return
+
 	coordinates = Vector3i(x.value, y.value, z.value)
 	_update_cell_options()
 	_update_cursor()
@@ -91,7 +95,7 @@ func _delete_cell():
 			return
 
 	# delete cell_data from registry
-	anchor.cell_registries[to_delete.registry_index].cells.erase(to_delete.cell_data.coordinates)
+	anchor.cell_registries[to_delete.registry_index].cell_data.erase(to_delete.cell_data)
 	ResourceSaver.save(anchor.cell_registries[to_delete.registry_index])
 
 	# delete cell in the editor
@@ -178,9 +182,10 @@ func _load_cell():
 	on_update()
 
 func _on_create_pressed() -> void:
-	if coordinates in anchor.cell_registries[active_registry_index].cells:
-		push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
-		return
+	for cd : CellData in anchor.cell_registries[active_registry_index].cell_data:
+		if cd.coordinates == coordinates:
+			push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
+			return
 
 	var cell_data = CellData.new()
 	cell_data.coordinates = coordinates
@@ -195,7 +200,7 @@ func _on_create_pressed() -> void:
 
 	cell_data.scene_path = dir + cell_data.cell_name + ".tscn"
 	cell_data.world_position = anchor.global_position
-	anchor.cell_registries[active_registry_index].cells[coordinates] = cell_data
+	anchor.cell_registries[active_registry_index].cell_data.append(cell_data)
 
 	var path = anchor.cell_registries[active_registry_index].base_cell_scene_path
 
@@ -227,17 +232,9 @@ func _on_create_pressed() -> void:
 	_save_active_cell(cell, cell_data, active_registry_index)
 	on_update()
 
+#TODO
 func _on_radius_load_pressed():
-	var rad = radius_load.value
-	for x in range(-rad, rad + 1):
-		for y in range(-rad, rad + 1):
-			for z in range(-rad, rad + 1):
-				var coords : Vector3i = Vector3i(x, y, z)
-				if coords not in anchor.cell_registries[active_registry_index].cells:
-					continue
-				var cell_data := anchor.cell_registries[active_registry_index].cells[coords]
-				cell_to_load = cell_data
-				_load_cell()
+	pass
 
 func _coordinates_updated(value : float, index : int):
 	match(index):
@@ -284,12 +281,14 @@ func _update_cursor():
 	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
 
 func _update_cell_options():
+	if len(anchor.cell_registries) == 0:
+		return
+
 	cell_options.clear()
 
-	for key in anchor.cell_registries[active_registry_index].cells.keys():
-		var cell_data := anchor.cell_registries[active_registry_index].cells[key]
+	for cell_data : CellData in anchor.cell_registries[active_registry_index].cell_data:
 		cell_options.add_item(cell_data.cell_name)
-		cell_options.set_item_metadata(cell_options.item_count - 1, key)
+		cell_options.set_item_metadata(cell_options.item_count - 1, cell_data.coordinates)
 
 func _on_clear_pressed(item : ActiveCellUiItem) -> void:
 	_clear(item.cell_index)
@@ -352,8 +351,10 @@ func _pick_cell_to_load(index: int) -> void:
 		return
 
 	var v: Vector3i = cell_options.get_item_metadata(index)
-	var cell_data := anchor.cell_registries[active_registry_index].cells[v]
-	cell_to_load = cell_data
+	for cd : CellData in anchor.cell_registries[active_registry_index].cell_data:
+		if cd.coordinates == v:
+			cell_to_load = cd
+			return
 
 func _check_cell_active(_coords : Vector3i) -> bool:
 	for editing_cell in active_cells:

@@ -19,11 +19,17 @@ enum LOAD_STRATEGY {
 	ASYNC_LOAD,
 }
 
-@export var cells : Dictionary[Vector3i, CellData]
+var cells : Dictionary
+@export var cell_data : Array
 @export_range(0, 25) var max_cache_size : int = 5
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
-@export var grid_size : Vector3i = Vector3i(100, 100, 100)
+@export var grid_size : Vector3i = Vector3i(512, 128, 512)
 @export var cell_size : int = 10
 @export var cell_directory : String = "res://cells/"
 @export var base_cell_scene_path : String = "res://addons/cellblock/cell.tscn"
 @export var default_distance : float = 200.0
+
+func build_cells():
+	cells.clear()
+	for cd in cell_data:
+		cells[cd.coordinates] = cd

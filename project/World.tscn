@@ -1,11 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cs6u7ruomaxi5"]
+[gd_scene load_steps=13 format=3 uid="uid://cs6u7ruomaxi5"]
 
 [ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
 [ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
 [ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_js7pq"]
-[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="4_eu7l1"]
-[ext_resource type="Resource" uid="uid://q4dwrypexwwa" path="res://addons/cellblock/resources/cell_registry_example_near.tres" id="5_p1v5b"]
-[ext_resource type="Resource" uid="uid://ca5rcb602gxwi" path="res://addons/cellblock/resources/cell_registry_example_far.tres" id="6_wygdx"]
 [ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="7_wygdx"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_js7pq"]
@@ -50,7 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7599, 1.571, 0)
 speed = 40.0
 
 [node name="CellAnchor" parent="." instance=ExtResource("2_2dftf")]
-cell_registries = Array[ExtResource("4_eu7l1")]([ExtResource("5_p1v5b"), ExtResource("6_wygdx")])
 cell_save = SubResource("Resource_bah7m")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

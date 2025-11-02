@@ -32,7 +32,8 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	cell_save = _anchor.cell_save
 
 	var count = 0
-	for registry in cell_registries:
+	for registry : CellRegistry in cell_registries:
+		registry.build_cells()
 		var loader = _get_loader(_world, registry)
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)

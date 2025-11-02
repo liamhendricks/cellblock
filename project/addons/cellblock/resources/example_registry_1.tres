@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CellRegistry" load_steps=2 format=3 uid="uid://cpyse30miof2y"]
+
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="1_f62nn"]
+
+[resource]
+script = ExtResource("1_f62nn")
+load_strategy = 2
+grid_size = Vector3i(4096, 512, 4096)
+cell_size = 512
+metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"
