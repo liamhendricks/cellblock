@@ -14,12 +14,14 @@ var loaded : bool = false
 func _ready() -> void:
 	loaded = false
 	set_process(false)
+	current_processor_index = 0
 
 func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
 
 # entrypoint to start the cell_manager
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
+	current_processor_index = 0
 	origin_object = _origin_object
 	var cell_registries = _anchor.cell_registries
 
@@ -30,7 +32,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	cell_save = _anchor.cell_save
 
 	var count = 0
-	for registry in cell_registries:
+	for registry : CellRegistry in cell_registries:
 		var loader = _get_loader(_world, registry)
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
@@ -74,7 +76,7 @@ func _process(_delta) -> void:
 	work()
 
 func work():
-	if origin_object == null:
+	if origin_object == null || len(cell_processors) == 0:
 		return
 
 	cell_processors[current_processor_index]._work(origin_object)
@@ -91,9 +93,9 @@ func cell_to_world_space(_coords : Vector3i, _cell_size : int) -> Vector3:
 
 func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 	return Vector3i(
-		floor(_pos.x / _cell_size),
-		floor(_pos.y / _cell_size),
-		floor(_pos.z / _cell_size)
+		round(_pos.x / _cell_size),
+		round(_pos.y / _cell_size),
+		round(_pos.z / _cell_size)
 	)
 
 func save_cells():

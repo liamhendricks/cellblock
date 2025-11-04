@@ -1,6 +1,9 @@
 class_name CellData
 extends Resource
 
+# it is generally not recommended to edit these resources directly. users should
+# use the editor window provided by the CellAnchor node.
+
 @export var cell_name : String = "cell_0_0_0"
 @export var coordinates : Vector3i = Vector3.ZERO
 @export var world_position : Vector3 = Vector3.ZERO

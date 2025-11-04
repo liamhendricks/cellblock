@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://p8hlxjpa3r78"]
+
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_edv13"]
+[ext_resource type="Script" uid="uid://b8jkwbmbdvtc" path="res://addons/cellblock/components/object_loader.gd" id="2_6tg04"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_dgr3x"]
+
+[node name="cell_3_0_0" type="Node3D"]
+script = ExtResource("1_edv13")
+
+[node name="statics" type="Node3D" parent="."]
+
+[node name="StaticObjectExample2" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 118.282, 0)
+
+[node name="StaticObjectExample3" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 118.282, 57.2177)
+
+[node name="StaticObjectExample4" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 178.385, 8.6548)
+
+[node name="StaticObjectExample5" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 178.385, 65.8725)
+
+[node name="StaticObjectExample6" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 150.016, -32.215)
+
+[node name="StaticObjectExample7" parent="statics" instance=ExtResource("2_dgr3x")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 150.016, 25.0027)
+
+[node name="objects" type="Node3D" parent="."]
+
+[node name="characters" type="Node3D" parent="."]
+
+[node name="doors" type="Node3D" parent="."]
+
+[node name="spawners" type="Node3D" parent="."]
+
+[node name="ObjectLoader" type="Node" parent="."]
+script = ExtResource("2_6tg04")
+metadata/_custom_type_script = "uid://b8jkwbmbdvtc"

@@ -20,22 +20,6 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 
-func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
-	var key = "%v" % _cell_data.coordinates
-	if _resource_path not in _all_save_data:
-		_cell_data.save_data = {}
-	else:
-		var save_data = _all_save_data[_resource_path]
-		if key in save_data:
-			_cell_data.save_data = save_data[key]
-		else:
-			_cell_data.save_data = {}
-
-	# if we didn't have any previously saved data, we can try to load it directly from the cell
-	# likely this is a first load scenario
-	if len(_cell_data.save_data.keys()) == 0:
-		_cell_data.save_data = _cell.save_cell(key)
-
 func add(_cell_data : CellData):
 	if _cell_data.coordinates in active_cells:
 		return
@@ -43,8 +27,11 @@ func add(_cell_data : CellData):
 	# load the cell from in-memory cache if exists
 	var cell := cell_cache.pull(_cell_data.coordinates)
 	if cell != null:
+		print("pulling cell from cache")
 		_finish_loading(cell, _cell_data)
 		return
+
+	print("loading cell from disk")
 
 	# otherwise trigger an async load operation
 	call_deferred("_deferred_load", _cell_data)
@@ -64,7 +51,7 @@ func remove(_cell_data : CellData):
 	if !cell_cache.exists(_cell_data.coordinates):
 		cell_cache.add(_cell_data.coordinates, cell)
 
-	emit_signal("cell_removed", _cell_data)
+	emit_signal("cell_removed", _cell_data, cell)
 
 func _deferred_load(_cell_data : CellData):
 	var res = ResourceLoader.load_threaded_request(_cell_data.scene_path)
@@ -80,14 +67,27 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 	_cell.cell_data = _cell_data
 
 	active_cells[_cell_data.coordinates] = _cell
-	world.add_child(_cell)
-	_cell.global_position = _cell_data.world_position
+	var time_start = Time.get_ticks_msec()
 	load_from(_cell, all_save_data, _cell_data, cell_registry.resource_path)
+
+	# remove all mutable objects and we will load them one by one
+	var mutable_names = _cell.get_mutable_names()
+	for child in _cell.get_children():
+		if mutable_names.has(child.name):
+			for gc in child.get_children():
+				gc.queue_free()
+
+	world.add_child(_cell)
+	var time_after_add = Time.get_ticks_msec()
+	print("load cell %s took %d milliseconds" % [_cell_data.cell_name, time_after_add - time_start])
+	_cell.global_position = _cell_data.world_position
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 
 	pending_scenes.erase(_cell_data.coordinates)
-	emit_signal("cell_added", _cell_data)
+	var time_end = Time.get_ticks_msec()
+	print("done configuring cell %s took %d milliseconds" % [_cell_data.cell_name, time_end - time_after_add])
+	emit_signal("cell_added", _cell_data, _cell)
 
 func _process(_delta):
 	for k in pending_scenes.keys():
@@ -99,7 +99,7 @@ func _process(_delta):
 		if done:
 			var scene = data["scene"]
 			data["done"] = false
-			var cell = scene.instantiate()
+			var cell : Cell = scene.instantiate()
 			call_deferred("_finish_loading", cell, cell_data)
 			continue
 

@@ -50,6 +50,9 @@ func init():
 		registry_options.selected = 0
 
 func on_update():
+	if len(anchor.cell_registries) == 0:
+		return
+
 	coordinates = Vector3i(x.value, y.value, z.value)
 	_update_cell_options()
 	_update_cursor()
@@ -227,17 +230,9 @@ func _on_create_pressed() -> void:
 	_save_active_cell(cell, cell_data, active_registry_index)
 	on_update()
 
+#TODO
 func _on_radius_load_pressed():
-	var rad = radius_load.value
-	for x in range(-rad, rad + 1):
-		for y in range(-rad, rad + 1):
-			for z in range(-rad, rad + 1):
-				var coords : Vector3i = Vector3i(x, y, z)
-				if coords not in anchor.cell_registries[active_registry_index].cells:
-					continue
-				var cell_data := anchor.cell_registries[active_registry_index].cells[coords]
-				cell_to_load = cell_data
-				_load_cell()
+	pass
 
 func _coordinates_updated(value : float, index : int):
 	match(index):
@@ -260,9 +255,9 @@ func cell_to_world_space(_coords : Vector3i, _cell_size : int) -> Vector3:
 
 func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 	return Vector3i(
-		floor(_pos.x / _cell_size),
-		floor(_pos.y / _cell_size),
-		floor(_pos.z / _cell_size)
+		round(_pos.x / _cell_size),
+		round(_pos.y / _cell_size),
+		round(_pos.z / _cell_size)
 	)
 
 func _update_active_cell_items():
@@ -278,12 +273,15 @@ func _update_active_cell_items():
 		cell_ui_item.configure(editing_cell.cell_data, editing_cell.registry_index, i, _on_save_pressed, _on_clear_pressed, _on_delete_pressed)
 
 func _update_cursor():
-	if anchor.cell_registries.size() == 0:
+	if len(anchor.cell_registries) == 0:
 		return
 
 	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
 
 func _update_cell_options():
+	if len(anchor.cell_registries) == 0:
+		return
+
 	cell_options.clear()
 
 	for key in anchor.cell_registries[active_registry_index].cells.keys():
@@ -329,6 +327,9 @@ func _clear(_cell_idx : int):
 
 func _clear_all():
 	var root = EditorInterface.get_edited_scene_root()
+	if !root:
+		return
+
 	for editing_cell in active_cells:
 		var active_cell = editing_cell.cell_ref
 		print("clearing cell ", active_cell.name)
