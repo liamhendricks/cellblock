@@ -15,6 +15,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	var all_save_data = _cell_save.load_save()
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
+		var key = "%v" % cell_data.coordinates
 		var cell : Cell = cell_data.get_scene_instance()
 		cell.cell_data = cell_data
 		if cell == null:
@@ -33,8 +34,17 @@ func add(cell_data : CellData):
 		push_error("unable to load cell from coordinates: %v" % cell_data.coordinates)
 		return
 
+	print("adding cell from memory")
+
 	var cell : Cell = cells[cell_data.coordinates]
 	cell.cell_data = cell_data
+
+	# remove all mutable objects and we will load them one by one
+	var mutable_names = cell.get_mutable_names()
+	for child in cell.get_children():
+		if mutable_names.has(child.name):
+			for gc in child.get_children():
+				gc.queue_free()
 
 	active_cells[cell_data.coordinates] = cell
 	world.add_child(cell)
@@ -43,7 +53,7 @@ func add(cell_data : CellData):
 	cell.load_cell(cell_data.save_data)
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 
-	emit_signal("cell_added", cell_data)
+	emit_signal("cell_added", cell_data, cell)
 
 func remove(cell_data : CellData):
 	if cell_data.coordinates not in active_cells:
@@ -54,7 +64,7 @@ func remove(cell_data : CellData):
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
 
-	emit_signal("cell_removed", cell_data)
+	emit_signal("cell_removed", cell_data, cell)
 
 func on_exit():
 	super()

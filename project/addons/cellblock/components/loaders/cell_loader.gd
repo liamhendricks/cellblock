@@ -1,8 +1,8 @@
 class_name CellLoader
 extends Node
 
-signal cell_added(cell_data : CellData)
-signal cell_removed(cell_data : CellData)
+signal cell_added(cell_data : CellData, cell : Cell)
+signal cell_removed(cell_data : CellData, cell : Cell)
 
 var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]
@@ -23,6 +23,7 @@ func add(cell_data : CellData):
 func remove(cell_data : CellData):
 	pass
 
+# loads the save data from the file
 func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
 	var key = "%v" % _cell_data.coordinates
 	if _resource_path not in _all_save_data:
@@ -33,6 +34,10 @@ func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData,
 			_cell_data.save_data = save_data[key]
 		else:
 			_cell_data.save_data = {}
+
+	# in a first load scenario, we won't have any data, so we need to load it from the cell
+	if len(_cell_data.save_data.keys()) == 0:
+		_cell_data.save_data = _cell.save_cell(key)
 
 func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
 	if _resource_path not in _all_save_data:

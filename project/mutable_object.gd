@@ -6,12 +6,12 @@ var object_key : String
 func on_save() -> Dictionary:
 	return {
 		"filename": get_scene_file_path(),
-		"pos_x": global_position.x,
-		"pos_y": global_position.y,
-		"pos_z": global_position.z,
+		"pos_x": transform.origin.x,
+		"pos_y": transform.origin.y,
+		"pos_z": transform.origin.z,
 	}
 
 func on_load(data : Dictionary):
-	global_position.x = data["pos_x"]
-	global_position.y = data["pos_y"]
-	global_position.z = data["pos_z"]
+	transform.origin.x = data["pos_x"]
+	transform.origin.y = data["pos_y"]
+	transform.origin.z = data["pos_z"]

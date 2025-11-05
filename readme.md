@@ -40,7 +40,19 @@ keep in memory all the time, other games can load all the Cell data into RAM and
 out of the tree. Both situations can be handled with this Addon. There are also customizable 
 in-memory caching options.
 
-Nearby Cells are chosen in a radius around a user-defined origin node.
+Nearby Cells are chosen by doing distance calculations from the origin point (the player or camera) to
+each of the cells over the course of a configurable amount of frames (time-slicing). The user can 
+configure a radius modifier to further manage the number of active Cells. Configuring your grid_size
+and cell_size properly is critical, and will give you plenty of options to control the amount of
+assets that are active.
+
+Mutable objects are loaded with data from save files, and are added to the scene using time-slicing as
+well. This ensures that even cells with lots of characters or other mutable objects will not be forced
+to load and do expensive initialization in a single frame. However, this does come with a slight sacrifice
+in 'responsiveness' since your mutable scenes will 'stream' in over the course of a few seconds.
+
+All these techniques and configuration options should give users all the tools they need to build
+amazing open world games that remain framerate stable in most situations!
 
 ## Installation
 
@@ -55,7 +67,7 @@ This addon has only been tested with godot 4.4.x as of right now.
 First, you'll need to create a `CellAnchor` node in your game world, which is provided by the addon.
 This node is the attachment point for the editor tools, and also the in-game data. Next you will need
 to create one or more `CellRegistry` resources in the inspector. One may be fine for your needs, but
-the addon supports multiple grids in case you want some cells to be loaded from farther away.
+the addon supports multiple grids in case you want different grids for whatever reason.
 
 ![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup3.png "Setup 3")
 
@@ -74,8 +86,12 @@ cells.
 - base_cell_scene_path: This is the base scene that you wish to be created when the editor tool
 creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you may want to extend this
 node and use that one instead.
-- radius: the coordinate radius in which to load cells. This cooresponds to the how many loops of the
-x, y, z axis will occur per frame, so it is bounded to max 3 to avoid too many loops.
+- radius_multiplier: The radius of cells around the player to load (default 1).
+- iterations_per_frame: The number of distance_to checks that run per frame. If you have 60 cells total
+with a iterations_per_frame of 1, all cells will be cycled through in 1 second. This value affects the
+responsiveness of loading cells, so if your game demands more immediate loading, set this number
+higher. Whereas if you are fine with a new cell in the distance being loaded shortly after the player
+gets close enough, set it low.
 
 Cellblock registers a singleton called `CellManager` that you need to hook into. Once you have
 created a `CellRegistry`, somewhere you will need to start the `CellManager`. In this repo's demo
@@ -94,6 +110,8 @@ func _ready():
 	CellManager.start(player, self, cell_anchor)
 ```
 
+This is a simple example and will likely take some custom integration with your own project.
+
 ## Cell Creating and Editing Workflow
 
 ![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/setup1.png "Setup 1")
@@ -110,10 +128,10 @@ are now free to edit the cell scene itself in the editor. When you are done edit
 click the 'Save Active' button to save the scene. This scene gets saved in your cell_directory that
 was specified in the `CellRegistry`. Also, you will see the cell in the active cells panel.
 
-
 If you want, you can also manually create the scene and manually add the `CellData` record to the
 `CellRegistry.cells` dictionary. It's also possible to load scenes in the editor tool created this
-way. Completely up to you.
+way. Generally I don't recommend manually editing your `CellRegistry.cells` records, but it may be
+helpful if something breaks.
 
 You can also load a cell by choosing it from the dropdown. Only 1 cell can exist at a given coordinate
 per registry. You can load and edit many cells at once, and save and clear them as you please.
@@ -154,12 +172,17 @@ if Input.is_action_just_pressed("save"):
     return
 ```
 
+This a simple example that may require more direct integration with your own project.
+
 ## More about Mutable objects
 
 Mutable objects are automatically reparented to a new Cell if they get closer to a that cell. You have
 control over which objects are affected by this reparenting behavior by which nodes are returned in
-the `Cell`'s `get_mutable()` method. By default, all nodes that are children of the Objects or Characters
-nodes will be returned by `get_mutable()`, and auto reparented to the closest node.
+the `Cell`'s `get_mutable()` function. By default, all nodes paths defined in the `get_mutable_names()`
+function will be counted as mutable.
+
+When a cell is loaded, before it is added to the scene tree, we first queue_free all mutable scenes.
+Then each of the scenes is loaded, instantiated and added to the `Cell`.
 
 ### Working with other addons
 
