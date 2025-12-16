@@ -42,13 +42,6 @@ func add(cell_data : CellData):
 	var cell : Cell = cells[cell_data.coordinates]
 	cell.cell_data = cell_data
 
-	# remove all mutable objects and we will load them one by one
-	var mutable_names = cell.get_mutable_names()
-	for child in cell.get_children():
-		if mutable_names.has(child.name):
-			for gc in child.get_children():
-				gc.queue_free()
-
 	active_cells[cell_data.coordinates] = cell
 	cell.visible = true
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)

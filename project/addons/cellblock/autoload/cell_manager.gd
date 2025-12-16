@@ -49,12 +49,21 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 	_anchor.anchor_exited.connect(_on_anchor_exited)
 
+	await _initial_load()
+
 	set_process(true)
 	emit_signal("manager_started")
+	print("cell_manager started")
 
+func _initial_load():
 	#load everything
 	for proc in cell_processors:
-		proc.work_all_cells(origin_object)
+		var total_in_range = await proc.work_all_cells(origin_object)
+		if total_in_range > 0:
+			await proc.loaded_all_cells_init
+			proc.current_loaded_cells_for_init = 0
+			proc.total_loaded_cells_for_init = 0
+		print("done configuring cell_processor")
 
 func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	match(_registry.load_strategy):

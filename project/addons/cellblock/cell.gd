@@ -1,6 +1,8 @@
 class_name Cell
 extends Node3D
 
+signal cell_configured(cell : Cell)
+
 var cell_data : CellData
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
@@ -11,6 +13,8 @@ func _enter_tree() -> void:
 
 func _ready():
 	object_loader.init(self)
+	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
+		object_loader.finished_loading.connect(_on_finished_loading_mutable)
 	call_deferred("set_visible", true)
 
 # define the names of the cell children which are the parents of each type of mutable node
@@ -85,3 +89,6 @@ func load_cell(_data : Dictionary):
 				object_loader.pending_scenes.append(load_data)
 
 	object_loader.start()
+
+func _on_finished_loading_mutable():
+	emit_signal("cell_configured", self)

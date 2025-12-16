@@ -69,6 +69,10 @@ func _on_delete_pressed(item : ActiveCellUiItem):
 	var active_cell_index = item.cell_index
 	var editing_cell = active_cells[active_cell_index]
 	var cell = editing_cell.cell_ref
+	if !is_instance_valid(cell) || cell == null || !cell.is_inside_tree():
+		push_warning("active cell reference lost: ", editing_cell.cell_data.cell_name)
+		return
+
 	delete_cell_label.text = "Delete Cell: %s" % editing_cell.cell_data.cell_name
 	delete_cell_popup.visible = true
 	to_delete = editing_cell
@@ -113,6 +117,10 @@ func _on_save_pressed(item : ActiveCellUiItem):
 	var active_cell_index = item.cell_index
 	var editing_cell = active_cells[active_cell_index]
 	var cell = editing_cell.cell_ref
+	if !is_instance_valid(cell) || cell == null || !cell.is_inside_tree():
+		push_warning("active cell reference lost: ", editing_cell.cell_data.cell_name)
+		return
+
 	_save_active_cell(cell, editing_cell.cell_data, editing_cell.registry_index)
 
 func _on_save_all_pressed():
@@ -140,6 +148,10 @@ func _save_all():
 		var active_cell_index = child.cell_index
 		var editing_cell = active_cells[active_cell_index]
 		var cell = editing_cell.cell_ref
+		if !is_instance_valid(cell) || cell == null || !cell.is_inside_tree():
+			push_warning("active cell reference lost: ", editing_cell.cell_data.cell_name)
+			continue
+
 		_save_active_cell(cell, editing_cell.cell_data, editing_cell.registry_index)
 
 func _on_load_pressed():

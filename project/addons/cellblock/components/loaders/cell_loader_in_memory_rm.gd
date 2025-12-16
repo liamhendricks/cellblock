@@ -44,6 +44,7 @@ func add(cell_data : CellData):
 	for child in cell.get_children():
 		if mutable_names.has(child.name):
 			for gc in child.get_children():
+				child.remove_child(gc)
 				gc.queue_free()
 
 	active_cells[cell_data.coordinates] = cell
