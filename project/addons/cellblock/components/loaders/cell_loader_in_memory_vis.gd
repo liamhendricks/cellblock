@@ -34,20 +34,13 @@ func add(cell_data : CellData):
 
 	# load the cell from in memory dictionary
 	if cell_data.coordinates not in cells:
-		push_error("unable to load cell from coordinates: %v" % cell_data.coordinates)
+		CellblockLogger.error("unable to load cell from coordinates: %v" % cell_data.coordinates)
 		return
 
-	print("enabling cell from memory")
+	CellblockLogger.debug("enabling cell from memory")
 
 	var cell : Cell = cells[cell_data.coordinates]
 	cell.cell_data = cell_data
-
-	# remove all mutable objects and we will load them one by one
-	var mutable_names = cell.get_mutable_names()
-	for child in cell.get_children():
-		if mutable_names.has(child.name):
-			for gc in child.get_children():
-				gc.queue_free()
 
 	active_cells[cell_data.coordinates] = cell
 	cell.visible = true

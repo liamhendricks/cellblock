@@ -1,6 +1,8 @@
 class_name Cell
 extends Node3D
 
+signal cell_configured(cell : Cell)
+
 var cell_data : CellData
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
@@ -11,6 +13,8 @@ func _enter_tree() -> void:
 
 func _ready():
 	object_loader.init(self)
+	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
+		object_loader.finished_loading.connect(_on_finished_loading_mutable)
 	call_deferred("set_visible", true)
 
 # define the names of the cell children which are the parents of each type of mutable node
@@ -57,7 +61,7 @@ func save_cell(_key : String) -> Dictionary:
 	return save_data
 
 # NOTE: the loaders delete the mutable nodes before we add the cell to the scene tree. that is done
-# so that we can batch load all the mutable nodes, and add them to the treeover a few frames for
+# so that we can batch load all the mutable nodes, and add them to the tree over a few frames for
 # performance reasons
 
 # load mutable cell objects from save
@@ -85,3 +89,7 @@ func load_cell(_data : Dictionary):
 				object_loader.pending_scenes.append(load_data)
 
 	object_loader.start()
+
+func _on_finished_loading_mutable():
+	CellblockLogger.debug("cell configured: %s" % name)
+	emit_signal("cell_configured", self)

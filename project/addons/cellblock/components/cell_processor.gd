@@ -8,6 +8,8 @@ signal entered_cell(old_cell : CellData, new_cell : CellData)
 signal reparented_node(old_cell : CellData, new_cell : CellData, node_name : String)
 signal cell_added(cell_data : CellData)
 signal cell_removed(cell_data : CellData)
+signal cell_configured(cell : Cell)
+signal loaded_all_cells_init()
 
 var cell_registry : CellRegistry
 var cell_loader : CellLoader
@@ -15,6 +17,9 @@ var current_index : int
 
 var current_cell_coords : Vector3i = Vector3.ZERO
 var half_cell_size : float = 0.0
+
+var total_loaded_cells_for_init : int = 0
+var current_loaded_cells_for_init : int = 0
 
 func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : String) -> void:
 	half_cell_size = _cell_registry.cell_size / 2
@@ -26,9 +31,33 @@ func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : Str
 		var key = _cell_registry.cells.keys()[0]
 		current_cell_coords = _cell_registry.cells[key].coordinates
 
-func work_all_cells(origin_object : Node3D):
+func work_all_cells(origin_object : Node3D) -> int:
+	var total_in_range : Array[Cell]
 	for k in cell_registry.cells.keys():
-		_work_cell(origin_object, k)
+		var in_range : bool = false
+		var cd : CellData = cell_registry.cells[k]
+		var world_space_coords = CellManager.cell_to_world_space(k, cell_registry.cell_size)
+		var dist : float = origin_object.global_position.distance_to(world_space_coords)
+		var dist_to_current : float = origin_object.global_position.distance_to(current_cell_coords)
+
+		if dist <= (cell_registry.cell_size * cell_registry.radius_multiplier) + half_cell_size:
+			in_range = true
+			if dist < dist_to_current:
+				update_current_cell(cd.coordinates)
+
+		if in_range:
+			if cd.coordinates not in cell_loader.active_cells:
+				cell_loader.add(cd)
+				await cell_loader.cell_added
+				var cell : Cell = cell_loader.active_cells[cd.coordinates]
+				total_in_range.append(cell)
+
+	for c in total_in_range:
+		c.cell_configured.connect(_on_cell_configured_init)
+
+	total_loaded_cells_for_init = len(total_in_range) - 1
+	current_loaded_cells_for_init = 0
+	return len(total_in_range)
 
 func _work(origin_object : Node3D):
 	for i in range(cell_registry.iterations_per_frame):
@@ -41,10 +70,10 @@ func _work(origin_object : Node3D):
 
 # convert the cell_data coords to world space and calculate the distance to the
 # origin and the current nearest cell.
-func _work_cell(origin_object : Node3D, _coords : Vector3i) -> void:
+func _work_cell(origin_object : Node3D, coords : Vector3i) -> void:
 	var in_range : bool = false
-	var cd : CellData = cell_registry.cells[_coords]
-	var world_space_coords = CellManager.cell_to_world_space(_coords, cell_registry.cell_size)
+	var cd : CellData = cell_registry.cells[coords]
+	var world_space_coords = CellManager.cell_to_world_space(coords, cell_registry.cell_size)
 	var dist : float = origin_object.global_position.distance_to(world_space_coords)
 	var dist_to_current : float = origin_object.global_position.distance_to(current_cell_coords)
 
@@ -135,6 +164,15 @@ func get_cell_save_data() -> Dictionary:
 		save_data[cell_registry.resource_path][key] = cell.cell_data.save_data
 
 	return save_data
+
+func _on_cell_configured_init(_cell : Cell):
+	emit_signal("cell_configured", _cell)
+	current_loaded_cells_for_init += 1
+	if current_loaded_cells_for_init >= total_loaded_cells_for_init:
+		emit_signal("loaded_all_cells_init")
+
+func _on_cell_configured(_cell : Cell):
+	emit_signal("cell_configured", _cell)
 
 func _on_cell_added(_cell_data : CellData, _cell : Cell):
 	emit_signal("cell_added", _cell_data)

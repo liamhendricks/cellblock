@@ -27,11 +27,11 @@ func add(_cell_data : CellData):
 	# load the cell from in-memory cache if exists
 	var cell := cell_cache.pull(_cell_data.coordinates)
 	if cell != null:
-		print("pulling cell from cache")
+		CellblockLogger.debug("pulling cell from cache")
 		_finish_loading(cell, _cell_data)
 		return
 
-	print("loading cell from disk")
+	CellblockLogger.debug("loading cell from disk")
 
 	# otherwise trigger an async load operation
 	call_deferred("_deferred_load", _cell_data)
@@ -51,6 +51,7 @@ func remove(_cell_data : CellData):
 	if !cell_cache.exists(_cell_data.coordinates):
 		cell_cache.add(_cell_data.coordinates, cell)
 
+	CellblockLogger.debug("cell removed from async loader")
 	emit_signal("cell_removed", _cell_data, cell)
 
 func _deferred_load(_cell_data : CellData):
@@ -75,18 +76,16 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 	for child in _cell.get_children():
 		if mutable_names.has(child.name):
 			for gc in child.get_children():
+				child.remove_child(gc)
 				gc.queue_free()
 
 	world.add_child(_cell)
-	var time_after_add = Time.get_ticks_msec()
-	print("load cell %s took %d milliseconds" % [_cell_data.cell_name, time_after_add - time_start])
 	_cell.global_position = _cell_data.world_position
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 
 	pending_scenes.erase(_cell_data.coordinates)
-	var time_end = Time.get_ticks_msec()
-	print("done configuring cell %s took %d milliseconds" % [_cell_data.cell_name, time_end - time_after_add])
+	CellblockLogger.debug("cell added to async loader")
 	emit_signal("cell_added", _cell_data, _cell)
 
 func _process(_delta):
