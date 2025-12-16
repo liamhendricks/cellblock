@@ -61,7 +61,7 @@ func save_cell(_key : String) -> Dictionary:
 	return save_data
 
 # NOTE: the loaders delete the mutable nodes before we add the cell to the scene tree. that is done
-# so that we can batch load all the mutable nodes, and add them to the treeover a few frames for
+# so that we can batch load all the mutable nodes, and add them to the tree over a few frames for
 # performance reasons
 
 # load mutable cell objects from save
@@ -91,4 +91,5 @@ func load_cell(_data : Dictionary):
 	object_loader.start()
 
 func _on_finished_loading_mutable():
+	CellblockLogger.debug("cell configured: %s" % name)
 	emit_signal("cell_configured", self)

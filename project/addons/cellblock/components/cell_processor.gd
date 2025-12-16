@@ -166,7 +166,6 @@ func get_cell_save_data() -> Dictionary:
 	return save_data
 
 func _on_cell_configured_init(_cell : Cell):
-	print("cell configured")
 	emit_signal("cell_configured", _cell)
 	current_loaded_cells_for_init += 1
 	if current_loaded_cells_for_init >= total_loaded_cells_for_init:

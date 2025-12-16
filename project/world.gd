@@ -10,6 +10,4 @@ func _ready():
 func start():
 	# here is where you would create your cell save, or update it's filepath.
 	cell_anchor.cell_save.save_file_name = "user://savegame.save"
-	print("HI")
 	await CellManager.start(player, self, cell_anchor)
-	print("BYE")

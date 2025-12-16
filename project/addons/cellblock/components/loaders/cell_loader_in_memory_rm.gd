@@ -31,10 +31,10 @@ func add(cell_data : CellData):
 
 	# load the cell from in memory dictionary
 	if cell_data.coordinates not in cells:
-		push_error("unable to load cell from coordinates: %v" % cell_data.coordinates)
+		CellblockLogger.error("unable to load cell from coordinates: %v" % cell_data.coordinates)
 		return
 
-	print("adding cell from memory")
+	CellblockLogger.debug("adding cell from memory")
 
 	var cell : Cell = cells[cell_data.coordinates]
 	cell.cell_data = cell_data
@@ -54,6 +54,7 @@ func add(cell_data : CellData):
 	cell.load_cell(cell_data.save_data)
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 
+	CellblockLogger.debug("cell added to in memory rm loader")
 	emit_signal("cell_added", cell_data, cell)
 
 func remove(cell_data : CellData):
@@ -65,6 +66,7 @@ func remove(cell_data : CellData):
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
 
+	CellblockLogger.debug("cell removed from in memory rm loader")
 	emit_signal("cell_removed", cell_data, cell)
 
 func on_exit():

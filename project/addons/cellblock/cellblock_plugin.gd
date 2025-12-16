@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-const AUTOLOAD_NAME = "CellManager"
 
 var dock
 
@@ -10,20 +9,26 @@ func _enter_tree() -> void:
 	add_control_to_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, dock)
 	dock.visible = false
 	dock.plugin = self
-	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		add_autoload_singleton(AUTOLOAD_NAME, "res://addons/cellblock/autoload/cell_manager.gd")
+	if not ProjectSettings.has_setting("autoload/" + "CellManager"):
+		add_autoload_singleton("CellManager", "res://addons/cellblock/autoload/cell_manager.gd")
+	if not ProjectSettings.has_setting("autoload/" + "CellblockLogger"):
+		add_autoload_singleton("CellblockLogger", "res://addons/cellblock/autoload/cellblock_logger.gd")
 
 func _exit_tree() -> void:
 	remove_control_from_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, dock)
 	dock.queue_free()
-	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		remove_autoload_singleton(AUTOLOAD_NAME)
+	if ProjectSettings.has_setting("autoload/" + "CellManager"):
+		remove_autoload_singleton("CellManager")
+	if ProjectSettings.has_setting("autoload/" + "CellblockLogger"):
+		remove_autoload_singleton("CellblockLogger")
 
 func _enable_plugin():
-	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/cellblock/autoload/cell_manager.gd")
+	add_autoload_singleton("CellManager", "res://addons/cellblock/autoload/cell_manager.gd")
+	add_autoload_singleton("CellblockLogger", "res://addons/cellblock/autoload/cellblock_logger.gd")
 
 func _disable_plugin():
-	remove_autoload_singleton(AUTOLOAD_NAME)
+	remove_autoload_singleton("CellManager")
+	remove_autoload_singleton("CellblockLogger")
 
 func _handles(object):
 	return object is CellAnchor

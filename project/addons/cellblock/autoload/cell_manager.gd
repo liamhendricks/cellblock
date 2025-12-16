@@ -15,18 +15,20 @@ func _ready() -> void:
 	loaded = false
 	set_process(false)
 	current_processor_index = 0
+	CellblockLogger.init(CellblockLogger.LOG_LEVELS.DEBUG)
 
 func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
 
 # entrypoint to start the cell_manager
+# await start(...) and you will have all mutable objects instantiated in the scene on first load
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
 	current_processor_index = 0
 	origin_object = _origin_object
 	var cell_registries = _anchor.cell_registries
 
 	if _anchor.cell_save == null:
-		push_error("cell_save is null")
+		CellblockLogger.error("cell_save is null")
 		return
 
 	cell_save = _anchor.cell_save
@@ -37,10 +39,10 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
 		if  registry == null || origin_object == null || loader == null:
-			push_error("cell_manager not started correctly, please review the docs if any below are null")
-			push_error("cell_registry: %s" % registry)
-			push_error("origin_object: %s" % origin_object)
-			push_error("cell_loader: %s" % loader)
+			CellblockLogger.error("cell_manager not started correctly, please review the docs if any below are null")
+			CellblockLogger.error("cell_registry: %s" % registry)
+			CellblockLogger.error("origin_object: %s" % origin_object)
+			CellblockLogger.error("cell_loader: %s" % loader)
 			return
 
 		add_child(loader)
@@ -53,7 +55,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 
 	set_process(true)
 	emit_signal("manager_started")
-	print("cell_manager started")
+	CellblockLogger.info("cell_manager started")
 
 func _initial_load():
 	#load everything
@@ -63,7 +65,7 @@ func _initial_load():
 			await proc.loaded_all_cells_init
 			proc.current_loaded_cells_for_init = 0
 			proc.total_loaded_cells_for_init = 0
-		print("done configuring cell_processor")
+		CellblockLogger.info("done configuring cell_processor")
 
 func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	match(_registry.load_strategy):

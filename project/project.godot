@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 CellManager="*res://addons/cellblock/autoload/cell_manager.gd"
 UserInterface="*res://autoloads/UserInterface.tscn"
+CellblockLogger="*res://addons/cellblock/autoload/cellblock_logger.gd"
 
 [display]
 

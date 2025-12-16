@@ -27,11 +27,11 @@ func add(_cell_data : CellData):
 	# load the cell from in-memory cache if exists
 	var cell := cell_cache.pull(_cell_data.coordinates)
 	if cell != null:
-		print("pulling cell from cache")
+		CellblockLogger.debug("pulling cell from cache")
 		_finish_loading(cell, _cell_data)
 		return
 
-	print("loading cell from disk")
+	CellblockLogger.debug("loading cell from disk")
 
 	# otherwise trigger an async load operation
 	call_deferred("_deferred_load", _cell_data)
@@ -51,6 +51,7 @@ func remove(_cell_data : CellData):
 	if !cell_cache.exists(_cell_data.coordinates):
 		cell_cache.add(_cell_data.coordinates, cell)
 
+	CellblockLogger.debug("cell removed from async loader")
 	emit_signal("cell_removed", _cell_data, cell)
 
 func _deferred_load(_cell_data : CellData):
@@ -84,6 +85,7 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 
 	pending_scenes.erase(_cell_data.coordinates)
+	CellblockLogger.debug("cell added to async loader")
 	emit_signal("cell_added", _cell_data, _cell)
 
 func _process(_delta):
