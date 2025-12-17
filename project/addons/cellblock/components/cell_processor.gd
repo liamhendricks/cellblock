@@ -32,7 +32,6 @@ func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : Str
 		current_cell_coords = _cell_registry.cells[key].coordinates
 
 func work_all_cells(origin_object : Node3D) -> int:
-	var total_in_range : Array[Cell]
 	for k in cell_registry.cells.keys():
 		var in_range : bool = false
 		var cd : CellData = cell_registry.cells[k]
@@ -48,16 +47,15 @@ func work_all_cells(origin_object : Node3D) -> int:
 		if in_range:
 			if cd.coordinates not in cell_loader.active_cells:
 				cell_loader.add(cd)
-				await cell_loader.cell_added
-				var cell : Cell = cell_loader.active_cells[cd.coordinates]
-				total_in_range.append(cell)
 
-	for c in total_in_range:
+	total_loaded_cells_for_init = len(cell_loader.active_cells) - 1
+	current_loaded_cells_for_init = 0
+
+	for k in cell_loader.active_cells:
+		var c = cell_loader.active_cells[k]
 		c.cell_configured.connect(_on_cell_configured_init)
 
-	total_loaded_cells_for_init = len(total_in_range) - 1
-	current_loaded_cells_for_init = 0
-	return len(total_in_range)
+	return len(cell_loader.active_cells)
 
 func _work(origin_object : Node3D):
 	for i in range(cell_registry.iterations_per_frame):
