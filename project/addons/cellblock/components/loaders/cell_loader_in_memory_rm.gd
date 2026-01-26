@@ -7,16 +7,19 @@ extends CellLoader
 
 # all configured cell scenes
 var cells : Dictionary[Vector3i, Cell]
+var cell_registry : CellRegistry
 
 func _init(_world : Node3D, _max_cache_size : int):
 	world = _world
 
 func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	var all_save_data = _cell_save.load_save()
+	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
 		var key = "%v" % cell_data.coordinates
 		var cell : Cell = cell_data.get_scene_instance()
+		cell.process_frames = cell_registry.mutable_process_frames
 		cell.cell_data = cell_data
 		if cell == null:
 			continue
@@ -54,8 +57,11 @@ func add(cell_data : CellData):
 	cell.load_cell(cell_data.save_data)
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 
+	call_deferred("_finish_loading", cell)
+
+func _finish_loading(cell : Cell):
 	CellblockLogger.debug("cell added to in memory rm loader")
-	emit_signal("cell_added", cell_data, cell)
+	emit_signal("cell_added", cell.cell_data, cell)
 
 func remove(cell_data : CellData):
 	if cell_data.coordinates not in active_cells:

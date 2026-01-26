@@ -57,15 +57,17 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	emit_signal("manager_started")
 	CellblockLogger.info("cell_manager started")
 
+# await for signals to load everything
 func _initial_load():
-	#load everything
 	for proc in cell_processors:
-		var total_in_range = await proc.work_all_cells(origin_object)
-		if total_in_range > 0:
-			await proc.loaded_all_cells_init
-			proc.current_loaded_cells_for_init = 0
-			proc.total_loaded_cells_for_init = 0
-		CellblockLogger.info("done configuring cell_processor")
+		await proc.work_all_cells(origin_object)
+
+	for proc in cell_processors:
+		var wait : bool = false
+		for k in proc.cell_loader.active_cells:
+			var cell = proc.cell_loader.active_cells[k]
+			if !cell.cell_fully_configured:
+				await cell.cell_configured
 
 func _get_loader(_world : Node3D, _registry : CellRegistry) -> CellLoader:
 	match(_registry.load_strategy):

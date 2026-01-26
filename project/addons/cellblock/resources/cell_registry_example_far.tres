@@ -61,7 +61,7 @@ scene_path = "res://cells/cell_3_0_0.tscn"
 
 [resource]
 script = ExtResource("3_a2qk6")
-cells = Dictionary[Vector3i, ExtResource("2_cb6ba")]({
+cells = {
 Vector3i(-3, 0, 0): SubResource("Resource_lhp4g"),
 Vector3i(-2, 0, 0): SubResource("Resource_cb6ba"),
 Vector3i(-1, 0, 0): SubResource("Resource_foq6k"),
@@ -70,7 +70,7 @@ Vector3i(1, 0, 0): SubResource("Resource_a2qk6"),
 Vector3i(1, 0, 2): SubResource("Resource_46qvy"),
 Vector3i(2, 0, 0): SubResource("Resource_xyl8k"),
 Vector3i(3, 0, 0): SubResource("Resource_ov2td")
-})
+}
 load_strategy = 2
 max_cache_size = 5
 grid_size = Vector3i(5000, 1000, 5000)
@@ -79,4 +79,5 @@ radius_multiplier = 1
 cell_directory = "res://cells/"
 base_cell_scene_path = "res://addons/cellblock/cell.tscn"
 iterations_per_frame = 5
+mutable_process_frames = 5
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

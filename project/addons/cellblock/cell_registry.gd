@@ -20,7 +20,7 @@ enum LOAD_STRATEGY {
 }
 
 # the cell data resources, keyed by their grid coordinates
-@export var cells : Dictionary[Vector3i, CellData]
+@export var cells : Dictionary
 # the chosen load strategy (behavior of how the cells are loaded and stored in memory)
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 # total number of cells that will be cached in memory for ASYNC_LOAD
@@ -51,3 +51,6 @@ enum LOAD_STRATEGY {
 # depending on the needs of your project, a low number may be just fine. set this
 # higher if you want your cells to load more immediately when the player gets close to them
 @export var iterations_per_frame : int = 5
+# TODO: may be better suited as a CellData property so that users can tune loading per cell.
+# the number of mutable objects to load per frame when a cell is added to the scene
+@export var mutable_process_frames : int = 1

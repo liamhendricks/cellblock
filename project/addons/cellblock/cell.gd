@@ -4,6 +4,8 @@ extends Node3D
 signal cell_configured(cell : Cell)
 
 var cell_data : CellData
+var cell_fully_configured : bool = false
+var process_frames : int = 1
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
 
@@ -12,6 +14,7 @@ func _enter_tree() -> void:
 	request_ready()
 
 func _ready():
+	cell_fully_configured = false
 	object_loader.init(self)
 	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
 		object_loader.finished_loading.connect(_on_finished_loading_mutable)
@@ -92,4 +95,5 @@ func load_cell(_data : Dictionary):
 
 func _on_finished_loading_mutable():
 	CellblockLogger.debug("cell configured: %s" % name)
+	cell_fully_configured = true
 	emit_signal("cell_configured", self)
