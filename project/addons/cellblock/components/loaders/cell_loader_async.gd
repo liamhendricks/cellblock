@@ -28,7 +28,7 @@ func add(_cell_data : CellData):
 	var cell := cell_cache.pull(_cell_data.coordinates)
 	if cell != null:
 		CellblockLogger.debug("pulling cell from cache")
-		_finish_loading(cell, _cell_data)
+		call_deferred("_finish_loading", cell, _cell_data)
 		return
 
 	CellblockLogger.debug("loading cell from disk")
@@ -80,6 +80,7 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 				gc.queue_free()
 
 	world.add_child(_cell)
+	_cell.process_frames = cell_registry.mutable_process_frames
 	_cell.global_position = _cell_data.world_position
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)

@@ -31,8 +31,7 @@ func _init(_cell_registry : CellRegistry, _cell_loader : CellLoader, _name : Str
 		var key = _cell_registry.cells.keys()[0]
 		current_cell_coords = _cell_registry.cells[key].coordinates
 
-func work_all_cells(origin_object : Node3D) -> int:
-	var total_in_range : Array[Cell]
+func work_all_cells(origin_object : Node3D) -> void:
 	for k in cell_registry.cells.keys():
 		var in_range : bool = false
 		var cd : CellData = cell_registry.cells[k]
@@ -49,15 +48,6 @@ func work_all_cells(origin_object : Node3D) -> int:
 			if cd.coordinates not in cell_loader.active_cells:
 				cell_loader.add(cd)
 				await cell_loader.cell_added
-				var cell : Cell = cell_loader.active_cells[cd.coordinates]
-				total_in_range.append(cell)
-
-	for c in total_in_range:
-		c.cell_configured.connect(_on_cell_configured_init)
-
-	total_loaded_cells_for_init = len(total_in_range) - 1
-	current_loaded_cells_for_init = 0
-	return len(total_in_range)
 
 func _work(origin_object : Node3D):
 	for i in range(cell_registry.iterations_per_frame):
@@ -164,12 +154,6 @@ func get_cell_save_data() -> Dictionary:
 		save_data[cell_registry.resource_path][key] = cell.cell_data.save_data
 
 	return save_data
-
-func _on_cell_configured_init(_cell : Cell):
-	emit_signal("cell_configured", _cell)
-	current_loaded_cells_for_init += 1
-	if current_loaded_cells_for_init >= total_loaded_cells_for_init:
-		emit_signal("loaded_all_cells_init")
 
 func _on_cell_configured(_cell : Cell):
 	emit_signal("cell_configured", _cell)

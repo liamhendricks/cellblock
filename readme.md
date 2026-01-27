@@ -23,8 +23,6 @@ complexity and difficulty of use in other open world management implementations 
 involving Octrees and custom Mesh types. It also is not dependent on a specific terrain system, but
 can seamlessly be used with one (such as the fantastic Terrain3D addon).
 
-![alt text](https://github.com/liamhendricks/cellblock/blob/main/docs/cellblock_example2.gif "Cellblock Gif")
-
 ## Cellblock's Design
 
 Cellblock has taken design queues from classic Elder Scrolls games like Morrowind, and it's open

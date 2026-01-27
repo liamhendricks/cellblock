@@ -7,12 +7,10 @@ extends Control
 @onready var registry_options = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry/RegistryOptions
 @onready var cell_options = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells/CellOptions
 @onready var active_cell_container = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel/MarginContainer/ScrollContainer/VBoxContainer
-@onready var radius_load = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer/Radius
-@onready var delete_cell_label = $PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup/MarginContainer/VBoxContainer/DeleteCellLabel
-@onready var delete_cell_popup = $PanelContainer/MarginContainer/MarginContainer/DeleteCellPopup
+@onready var delete_cell_label = $PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer/DeleteCellLabel
+@onready var delete_cell_popup = $PanelContainer/MarginContainer2/DeleteCellPopup
 
 var active_cell_ui_item_scene = load("res://addons/cellblock/active_cell_ui_item.tscn")
-
 var active_cells : Array[EditingCellData]
 var active_registry_index : int = 0
 var cell_to_load : CellData
@@ -297,7 +295,7 @@ func _update_cell_options():
 	cell_options.clear()
 
 	for key in anchor.cell_registries[active_registry_index].cells.keys():
-		var cell_data := anchor.cell_registries[active_registry_index].cells[key]
+		var cell_data = anchor.cell_registries[active_registry_index].cells[key]
 		cell_options.add_item(cell_data.cell_name)
 		cell_options.set_item_metadata(cell_options.item_count - 1, key)
 
@@ -362,7 +360,7 @@ func _pick_cell_to_load(index: int) -> void:
 		return
 
 	var v: Vector3i = cell_options.get_item_metadata(index)
-	var cell_data := anchor.cell_registries[active_registry_index].cells[v]
+	var cell_data = anchor.cell_registries[active_registry_index].cells[v]
 	cell_to_load = cell_data
 
 func _check_cell_active(_coords : Vector3i) -> bool:
