@@ -1,3 +1,5 @@
+@tool
+
 class_name CellRegistry
 extends Resource
 
@@ -19,8 +21,8 @@ enum LOAD_STRATEGY {
 	ASYNC_LOAD,
 }
 
-# the cell data resources, keyed by their grid coordinates
-@export var cells : Dictionary
+# the cell data resources, keyed by their stringified grid coordinates
+@export var cells : Dictionary[String, CellData] = {}
 # the chosen load strategy (behavior of how the cells are loaded and stored in memory)
 @export var load_strategy : LOAD_STRATEGY = LOAD_STRATEGY.IN_MEMORY_REMOVE
 # total number of cells that will be cached in memory for ASYNC_LOAD
@@ -54,3 +56,24 @@ enum LOAD_STRATEGY {
 # TODO: may be better suited as a CellData property so that users can tune loading per cell.
 # the number of mutable objects to load per frame when a cell is added to the scene
 @export var mutable_process_frames : int = 1
+
+func set_cell(coords: Vector3i, cell_data: Resource) -> void:
+	var key = _coords_to_key(coords)
+	
+	# the dictionary is locked by the editor/resource loader, duplicate it to unlock
+	if cells.is_read_only():
+		cells = cells.duplicate()
+		
+	cells[key] = cell_data
+
+func get_cell(coords: Vector3i) -> Resource:
+	return cells.get(_coords_to_key(coords), null)
+
+func erase_cell(coords: Vector3i) -> bool:
+	return cells.erase(_coords_to_key(coords))
+
+func has_cell(coords: Vector3i) -> bool:
+	return cells.has(_coords_to_key(coords))
+
+func _coords_to_key(coords: Vector3i) -> String:
+	return "%d,%d,%d" % [coords.x, coords.y, coords.z]

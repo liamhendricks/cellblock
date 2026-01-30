@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://cs6u7ruomaxi5"]
+[gd_scene format=3 uid="uid://cxbgvjooraf32"]
 
-[ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_c6gwx"]
-[ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="2_2dftf"]
-[ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_js7pq"]
-[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="4_eu7l1"]
-[ext_resource type="Resource" uid="uid://ca5rcb602gxwi" path="res://addons/cellblock/resources/cell_registry_example_far.tres" id="6_wygdx"]
-[ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="7_wygdx"]
+[ext_resource type="Script" uid="uid://bw5pg1eq80qpg" path="res://world.gd" id="1_507ey"]
+[ext_resource type="PackedScene" uid="uid://dq2c2r7bxwclg" path="res://Player.tscn" id="2_0okxu"]
+[ext_resource type="PackedScene" uid="uid://cswobu00da4n7" path="res://addons/cellblock/cell_anchor.tscn" id="3_tlxj8"]
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="4_ll4sy"]
+[ext_resource type="Resource" uid="uid://c70sbx0aerkr5" path="res://addons/cellblock/resources/cell_registry_example_2.tres" id="5_507ey"]
+[ext_resource type="Script" uid="uid://bfffeg8o5htm1" path="res://addons/cellblock/cell_save.gd" id="6_6r21w"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_js7pq"]
 frequency = 0.0665
@@ -22,7 +22,7 @@ albedo_texture = SubResource("NoiseTexture2D_eu7l1")
 data = PackedVector3Array(-2500, -0.5, 2500, -2500, -0.5, -2500, -2500, 0.5, -2500, 2500, -0.5, -2500, -2500, -0.5, -2500, -2500, -0.5, 2500, -2500, 0.5, -2500, -2500, -0.5, -2500, 2500, -0.5, -2500, -2500, 0.5, -2500, -2500, 0.5, 2500, -2500, -0.5, 2500, -2500, -0.5, 2500, -2500, 0.5, 2500, 2500, 0.5, 2500, 2500, 0.5, 2500, -2500, 0.5, 2500, -2500, 0.5, -2500, -2500, -0.5, 2500, 2500, -0.5, 2500, 2500, -0.5, -2500, 2500, 0.5, 2500, 2500, -0.5, 2500, -2500, -0.5, 2500, 2500, -0.5, -2500, 2500, -0.5, 2500, 2500, 0.5, 2500, 2500, -0.5, -2500, 2500, 0.5, -2500, -2500, 0.5, -2500, -2500, 0.5, -2500, 2500, 0.5, -2500, 2500, 0.5, 2500, 2500, 0.5, 2500, 2500, 0.5, -2500, 2500, -0.5, -2500)
 
 [sub_resource type="Resource" id="Resource_bah7m"]
-script = ExtResource("7_wygdx")
+script = ExtResource("6_6r21w")
 metadata/_custom_type_script = "uid://bfffeg8o5htm1"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_js7pq"]
@@ -35,7 +35,7 @@ sky = SubResource("Sky_eu7l1")
 ambient_light_source = 3
 
 [node name="World" type="StaticBody3D" unique_id=1730152887]
-script = ExtResource("1_c6gwx")
+script = ExtResource("1_507ey")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=876496166]
 size = Vector3(5000, 1, 5000)
@@ -44,12 +44,13 @@ material = SubResource("StandardMaterial3D_p1v5b")
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="." unique_id=105275166]
 shape = SubResource("ConcavePolygonShape3D_wygdx")
 
-[node name="Player" parent="." unique_id=1738002633 instance=ExtResource("2_js7pq")]
+[node name="Player" parent="." unique_id=1738002633 instance=ExtResource("2_0okxu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7599, 1.571, 0)
 speed = 40.0
 
-[node name="CellAnchor" parent="." unique_id=1497866091 instance=ExtResource("2_2dftf")]
-cell_registries = Array[ExtResource("4_eu7l1")]([ExtResource("6_wygdx")])
+[node name="CellAnchor" parent="." unique_id=1497866091 instance=ExtResource("3_tlxj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
+cell_registries = Array[ExtResource("4_ll4sy")]([ExtResource("5_507ey")])
 cell_save = SubResource("Resource_bah7m")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1781440735]

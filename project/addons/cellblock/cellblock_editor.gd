@@ -96,8 +96,9 @@ func _delete_cell():
 			return
 
 	# delete cell_data from registry
-	anchor.cell_registries[to_delete.registry_index].cells.erase(to_delete.cell_data.coordinates)
-	ResourceSaver.save(anchor.cell_registries[to_delete.registry_index])
+	var r = anchor.cell_registries[to_delete.registry_index]
+	r.erase_cell(to_delete.cell_data.coordinates)
+	ResourceSaver.save(r, r.resource_path)
 
 	# delete cell in the editor
 	var root = EditorInterface.get_edited_scene_root()
@@ -128,7 +129,9 @@ func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
 	_cell_data.world_position = _active_cell.global_position
 	var cell_size = anchor.cell_registries[_idx].cell_size
 	_cell_data.coordinates = world_to_cell_space(_active_cell.global_position, cell_size)
-	ResourceSaver.save(anchor.cell_registries[active_registry_index])
+	var r = anchor.cell_registries[active_registry_index]
+	r.set_cell(_cell_data.coordinates, _cell_data)
+	ResourceSaver.save(r, r.resource_path)
 
 	_set_owner_recursive_safe(_active_cell, _active_cell)
 
@@ -191,7 +194,7 @@ func _load_cell():
 	on_update()
 
 func _on_create_pressed() -> void:
-	if coordinates in anchor.cell_registries[active_registry_index].cells:
+	if anchor.cell_registries[active_registry_index].has_cell(coordinates):
 		push_warning("cell already exists at the coordinates: %v, load cell instead" % coordinates)
 		return
 
@@ -208,7 +211,7 @@ func _on_create_pressed() -> void:
 
 	cell_data.scene_path = dir + cell_data.cell_name + ".tscn"
 	cell_data.world_position = anchor.global_position
-	anchor.cell_registries[active_registry_index].cells[coordinates] = cell_data
+	anchor.cell_registries[active_registry_index].set_cell(coordinates, cell_data)
 
 	var path = anchor.cell_registries[active_registry_index].base_cell_scene_path
 
@@ -297,7 +300,7 @@ func _update_cell_options():
 	for key in anchor.cell_registries[active_registry_index].cells.keys():
 		var cell_data = anchor.cell_registries[active_registry_index].cells[key]
 		cell_options.add_item(cell_data.cell_name)
-		cell_options.set_item_metadata(cell_options.item_count - 1, key)
+		cell_options.set_item_metadata(cell_options.item_count - 1, cell_data.coordinates)
 
 func _on_clear_pressed(item : ActiveCellUiItem) -> void:
 	_clear(item.cell_index)
@@ -360,7 +363,7 @@ func _pick_cell_to_load(index: int) -> void:
 		return
 
 	var v: Vector3i = cell_options.get_item_metadata(index)
-	var cell_data = anchor.cell_registries[active_registry_index].cells[v]
+	var cell_data = anchor.cell_registries[active_registry_index].get_cell(v)
 	cell_to_load = cell_data
 
 func _check_cell_active(_coords : Vector3i) -> bool:

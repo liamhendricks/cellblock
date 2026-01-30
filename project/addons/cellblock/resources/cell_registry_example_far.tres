@@ -1,83 +1,19 @@
-[gd_resource type="Resource" script_class="CellRegistry" load_steps=11 format=3 uid="uid://ca5rcb602gxwi"]
+[gd_resource type="Resource" script_class="CellRegistry" format=3 uid="uid://ca5rcb602gxwi"]
 
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="2_cb6ba"]
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="3_a2qk6"]
 
-[sub_resource type="Resource" id="Resource_lhp4g"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_-3_0_0"
-coordinates = Vector3i(-3, 0, 0)
-world_position = Vector3(-1500, 0, 0)
-scene_path = "res://cells/cell_-3_0_0.tscn"
-
-[sub_resource type="Resource" id="Resource_cb6ba"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_-2_0_0"
-coordinates = Vector3i(-2, 0, 0)
-world_position = Vector3(-1000, 0, 0)
-scene_path = "res://cells/cell_-2_0_0.tscn"
-
-[sub_resource type="Resource" id="Resource_foq6k"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_-1_0_0"
-coordinates = Vector3i(-1, 0, 0)
-world_position = Vector3(-500, 0, 0)
-scene_path = "res://cells/cell_-1_0_0.tscn"
-
 [sub_resource type="Resource" id="Resource_aubrr"]
 script = ExtResource("2_cb6ba")
-cell_name = "cell_0_0_0"
-coordinates = Vector3i(0, 0, 0)
-world_position = Vector3(0, 0, 0)
 scene_path = "res://cells/cell_0_0_0.tscn"
-
-[sub_resource type="Resource" id="Resource_a2qk6"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_1_0_0"
-coordinates = Vector3i(1, 0, 0)
-world_position = Vector3(500, 0, 0)
-scene_path = "res://cells/cell_1_0_0.tscn"
-
-[sub_resource type="Resource" id="Resource_46qvy"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_1_0_2"
-coordinates = Vector3i(1, 0, 2)
-world_position = Vector3(500, 0, 1000)
-scene_path = "res://cells/cell_1_0_2.tscn"
-
-[sub_resource type="Resource" id="Resource_xyl8k"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_2_0_0"
-coordinates = Vector3i(2, 0, 0)
-world_position = Vector3(1000, 0, 0)
-scene_path = "res://cells/cell_2_0_0.tscn"
-
-[sub_resource type="Resource" id="Resource_ov2td"]
-script = ExtResource("2_cb6ba")
-cell_name = "cell_3_0_0"
-coordinates = Vector3i(3, 0, 0)
-world_position = Vector3(1500, 0, 0)
-scene_path = "res://cells/cell_3_0_0.tscn"
 
 [resource]
 script = ExtResource("3_a2qk6")
-cells = {
-Vector3i(-3, 0, 0): SubResource("Resource_lhp4g"),
-Vector3i(-2, 0, 0): SubResource("Resource_cb6ba"),
-Vector3i(-1, 0, 0): SubResource("Resource_foq6k"),
-Vector3i(0, 0, 0): SubResource("Resource_aubrr"),
-Vector3i(1, 0, 0): SubResource("Resource_a2qk6"),
-Vector3i(1, 0, 2): SubResource("Resource_46qvy"),
-Vector3i(2, 0, 0): SubResource("Resource_xyl8k"),
-Vector3i(3, 0, 0): SubResource("Resource_ov2td")
-}
+cells = Dictionary[String, ExtResource("2_cb6ba")]({
+"0,0,0": SubResource("Resource_aubrr")
+})
 load_strategy = 2
-max_cache_size = 5
 grid_size = Vector3i(5000, 1000, 5000)
 cell_size = 500
-radius_multiplier = 1
-cell_directory = "res://cells/"
-base_cell_scene_path = "res://addons/cellblock/cell.tscn"
-iterations_per_frame = 5
 mutable_process_frames = 5
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

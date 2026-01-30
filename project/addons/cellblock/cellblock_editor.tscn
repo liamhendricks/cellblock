@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bolhal1a0dnwg"]
+[gd_scene format=3 uid="uid://bolhal1a0dnwg"]
 
 [ext_resource type="Script" uid="uid://dy422ha6gotu3" path="res://addons/cellblock/cellblock_editor.gd" id="1_imwrm"]
 
@@ -21,18 +21,16 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[node name="CellblockEditor" type="Control"]
+[node name="CellblockEditor" type="Control" unique_id=360192094]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("1_imwrm")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1225093858]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=90032887]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -49,32 +47,32 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1615637514]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1350959545]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Cell Editor"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2015010941]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1277636915]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=843965679]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,121 +85,121 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer" unique_id=142320593]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1243086579]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2144220373]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Create Cell"
 
-[node name="Registry" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Registry" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=634894172]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry" unique_id=209495721]
 layout_mode = 2
 text = "Registry:"
 
-[node name="RegistryOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry"]
+[node name="RegistryOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/Registry" unique_id=721158523]
 layout_mode = 2
 size_flags_horizontal = 3
 text_overrun_behavior = 4
 
-[node name="CellName" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="CellName" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=889807986]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName" unique_id=188055384]
 layout_mode = 2
 text = "Cell Name:"
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/CellName" unique_id=1538287889]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "cell_0_0_0"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1513619850]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=476900768]
 layout_mode = 2
 text = "X:"
 
-[node name="XSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="XSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1497102537]
 layout_mode = 2
 size_flags_horizontal = 3
 rounded = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=542241982]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1924440043]
 layout_mode = 2
 text = "Y:"
 
-[node name="YSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="YSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1583455742]
 layout_mode = 2
 size_flags_horizontal = 3
 rounded = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=89876176]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1379673367]
 layout_mode = 2
 text = "Z:"
 
-[node name="ZSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="ZSpin" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" unique_id=833227743]
 layout_mode = 2
 size_flags_horizontal = 3
 rounded = true
 
-[node name="CreateButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="CreateButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=945463599]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Create"
 
-[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=303619463]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1065523039]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1622136705]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Load Cell"
 
-[node name="Cells" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Cells" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=62727981]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells" unique_id=322106503]
 layout_mode = 2
 text = "Cell:"
 
-[node name="CellOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells"]
+[node name="CellOptions" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/Cells" unique_id=600258839]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1535493891]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Load"
 
-[node name="Panel2" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Panel2" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=48890621]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2" unique_id=1554132701]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,21 +212,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer" unique_id=1844689531]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer" unique_id=1350790551]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Active Cells"
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer" unique_id=174655821]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_imwrm")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel" unique_id=113652347]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -240,29 +238,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel/MarginContainer" unique_id=1308149336]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel/MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/Panel/MarginContainer/ScrollContainer" unique_id=939234971]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer" unique_id=1731659504]
 layout_mode = 2
 
-[node name="SaveAll" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SaveAll" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1322378016]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save All"
 
-[node name="ClearAll" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ClearAll" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=74088958]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Clear All"
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer" unique_id=305881114]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 100
@@ -270,13 +268,13 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="DeleteCellPopup" type="Panel" parent="PanelContainer/MarginContainer2"]
+[node name="DeleteCellPopup" type="Panel" parent="PanelContainer/MarginContainer2" unique_id=905142230]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qn7ru")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup" unique_id=820122986]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -289,16 +287,16 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer" unique_id=443527855]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="DeleteCellLabel" type="Label" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer"]
+[node name="DeleteCellLabel" type="Label" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer" unique_id=783816470]
 layout_mode = 2
 text = "Delete Cell:"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer" unique_id=1073410704]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 6
@@ -306,17 +304,17 @@ text = "Warning! You are about to delete your cell. This will permanently delete
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer" unique_id=1079693015]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="DeleteCellButton" type="Button" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DeleteCellButton" type="Button" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1818918682]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Permanently Delete Cell"
 
-[node name="Cancel" type="Button" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Cancel" type="Button" parent="PanelContainer/MarginContainer2/DeleteCellPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2072876247]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
