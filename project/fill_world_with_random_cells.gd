@@ -25,7 +25,7 @@ func create_cell_scenes_in_grid(cell_registry : CellRegistry):
 				cell_data.cell_name = "cell_%d_%d_%d" % [coords.x, coords.y, coords.z]
 				cell_data.scene_path = cell_registry.cell_directory + cell_data.cell_name + ".tscn"
 				cell_data.world_position = cell_to_world_space(coords, cell_registry.cell_size)
-				cell_registry.set_cell(cell_data.coordinates, cell_data)
+				cell_registry.set_cell(cell_data.coordinates, cell_data) 
 				ResourceSaver.save(cell_registry)
 
 				var cell_scene = load(cell_registry.base_cell_scene_path)
