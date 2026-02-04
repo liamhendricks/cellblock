@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="CellRegistry" format=3 uid="uid://c70sbx0aerkr5"]
+
+[ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="1_73c4r"]
+[ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="1_cpxlq"]
+
+[sub_resource type="Resource" id="Resource_j122v"]
+script = ExtResource("1_cpxlq")
+cell_name = "c00-1"
+coordinates = Vector3i(0, 0, -1)
+world_position = Vector3(0, 0, -100)
+scene_path = "res://cells/c00-1.tscn"
+
+[sub_resource type="Resource" id="Resource_27x4b"]
+script = ExtResource("1_cpxlq")
+cell_name = "c00-2"
+coordinates = Vector3i(0, 0, -2)
+world_position = Vector3(0, 0, -200)
+scene_path = "res://cells/c00-2.tscn"
+
+[sub_resource type="Resource" id="Resource_cpxlq"]
+script = ExtResource("1_cpxlq")
+cell_name = "c000"
+scene_path = "res://cells/c000.tscn"
+
+[sub_resource type="Resource" id="Resource_8kcqu"]
+script = ExtResource("1_cpxlq")
+cell_name = "c001"
+coordinates = Vector3i(0, 0, 1)
+world_position = Vector3(0, 0, 100)
+scene_path = "res://cells/c001.tscn"
+
+[sub_resource type="Resource" id="Resource_bfcd3"]
+script = ExtResource("1_cpxlq")
+cell_name = "c002"
+coordinates = Vector3i(0, 0, 2)
+world_position = Vector3(0, 0, 200)
+scene_path = "res://cells/c002.tscn"
+
+[resource]
+script = ExtResource("1_73c4r")
+cells = Dictionary[String, ExtResource("1_cpxlq")]({
+"0,0,-1": SubResource("Resource_j122v"),
+"0,0,-2": SubResource("Resource_27x4b"),
+"0,0,0": SubResource("Resource_cpxlq"),
+"0,0,1": SubResource("Resource_8kcqu"),
+"0,0,2": SubResource("Resource_bfcd3")
+})
+grid_size = Vector3i(5000, 100, 5000)
+cell_size = 100
+metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"

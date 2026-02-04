@@ -5,17 +5,19 @@ extends EditorPlugin
 var dock
 
 func _enter_tree() -> void:
-	dock = preload("res://addons/cellblock/cellblock_editor.tscn").instantiate()
-	add_control_to_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, dock)
+	dock = EditorDock.new()
+	var dock_content = preload("res://addons/cellblock/cellblock_editor.tscn").instantiate()
+	dock.add_child(dock_content)
+	dock.default_slot = EditorDock.DOCK_SLOT_RIGHT_UL
+	add_dock(dock)
 	dock.visible = false
-	dock.plugin = self
 	if not ProjectSettings.has_setting("autoload/" + "CellManager"):
 		add_autoload_singleton("CellManager", "res://addons/cellblock/autoload/cell_manager.gd")
 	if not ProjectSettings.has_setting("autoload/" + "CellblockLogger"):
 		add_autoload_singleton("CellblockLogger", "res://addons/cellblock/autoload/cellblock_logger.gd")
 
 func _exit_tree() -> void:
-	remove_control_from_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, dock)
+	remove_dock(dock)
 	dock.queue_free()
 	if ProjectSettings.has_setting("autoload/" + "CellManager"):
 		remove_autoload_singleton("CellManager")
@@ -35,12 +37,10 @@ func _handles(object):
 
 func _edit(object):
 	if object is CellAnchor:
-		dock.visible = true
-		dock.anchor = object
-		dock.init()
-		dock.on_update()
-	else:
-		dock.visible = false
+		var editor = dock.get_node("CellblockEditor")
+		editor.anchor = object
+		editor.init()
+		editor.on_update()
 
 func _make_visible(visible : bool):
 	dock.visible = visible

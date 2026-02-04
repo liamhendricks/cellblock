@@ -17,7 +17,6 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
-		var key = "%v" % cell_data.coordinates
 		var cell : Cell = cell_data.get_scene_instance()
 		cell.process_frames = cell_registry.mutable_process_frames
 		cell.cell_data = cell_data

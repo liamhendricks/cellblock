@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c6kcu818hym51"]
+
+[ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_nkjf7"]
+[ext_resource type="Script" uid="uid://b8jkwbmbdvtc" path="res://addons/cellblock/components/object_loader.gd" id="2_2kucq"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_s04pr"]
+
+[node name="c00-1" type="Node3D" unique_id=1345360477]
+script = ExtResource("1_nkjf7")
+
+[node name="statics" type="Node3D" parent="." unique_id=286938597]
+
+[node name="StaticObjectExample2" parent="statics" unique_id=1300422251 instance=ExtResource("2_s04pr")]
+
+[node name="StaticObjectExample3" parent="statics" unique_id=1932777761 instance=ExtResource("2_s04pr")]
+transform = Transform3D(1, 0, 0, 0, 0.43417802, -0.9008271, 0, 0.9008271, 0.43417802, 0, 57.65851, 0)
+
+[node name="objects" type="Node3D" parent="." unique_id=637792403]
+
+[node name="characters" type="Node3D" parent="." unique_id=1365686041]
+
+[node name="doors" type="Node3D" parent="." unique_id=2058746433]
+
+[node name="spawners" type="Node3D" parent="." unique_id=776755982]
+
+[node name="ObjectLoader" type="Node" parent="." unique_id=578333025]
+script = ExtResource("2_2kucq")
+metadata/_custom_type_script = "uid://b8jkwbmbdvtc"

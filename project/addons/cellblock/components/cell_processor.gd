@@ -35,7 +35,7 @@ func work_all_cells(origin_object : Node3D) -> void:
 	for k in cell_registry.cells.keys():
 		var in_range : bool = false
 		var cd : CellData = cell_registry.cells[k]
-		var world_space_coords = CellManager.cell_to_world_space(k, cell_registry.cell_size)
+		var world_space_coords = CellManager.cell_to_world_space(cd.coordinates, cell_registry.cell_size)
 		var dist : float = origin_object.global_position.distance_to(world_space_coords)
 		var dist_to_current : float = origin_object.global_position.distance_to(current_cell_coords)
 
@@ -60,10 +60,10 @@ func _work(origin_object : Node3D):
 
 # convert the cell_data coords to world space and calculate the distance to the
 # origin and the current nearest cell.
-func _work_cell(origin_object : Node3D, coords : Vector3i) -> void:
+func _work_cell(origin_object : Node3D, key : String) -> void:
 	var in_range : bool = false
-	var cd : CellData = cell_registry.cells[coords]
-	var world_space_coords = CellManager.cell_to_world_space(coords, cell_registry.cell_size)
+	var cd : CellData = cell_registry.cells[key]
+	var world_space_coords = CellManager.cell_to_world_space(cd.coordinates, cell_registry.cell_size)
 	var dist : float = origin_object.global_position.distance_to(world_space_coords)
 	var dist_to_current : float = origin_object.global_position.distance_to(current_cell_coords)
 
@@ -82,12 +82,12 @@ func _work_cell(origin_object : Node3D, coords : Vector3i) -> void:
 			cell_loader.remove(cd)
 
 func update_current_cell(_cell_coords : Vector3i) -> void:
-	if _cell_coords not in cell_registry.cells:
+	if cell_registry.has_cell(_cell_coords):
 		return
 
 	if _cell_coords != current_cell_coords:
-		var old : CellData = cell_registry.cells[current_cell_coords]
-		var new_current : CellData = cell_registry.cells[_cell_coords]
+		var old : CellData = cell_registry.get_cell(current_cell_coords)
+		var new_current : CellData = cell_registry.get_cell(_cell_coords)
 		current_cell_coords = _cell_coords
 		enter_cell(old, new_current)
 
@@ -99,7 +99,7 @@ func try_reparent_mutable(_cell : Cell, _key : Vector3i):
 	if len(_mutable_data.keys()) == 0:
 		return
 
-	var cell_data = cell_registry.cells[_key]
+	var cell_data = cell_registry.get_cell(_key)
 	for k in _mutable_data.keys():
 		for object in _mutable_data[k]:
 			# if the object clamps to a new cell that exists, parent it there
@@ -113,8 +113,8 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	if _to not in cell_registry.cells:
 		return
 
-	var old = cell_registry.cells[_from]
-	var new = cell_registry.cells[_to]
+	var old = cell_registry.get_cell(_from)
+	var new = cell_registry.get_cell(_to)
 
 	var tmp_pos = _node.global_position
 	var parent = _node.get_parent()

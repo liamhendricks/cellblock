@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq2c2r7bxwclg"]
+[gd_scene format=3 uid="uid://dq2c2r7bxwclg"]
 
-[ext_resource type="Script" uid="uid://cvkrq521y6cgl" path="res://player.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://vwkl7y24ad1a" path="res://player.gd" id="1_xhfnw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2dftf"]
 
@@ -8,22 +8,22 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js7pq"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=522729239]
 collision_mask = 3
 script = ExtResource("1_xhfnw")
 speed = 20.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1796073061]
 shape = SubResource("CapsuleShape3D_2dftf")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1906513043]
 mesh = SubResource("CapsuleMesh_bcbcq")
 material = SubResource("StandardMaterial3D_js7pq")
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=765129927]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=422804154]
 spring_length = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=2136767782]
