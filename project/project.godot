@@ -27,6 +27,7 @@ CellblockLogger="*res://addons/cellblock/autoload/cellblock_logger.gd"
 
 [display]
 
+window/size/mode=3
 window/size/resizable=false
 
 [editor_plugins]
