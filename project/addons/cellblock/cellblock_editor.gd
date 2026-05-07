@@ -80,9 +80,10 @@ func _delete_cell():
 		return
 
 	# delete cell_scene itself
-	var dir := DirAccess.open(anchor.cell_registries[to_delete.registry_index].cell_directory)
-	if dir == null:
-		push_warning("cell_directory not found: %s" % anchor.cell_registries[to_delete.registry_index].cell_directory)
+	var dir_name = anchor.cell_registries[active_registry_index].cell_directory
+	var dir := DirAccess.open(dir_name)
+	if dir == null || !dir.dir_exists(dir_name): 
+		push_warning("cell_directory not found: %s" % dir_name)
 		return
 
 	if dir.file_exists(to_delete.cell_data.scene_path):
@@ -202,28 +203,29 @@ func _on_create_pressed() -> void:
 	cell_data.coordinates = coordinates
 	if create_cell_name == "":
 		create_cell_name = "cell_%d_%d_%d" % [coordinates.x, coordinates.y, coordinates.z]
-	cell_data.cell_name = create_cell_name
-	var dir = anchor.cell_registries[active_registry_index].cell_directory
-	var can_open := DirAccess.open(dir)
-	if !can_open:
-		push_warning("cell directory does not exist at: %s" % dir)
+
+	var dir_name = anchor.cell_registries[active_registry_index].cell_directory
+	var dir := DirAccess.open(dir_name)
+	var exists := dir.dir_exists(dir_name)
+	if !exists:
+		push_warning("cell directory does not exist at: %s" % dir_name)
 		return
 
-	cell_data.scene_path = dir + cell_data.cell_name + ".tscn"
-	cell_data.world_position = anchor.global_position
-	anchor.cell_registries[active_registry_index].set_cell(coordinates, cell_data)
+	var full_path = dir_name + create_cell_name + ".tscn"
+	if dir.file_exists(full_path):
+		push_warning("cell already exists at: %s" % full_path)
+		return
 
 	var path = anchor.cell_registries[active_registry_index].base_cell_scene_path
-
-	can_open = DirAccess.open(cell_data.scene_path)
-	if can_open:
-		push_warning("cell already exists at: %s" % cell_data.scene_path)
-		return
-
 	var cell_scene = load(path)
 	if !cell_scene:
 		push_warning("cell scene does not exist at: %s" % path)
 		return
+
+	cell_data.cell_name = create_cell_name
+	cell_data.scene_path = full_path
+	cell_data.world_position = anchor.global_position
+	anchor.cell_registries[active_registry_index].set_cell(coordinates, cell_data)
 
 	var cell = cell_scene.instantiate()
 	var editing_cell = EditingCellData.new()

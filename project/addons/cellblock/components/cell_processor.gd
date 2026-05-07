@@ -144,14 +144,12 @@ func get_cell_save_data() -> Dictionary:
 	save_data[cell_registry.resource_path] = {}
 	for k in cell_registry.cells.keys():
 		var cell_data = cell_registry.cells[k]
-		var key = "%v" % k
-		save_data[cell_registry.resource_path][key] = cell_data.save_data
+		save_data[cell_registry.resource_path][k] = cell_data.save_data
 
 	for k in active_cells.keys():
 		var cell := active_cells[k]
-		var key = "%v" % k
-		cell.cell_data.save_data = cell.save_cell(key)
-		save_data[cell_registry.resource_path][key] = cell.cell_data.save_data
+		cell.cell_data.save_data = cell.save_cell(k)
+		save_data[cell_registry.resource_path][k] = cell.cell_data.save_data
 
 	return save_data
 
