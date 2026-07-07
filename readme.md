@@ -2,7 +2,7 @@
 
 # Cellblock
 
-Open world scene management in gdscript.
+Open world scene management in GDScript.
 
 ## Making an open world game?
 
@@ -15,7 +15,7 @@ player.
 
 There is also a central workflow problem to solve while developing your game. How do you build the
 world content efficiently without slowing down the godot editor? The player only sees the content around
-her, but how is this possible in the godot editor while developing? The solution is a data driven
+her, but how is this possible in the Godot editor while developing? The solution is a data driven
 approach, and easy-to-use editor tools. Cellblock allows devs to build their open world game as
 efficiently as the player exploring it! I wanted to make a similar designing and editing experience to
 those familiar with the TES Construction set. This more declaritive approach avoids some of the
@@ -25,7 +25,7 @@ can seamlessly be used with one (such as the fantastic Terrain3D addon).
 
 ## Cellblock's Design
 
-Cellblock has taken design queues from classic Elder Scrolls games like Morrowind, and it's open
+Cellblock has taken design cues from classic Elder Scrolls games like Morrowind, and its open
 source engine OpenMW. A Cell is a small area containing game content. It can contain static art
 assets like trees, rocks or castles - mutable objects such as items, doors or other scriptable
 objects - and even characters! These Cells will be seamlessly streamed in and out of the world
@@ -35,7 +35,7 @@ this game state data as serializable JSON.
 Only the Cells surrounding the player will be loaded, and there are many configurable options to
 decide when, how and how many cells to load. Some games have large assets that are impractical to
 keep in memory all the time, other games can load all the Cell data into RAM and only pop them in and
-out of the tree. Both situations can be handled with this Addon. There are also customizable 
+out of the tree. Both situations can be handled with this addon. There are also customizable 
 in-memory caching options.
 
 Nearby Cells are chosen by doing distance calculations from the origin point (the player or camera) to
@@ -54,11 +54,11 @@ amazing open world games that remain framerate stable in most situations!
 
 ## Installation
 
-Follow normal godot 4.x addon installation procedures. Copy the project/addons/cellblock folder into
+Follow normal Godot 4.x addon installation procedures. Copy the project/addons/cellblock folder into
 your projects addon folder. Enable the addon in your project's plugin settings, and restart the
 engine.
 
-This addon has only been tested with godot 4.4.x as of right now.
+This addon has only been tested with Godot 4.4.x as of right now.
 
 ## Setup and Usage
 
@@ -79,7 +79,6 @@ chosen `LoadStrategy` is using the LRU cache).
 - grid_size: The size of the cell grid in your game world.
 - cell_size: The size of the 'gap' between cells. Lower value means more cells in the grid, i.e a
 value of 1 would mean 1 cell for every vertex in the grid.
-cells.
 - cell_directory: The directory where your `Cell` scenes will be saved.
 - base_cell_scene_path: This is the base scene that you wish to be created when the editor tool
 creates a new `Cell` to edit. It is defaulted to the the `Cell` node, but you may want to extend this
@@ -140,8 +139,8 @@ The `Cell` node is designed to be extended (see the `CellRegistry` documentation
 gameplay needs. The base class is a good starting point, but I would highly recommend extending the
 class even if you don't need any new functionality right away. If you get halfway through building
 your game and realize the `Cell` class provided by this addon is insufficient, it may be very
-annoying to try to retroactively fix all your cells. There are some things I can do to enforce this
-behavior, but I haven't done it yet.
+annoying to try to retroactively fix all your cells. (There are some things I can do to enforce this
+behavior, but I haven't done it yet.)
 
 An example of a reason you may want to extend `Cell`: you have doors in your game that have mutable
 data (have they been opened, locked, etc), but they do not move. It makes sense to save this data
@@ -174,7 +173,7 @@ This a simple example that may require more direct integration with your own pro
 
 ## More about Mutable objects
 
-Mutable objects are automatically reparented to a new Cell if they get closer to a that cell. You have
+Mutable objects are automatically reparented to a new Cell if they get closer to that cell. You have
 control over which objects are affected by this reparenting behavior by which nodes are returned in
 the `Cell`'s `get_mutable()` function. By default, all nodes paths defined in the `get_mutable_names()`
 function will be counted as mutable.
@@ -184,9 +183,9 @@ Then each of the scenes is loaded, instantiated and added to the `Cell`.
 
 ### Working with other addons
 
-Combine Cellblock with Terrain3D, Extra Snaps and Proton Scatter for the ultimate open world dev kit!
+Combine Cellblock with [Terrain3D](https://github.com/TokisanGames/Terrain3D), [Extra Snaps](https://github.com/mharitsnf/ExtraSnaps) and [Proton Scatter](https://github.com/HungryProton/scatter) for the ultimate open world dev kit!
 
-### Caviats and Known Issues
+### Caveats and Known Issues
 
 - 'Cell space' and 'world space' are decoupled from each other, so changing the grid_size and cell_size
 properties will not mess up the positioning of your cells. However, changing these properties might
@@ -217,6 +216,6 @@ this kind of scenario) so this will likely get fixed in the future.
 - When updating grid_size or cell_size, calculate new coordinates for cells based on new nearest cell.
 - Filtering / sorting active cell UI items.
 
-## LICENCE
+## LICENSE
 
-This addon is released under the MIT Licence.
+This addon is released under the MIT License.
