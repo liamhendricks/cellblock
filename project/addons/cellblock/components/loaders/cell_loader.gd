@@ -11,6 +11,10 @@ var cell_cache : CellCache
 func _init(_world : Node3D, _max_cache_size : int):
 	pass
 
+#virtual
+func get_registry() -> CellRegistry:
+	return null
+
 # virtual
 func configure(cell_registry : CellRegistry, cell_save : CellSave):
 	pass
@@ -25,7 +29,11 @@ func remove(cell_data : CellData):
 
 # loads the save data from the file
 func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
-	var key = "%v" % _cell_data.coordinates
+	var cr := get_registry()
+	if cr == null:
+		return
+
+	var key := cr.coords_to_key(_cell_data.coordinates)
 	if _resource_path not in _all_save_data:
 		_cell_data.save_data = {}
 	else:
@@ -43,8 +51,12 @@ func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path 
 	if _resource_path not in _all_save_data:
 		return
 
+	var cr := get_registry()
+	if cr == null:
+		return
+
 	var save_data = _all_save_data[_resource_path]
-	var key = "%v" % _cell_data.coordinates
+	var key := cr.coords_to_key(_cell_data.coordinates)
 	if key in save_data:
 		save_data[key] = _cell_data.save_data
 

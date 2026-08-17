@@ -61,7 +61,7 @@ enum LOAD_STRATEGY {
 @export var static_process_frames : int = 10
 
 func set_cell(coords: Vector3i, cell_data: Resource) -> void:
-	var key = _coords_to_key(coords)
+	var key = coords_to_key(coords)
 	
 	# the dictionary is locked by the editor/resource loader, duplicate it to unlock
 	if cells.is_read_only():
@@ -70,13 +70,13 @@ func set_cell(coords: Vector3i, cell_data: Resource) -> void:
 	cells[key] = cell_data
 
 func get_cell(coords: Vector3i) -> Resource:
-	return cells.get(_coords_to_key(coords), null)
+	return cells.get(coords_to_key(coords), null)
 
 func erase_cell(coords: Vector3i) -> bool:
-	return cells.erase(_coords_to_key(coords))
+	return cells.erase(coords_to_key(coords))
 
 func has_cell(coords: Vector3i) -> bool:
-	return cells.has(_coords_to_key(coords))
+	return cells.has(coords_to_key(coords))
 
-func _coords_to_key(coords: Vector3i) -> String:
+func coords_to_key(coords: Vector3i) -> String:
 	return "%d,%d,%d" % [coords.x, coords.y, coords.z]

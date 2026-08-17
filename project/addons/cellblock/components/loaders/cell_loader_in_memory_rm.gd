@@ -28,6 +28,9 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 
 		cells[cell_data.coordinates] = cell
 
+func get_registry() -> CellRegistry:
+	return cell_registry
+
 func add(cell_data : CellData):
 	if cell_data.coordinates in active_cells:
 		return
@@ -70,7 +73,7 @@ func add(cell_data : CellData):
 	cell.global_position = cell_data.world_position
 	cell.object_adder.start()
 	cell.load_cell(cell_data.save_data)
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
 
 	call_deferred("_finish_loading", cell)
 
@@ -83,7 +86,8 @@ func remove(cell_data : CellData):
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
 
