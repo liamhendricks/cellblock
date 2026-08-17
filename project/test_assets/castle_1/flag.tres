@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://57jncs5fmuwb"]
-
-[ext_resource type="Texture2D" uid="uid://f0p8lmei2uax" path="res://environments/castle/castle_1/flag_flag2.png" id="1_2c81f"]
-
-[resource]
-resource_name = "flag"
-cull_mode = 2
-albedo_texture = ExtResource("1_2c81f")
