@@ -54,6 +54,9 @@ func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3):
 	_mutable_node.owner = node
 	_mutable_node.global_position = _pos
 
+func get_static_names() -> Array[String]:
+	return ["statics"]
+
 # construct a keyed save dictionary of all current mutable cell children
 func save_cell(_key : String) -> Dictionary:
 	var save_data = {

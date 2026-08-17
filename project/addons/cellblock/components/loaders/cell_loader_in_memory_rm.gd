@@ -50,10 +50,25 @@ func add(cell_data : CellData):
 				child.remove_child(gc)
 				gc.queue_free()
 
+	# remove all static objects and we will load them one by one
+	var object_adder : ObjectAdder = ObjectAdder.new()
+	var static_names = cell.get_static_names()
+	for child in cell.get_children():
+		if static_names.has(child.name):
+			for gc in child.get_children():
+				child.remove_child(gc)
+				gc.owner = null
+				object_adder.add_pending_scene(gc)
+
+	cell.add_child(object_adder)
+	cell.object_adder = object_adder
 	active_cells[cell_data.coordinates] = cell
 	world.add_child(cell)
 	cell.name = cell_data.cell_name
+	cell.mutable_process_frames = cell_registry.mutable_process_frames
+	cell.static_process_frames = cell_registry.static_process_frames
 	cell.global_position = cell_data.world_position
+	cell.object_adder.start()
 	cell.load_cell(cell_data.save_data)
 	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
 

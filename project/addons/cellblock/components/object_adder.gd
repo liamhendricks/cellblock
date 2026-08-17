@@ -10,6 +10,7 @@ var statics : Node3D
 
 func _ready():
 	set_process(false)
+	finished_adding.connect(queue_free)
 
 func init(_cell : Cell):
 	cell = _cell
