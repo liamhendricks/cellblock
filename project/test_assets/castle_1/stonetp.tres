@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dnf6056fnkntx"]
+
+[ext_resource type="Texture2D" uid="uid://bbhp2ju14yxgs" path="res://environments/castle/castle_1/foundation_lg_castle2.jpg" id="1_yk4cb"]
+
+[resource]
+resource_name = "stonetp"
+albedo_texture = ExtResource("1_yk4cb")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_offset = Vector3(0, 0.9, 0)
+uv1_triplanar = true

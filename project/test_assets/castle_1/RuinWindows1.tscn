@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://di4dfvgrrr0iq"]
+
+[ext_resource type="PackedScene" uid="uid://byt47dec6t1cg" path="res://environments/castle/castle_1/ruin9.glb" id="1_vxcht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jtiy5"]
+size = Vector3(12, 2.1000001, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_um8r5"]
+size = Vector3(5, 1.9, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ophu"]
+size = Vector3(5, 1.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m46eg"]
+size = Vector3(5, 0.90000004, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qknvp"]
+size = Vector3(4, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6dvq"]
+size = Vector3(4.2000003, 1.1, 1)
+
+[node name="RuinWindows1" type="StaticBody3D" unique_id=539407945]
+
+[node name="ruin92" parent="." unique_id=1765348731 instance=ExtResource("1_vxcht")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1406385711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0500001, 0.5)
+shape = SubResource("BoxShape3D_jtiy5")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=2001339980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 7.15, 0.5)
+shape = SubResource("BoxShape3D_um8r5")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=327040175]
+transform = Transform3D(0.9063078, 0.42261824, 0, -0.42261824, 0.9063078, 0, 0, 0, 1, -3.1, 6.55, 0.5)
+shape = SubResource("BoxShape3D_1ophu")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1256226088]
+transform = Transform3D(0.9396926, -0.34202015, 0, 0.34202015, 0.9396926, 0, 0, 0, 1, -0.90000004, 6.45, 0.5)
+shape = SubResource("BoxShape3D_1ophu")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=668727101]
+transform = Transform3D(-7.4505806e-08, -1, 0, 1, -7.4505806e-08, 0, 0, 0, 1, -5.6, 4.5499997, 0.5)
+shape = SubResource("BoxShape3D_m46eg")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=1326449763]
+transform = Transform3D(-7.4505806e-08, -1, 0, 1, -7.4505806e-08, 0, 0, 0, 1, -2.05, 4.0499997, 0.5)
+shape = SubResource("BoxShape3D_qknvp")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="." unique_id=1912447361]
+transform = Transform3D(-7.4505806e-08, -1, 0, 1, -7.4505806e-08, 0, 0, 0, 1, 1.95, 4.1499996, 0.5)
+shape = SubResource("BoxShape3D_qknvp")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="." unique_id=503972188]
+transform = Transform3D(-7.4505806e-08, -1, 0, 1, -7.4505806e-08, 0, 0, 0, 1, 5.5, 4.1499996, 0.5)
+shape = SubResource("BoxShape3D_m6dvq")
+
+[editable path="ruin92"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bboxdkqegjnlw"]
+
+[ext_resource type="PackedScene" uid="uid://bfu7q7k8dpxsr" path="res://environments/castle/objects/Statue5.glb" id="1_rcs2p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0qq52"]
+size = Vector3(0.4, 5.789136, 1.9841797)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmnul"]
+size = Vector3(1.2, 2.7, 0.9)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_658b5"]
+height = 8.6625
+radius = 1.5585938
+
+[node name="Statue" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9996518, 0.02638629, 0, -0.02638629, 0.9996518, 0.3, 6.7539954, 3.1403751)
+shape = SubResource("BoxShape3D_0qq52")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.014677674, 0.99989223, 0, -0.99989223, -0.014677674, 5.9604645e-08, 6.562932, 2.1147492)
+shape = SubResource("BoxShape3D_cmnul")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20970613, 4.29375, 0.42800158)
+shape = SubResource("CylinderShape3D_658b5")
+
+[node name="Statue52" parent="." instance=ExtResource("1_rcs2p")]

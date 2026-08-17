@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwc5rodskaov"]
+
+[ext_resource type="PackedScene" uid="uid://d0tnm4lujv0kn" path="res://environments/castle/objects/Statue.glb" id="1_vnscw"]
+
+[node name="Statue" type="Node3D"]
+
+[node name="Statue2" parent="." instance=ExtResource("1_vnscw")]

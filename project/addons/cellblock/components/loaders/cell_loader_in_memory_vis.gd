@@ -25,7 +25,8 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
 		world.add_child(cell)
 		cell.name = cell_data.cell_name
-		cell.process_frames = cell_registry.mutable_process_frames
+		cell.mutable_process_frames = cell_registry.mutable_process_frames
+		cell.static_process_frames = cell_registry.static_process_frames
 		cell.global_position = cell_data.world_position
 		cell.load_cell(cell_data.save_data)
 		cells[cell_data.coordinates] = cell

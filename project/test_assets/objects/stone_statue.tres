@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpbmo4vt4tkax"]
+
+[ext_resource type="Texture2D" uid="uid://cja7unre52e6f" path="res://environments/castle/objects/ruin1-s_stone10.png" id="1_p5cf0"]
+
+[resource]
+resource_name = "stone_statue"
+cull_mode = 2
+albedo_texture = ExtResource("1_p5cf0")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true

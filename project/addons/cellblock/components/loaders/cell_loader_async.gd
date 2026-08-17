@@ -79,9 +79,22 @@ func _finish_loading(_cell : Cell, _cell_data : CellData):
 				child.remove_child(gc)
 				gc.queue_free()
 
+	# remove all static objects and we will load them one by one
+	var object_adder : ObjectAdder = ObjectAdder.new()
+	for child in _cell.get_children():
+		if child.name == "statics":
+			for gc in child.get_children():
+				child.remove_child(gc)
+				gc.owner = null
+				object_adder.add_pending_scene(gc)
+
+	_cell.add_child(object_adder)
+	_cell.object_adder = object_adder
 	world.add_child(_cell)
-	_cell.process_frames = cell_registry.mutable_process_frames
+	_cell.mutable_process_frames = cell_registry.mutable_process_frames
+	_cell.static_process_frames = cell_registry.static_process_frames
 	_cell.global_position = _cell_data.world_position
+	_cell.object_adder.start()
 	_cell.load_cell(_cell_data.save_data)
 	_cell_data.save_data = _cell.save_cell("%v" % _cell_data.coordinates)
 

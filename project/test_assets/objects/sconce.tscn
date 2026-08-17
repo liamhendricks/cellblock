@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cdiywi5n0qjg"]
+
+[ext_resource type="PackedScene" uid="uid://bo1yrlbqdyshe" path="res://test_assets/objects/sconce.glb" id="1_02b53"]
+[ext_resource type="PackedScene" path="res://test_assets/objects/CandleFire.tscn" id="2_fbh4a"]
+
+[node name="Sconce" type="Node3D" unique_id=599363640]
+
+[node name="Fire" parent="." unique_id=1934188746 instance=ExtResource("2_fbh4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0207609, 0.366572, -0.0892437)
+
+[node name="Fire2" parent="." unique_id=803312687 instance=ExtResource("2_fbh4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.147857, 0.351793, -0.0892437)
+
+[node name="Fire3" parent="." unique_id=311803187 instance=ExtResource("2_fbh4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.176934, 0.351793, -0.0892437)
+
+[node name="sconce" parent="." unique_id=2056189930 instance=ExtResource("1_02b53")]
+
+[node name="WallSconce" parent="sconce" index="0" unique_id=1316016752]
+cast_shadow = 0
+
+[editable path="sconce"]

@@ -56,6 +56,9 @@ enum LOAD_STRATEGY {
 # TODO: may be better suited as a CellData property so that users can tune loading per cell.
 # the number of mutable objects to load per frame when a cell is added to the scene
 @export var mutable_process_frames : int = 1
+# TODO: may be better suited as a CellData property so that users can tune loading per cell.
+# the number of static objects to load per frame when a cell is added to the scene
+@export var static_process_frames : int = 10
 
 func set_cell(coords: Vector3i, cell_data: Resource) -> void:
 	var key = _coords_to_key(coords)

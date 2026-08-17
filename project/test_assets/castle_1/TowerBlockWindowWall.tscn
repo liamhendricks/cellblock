@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://gmo8eutem2d8"]
+
+[ext_resource type="PackedScene" uid="uid://c7qdl1t2q8afv" path="res://environments/castle/castle_1/towerblock_window.glb" id="1_j5u70"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6k0yc"]
+size = Vector3(4, 2.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5u70"]
+size = Vector3(4, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qdm6k"]
+size = Vector3(1, 3.5, 1)
+
+[node name="TowerBlockWall1" type="StaticBody3D" unique_id=1500697194]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2119216905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.5)
+shape = SubResource("BoxShape3D_6k0yc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=468033626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0.5)
+shape = SubResource("BoxShape3D_j5u70")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1517764063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.25, 0.5)
+shape = SubResource("BoxShape3D_qdm6k")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=2113378475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.25, 0.5)
+shape = SubResource("BoxShape3D_qdm6k")
+
+[node name="towerblock_window2" parent="." unique_id=1252227011 instance=ExtResource("1_j5u70")]

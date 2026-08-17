@@ -33,6 +33,7 @@ sky_material = SubResource("ProceduralSkyMaterial_js7pq")
 [sub_resource type="Environment" id="Environment_p1v5b"]
 sky = SubResource("Sky_eu7l1")
 ambient_light_source = 3
+glow_enabled = true
 
 [node name="World" type="StaticBody3D" unique_id=1730152887]
 script = ExtResource("1_c6gwx")

@@ -20,7 +20,7 @@ func start():
 	set_process(true)
 
 func _process(_delta: float) -> void:
-	for i in range(cell.process_frames):
+	for i in range(cell.mutable_process_frames):
 		if len(pending_scenes) == 0:
 			set_process(false)
 			CellblockLogger.debug("finished loading mutable scenes")

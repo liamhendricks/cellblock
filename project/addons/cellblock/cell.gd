@@ -5,9 +5,11 @@ signal cell_configured(cell : Cell)
 
 var cell_data : CellData
 var cell_fully_configured : bool = false
-var process_frames : int = 1
+var mutable_process_frames : int = 1
+var static_process_frames : int = 10
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
+var object_adder : ObjectAdder
 
 func _enter_tree() -> void:
 	visible = false
@@ -15,9 +17,15 @@ func _enter_tree() -> void:
 
 func _ready():
 	cell_fully_configured = false
-	object_loader.init(self)
-	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
-		object_loader.finished_loading.connect(_on_finished_loading_mutable)
+	if object_loader != null:
+		object_loader.init(self)
+		if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
+			object_loader.finished_loading.connect(_on_finished_loading_mutable)
+	if object_adder != null:
+		object_adder.init(self)
+		if !object_adder.finished_adding.is_connected(_on_finished_adding):
+			object_adder.finished_adding.connect(_on_finished_adding)
+
 	call_deferred("set_visible", true)
 
 # define the names of the cell children which are the parents of each type of mutable node
@@ -94,6 +102,14 @@ func load_cell(_data : Dictionary):
 	object_loader.start()
 
 func _on_finished_loading_mutable():
-	CellblockLogger.debug("cell configured: %s" % name)
+	if object_loader.pending_scenes.is_empty():
+		_cell_configured()
+
+func _on_finished_adding():
+	if object_loader.pending_scenes.is_empty():
+		_cell_configured()
+
+func _cell_configured():
 	cell_fully_configured = true
+	CellblockLogger.debug("cell configured: %s" % name)
 	emit_signal("cell_configured", self)

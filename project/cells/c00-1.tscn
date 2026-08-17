@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_nkjf7"]
 [ext_resource type="Script" uid="uid://b8jkwbmbdvtc" path="res://addons/cellblock/components/object_loader.gd" id="2_2kucq"]
-[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://StaticObjectExample2.tscn" id="2_s04pr"]
+[ext_resource type="PackedScene" uid="uid://dgrygg3ts3qsr" path="res://test_assets/StaticObjectExample2.tscn" id="2_s04pr"]
 
 [node name="c00-1" type="Node3D" unique_id=1345360477]
 script = ExtResource("1_nkjf7")

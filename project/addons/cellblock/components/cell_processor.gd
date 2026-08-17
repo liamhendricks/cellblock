@@ -110,7 +110,7 @@ func try_reparent_mutable(_cell : Cell, _key : Vector3i):
 				reparent_node(_key, actual, object, k, _cell)
 
 func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String, _old_cell : Cell):
-	if _to not in cell_registry.cells:
+	if "%v" % _to not in cell_registry.cells:
 		return
 
 	var old = cell_registry.get_cell(_from)
