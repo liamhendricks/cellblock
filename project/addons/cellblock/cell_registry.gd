@@ -62,11 +62,10 @@ enum LOAD_STRATEGY {
 
 func set_cell(coords: Vector3i, cell_data: Resource) -> void:
 	var key = coords_to_key(coords)
-	
 	# the dictionary is locked by the editor/resource loader, duplicate it to unlock
 	if cells.is_read_only():
 		cells = cells.duplicate()
-		
+
 	cells[key] = cell_data
 
 func get_cell(coords: Vector3i) -> Resource:

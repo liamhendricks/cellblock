@@ -9,9 +9,9 @@ script = ExtResource("1_nkjf7")
 
 [node name="statics" type="Node3D" parent="." unique_id=286938597]
 
-[node name="StaticObjectExample2" parent="statics" unique_id=1300422251 instance=ExtResource("2_s04pr")]
+[node name="StaticObjectExample2" type="StaticBody3D" parent="statics" unique_id=1300422251 instance=ExtResource("2_s04pr")]
 
-[node name="StaticObjectExample3" parent="statics" unique_id=1932777761 instance=ExtResource("2_s04pr")]
+[node name="StaticObjectExample3" type="StaticBody3D" parent="statics" unique_id=1932777761 instance=ExtResource("2_s04pr")]
 transform = Transform3D(1, 0, 0, 0, 0.43417802, -0.9008271, 0, 0.9008271, 0.43417802, 0, 57.65851, 0)
 
 [node name="objects" type="Node3D" parent="." unique_id=637792403]

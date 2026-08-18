@@ -18,11 +18,15 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
+		if cell == null:
+			CellblockLogger.error(
+				"failed to instantiate cell: %s at %s" % [cell_data.scene_path, cell_data.coordinates]
+			)
+			continue
+
 		cell.mutable_process_frames = cell_registry.mutable_process_frames
 		cell.static_process_frames = cell_registry.static_process_frames
 		cell.cell_data = cell_data
-		if cell == null:
-			continue
 
 		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
 

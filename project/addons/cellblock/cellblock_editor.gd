@@ -77,10 +77,17 @@ func _on_delete_pressed(item : ActiveCellUiItem):
 
 func _delete_cell():
 	if !to_delete:
+		push_warning("cell null")
+		return
+
+	var active_index := active_cells.find(to_delete)
+	if active_index == -1:
+		push_warning("cell not found")
 		return
 
 	# delete cell_scene itself
-	var dir_name = anchor.cell_registries[active_registry_index].cell_directory
+	var r := anchor.cell_registries[to_delete.registry_index]
+	var dir_name := r.cell_directory
 	var dir := DirAccess.open(dir_name)
 	if dir == null || !dir.dir_exists(dir_name): 
 		push_warning("cell_directory not found: %s" % dir_name)
@@ -97,7 +104,6 @@ func _delete_cell():
 			return
 
 	# delete cell_data from registry
-	var r = anchor.cell_registries[to_delete.registry_index]
 	r.erase_cell(to_delete.cell_data.coordinates)
 	ResourceSaver.save(r, r.resource_path)
 
@@ -105,7 +111,7 @@ func _delete_cell():
 	var root = EditorInterface.get_edited_scene_root()
 	var active_cell = to_delete.cell_ref
 	active_cell.queue_free()
-	active_cells.remove_at(to_delete.active_cell_index)
+	active_cells.erase(to_delete)
 
 	EditorInterface.get_resource_filesystem().scan()
 	to_delete = null
@@ -127,10 +133,12 @@ func _on_save_all_pressed():
 	_save_all()
 
 func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
+	if _idx < 0 || _idx >= anchor.cell_registries.size():
+		push_warning("registry index not found")
+		return
+
 	_cell_data.world_position = _active_cell.global_position
-	var cell_size = anchor.cell_registries[_idx].cell_size
-	_cell_data.coordinates = world_to_cell_space(_active_cell.global_position, cell_size)
-	var r = anchor.cell_registries[active_registry_index]
+	var r = anchor.cell_registries[_idx]
 	r.set_cell(_cell_data.coordinates, _cell_data)
 	ResourceSaver.save(r, r.resource_path)
 

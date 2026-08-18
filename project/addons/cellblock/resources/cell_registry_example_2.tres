@@ -43,7 +43,8 @@ cells = Dictionary[String, ExtResource("1_cpxlq")]({
 "0,0,-2": SubResource("Resource_27x4b"),
 "0,0,0": SubResource("Resource_cpxlq"),
 "0,0,1": SubResource("Resource_8kcqu"),
-"0,0,2": SubResource("Resource_bfcd3")
+"0,0,2": SubResource("Resource_bfcd3"),
+"1,0,0": SubResource("Resource_cpxlq")
 })
 grid_size = Vector3i(5000, 100, 5000)
 cell_size = 100

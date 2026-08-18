@@ -66,8 +66,14 @@ func _deferred_load(cell_data : CellData):
 			"done": false,
 			"scene": null,
 		}
+	else:
+		CellblockLogger.error("error starting cell load")
 
 func _finish_loading(cell : Cell, cell_data : CellData):
+	if cell == null:
+		emit_signal("cell_added", cell_data, null)
+		return
+
 	cell.cell_data = cell_data
 
 	active_cells[cell_data.coordinates] = cell
@@ -116,16 +122,19 @@ func _process(_delta):
 		if done:
 			var scene = data["scene"]
 			data["done"] = false
-			var cell : Cell = scene.instantiate()
-			call_deferred("_finish_loading", cell, cell_data)
+			if scene != null:
+				var cell : Cell = scene.instantiate()
+				call_deferred("_finish_loading", cell, cell_data)
+			else:
+				call_deferred("_finish_loading", null, cell_data)
 			continue
 
 		var load_status = ResourceLoader.load_threaded_get_status(cell_data.scene_path, progress)
 		match load_status:
 			0,2: # ERROR
-				done_loading = false
-				set_process(false)
-				return
+				CellblockLogger.error("error loading cell at: %s" % cell_data.coordinates)
+				data["done"] = true
+				data["scene"] = null
 			1: # progress
 				emit_signal("scene_load_progress", progress[0])
 			3: # finished

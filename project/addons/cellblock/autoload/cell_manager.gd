@@ -23,6 +23,10 @@ func set_origin_object(_origin_object : Node3D) -> void:
 # entrypoint to start the cell_manager
 # await start(...) and you will have all mutable objects instantiated in the scene on first load
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
+	if loaded == true:
+		CellblockLogger.error("cell manager is currently running, stop() first")
+		return
+
 	if _anchor == null:
 		CellblockLogger.error("no cell_anchor provided")
 		return
@@ -39,10 +43,10 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		CellblockLogger.error("no origin object provided")
 		return
 
-	current_processor_index = 0
 	var cell_registries = _anchor.cell_registries
 	origin_object = _origin_object
 	cell_save = _anchor.cell_save
+	current_processor_index = 0
 
 	var count = 0
 	for registry : CellRegistry in cell_registries:
@@ -68,8 +72,10 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	if !_anchor.anchor_exited.is_connected(_on_anchor_exited):
 		_anchor.anchor_exited.connect(_on_anchor_exited)
 
+
 	await _initial_load()
 
+	loaded = true
 	set_process(true)
 	emit_signal("manager_started")
 	CellblockLogger.info("cell_manager started")

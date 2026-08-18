@@ -1,7 +1,7 @@
 extends Node
 class_name ObjectAdder
 
-signal scene_added(node : Node, data : Dictionary)
+signal scene_added(node : Node)
 signal finished_adding()
 
 var pending_scenes = []
@@ -32,4 +32,4 @@ func _process(_delta: float) -> void:
 
 		var next_node = pending_scenes.pop_back()
 		statics.add_child(next_node)
-		emit_signal("scene_added")
+		emit_signal("scene_added", next_node)
