@@ -5,7 +5,7 @@ var time_format = "hh:mm:ss"
 var format_string = "[{TIME}] [{LEVEL}] - {MESSAGE}"
 var log_level : LOG_LEVELS = LOG_LEVELS.ERROR
 
-func init(_log_level : LOG_LEVELS):
+func init(_log_level : LOG_LEVELS) -> void:
 	log_level = _log_level
 
 func debug(message : String) -> void:

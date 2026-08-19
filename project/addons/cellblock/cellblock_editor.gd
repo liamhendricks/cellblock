@@ -20,7 +20,7 @@ var anchor : CellAnchor
 var plugin : EditorPlugin
 var to_delete : EditingCellData
 
-func _ready():
+func _ready() -> void:
 	for editing_cell in active_cells:
 		if editing_cell.cell_ref != null:
 			editing_cell.cell_ref.free()
@@ -38,7 +38,7 @@ func _ready():
 	to_delete = null
 	init()
 
-func init():
+func init() -> void:
 	active_registry_index = 0
 	registry_options.clear()
 	if anchor != null && len(anchor.cell_registries) > 0:
@@ -47,7 +47,7 @@ func init():
 
 		registry_options.selected = 0
 
-func on_update():
+func on_update() -> void:
 	if len(anchor.cell_registries) == 0:
 		return
 
@@ -63,7 +63,7 @@ func on_update():
 	y.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.y / 2) / anchor.cell_registries[active_registry_index].cell_size)
 	z.max_value = floor((anchor.cell_registries[active_registry_index].grid_size.z / 2) / anchor.cell_registries[active_registry_index].cell_size)
 
-func _on_delete_pressed(item : ActiveCellUiItem):
+func _on_delete_pressed(item : ActiveCellUiItem) -> void:
 	var active_cell_index = item.cell_index
 	var editing_cell = active_cells[active_cell_index]
 	var cell = editing_cell.cell_ref
@@ -75,7 +75,7 @@ func _on_delete_pressed(item : ActiveCellUiItem):
 	delete_cell_popup.visible = true
 	to_delete = editing_cell
 
-func _delete_cell():
+func _delete_cell() -> void:
 	if !to_delete:
 		push_warning("cell null")
 		return
@@ -125,7 +125,7 @@ func _delete_cell():
 
 	on_update()
 
-func _on_save_pressed(item : ActiveCellUiItem):
+func _on_save_pressed(item : ActiveCellUiItem) -> void:
 	var active_cell_index = item.cell_index
 	var editing_cell = active_cells[active_cell_index]
 	var cell = editing_cell.cell_ref
@@ -135,10 +135,10 @@ func _on_save_pressed(item : ActiveCellUiItem):
 
 	_save_active_cell(cell, editing_cell.cell_data, editing_cell.registry_index)
 
-func _on_save_all_pressed():
+func _on_save_all_pressed() -> void:
 	_save_all()
 
-func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
+func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int) -> void:
 	if _idx < 0 || _idx >= anchor.cell_registries.size():
 		push_warning("registry index not found")
 		return
@@ -177,7 +177,7 @@ func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
 			r.erase_cell(_cell_data.coordinates)
 		return
 
-func _save_all():
+func _save_all() -> void:
 	for child in active_cell_container.get_children():
 		var active_cell_index = child.cell_index
 		var editing_cell = active_cells[active_cell_index]
@@ -188,11 +188,11 @@ func _save_all():
 
 		_save_active_cell(cell, editing_cell.cell_data, editing_cell.registry_index)
 
-func _on_load_pressed():
+func _on_load_pressed() -> void:
 	_pick_cell_to_load(cell_options.get_selected_id())
 	_load_cell()
 
-func _load_cell():
+func _load_cell() -> void:
 	if cell_to_load == null:
 		push_warning("no cell chosen to load")
 		return
@@ -277,10 +277,10 @@ func _on_create_pressed() -> void:
 	on_update()
 
 #TODO
-func _on_radius_load_pressed():
+func _on_radius_load_pressed() -> void:
 	pass
 
-func _coordinates_updated(value : float, index : int):
+func _coordinates_updated(value : float, index : int) -> void:
 	match(index):
 		0: coordinates.x = value
 		1: coordinates.y = value
@@ -288,7 +288,7 @@ func _coordinates_updated(value : float, index : int):
 
 	on_update()
 
-func _registry_updated(index : int):
+func _registry_updated(index : int) -> void:
 	active_registry_index = index
 	on_update()
 
@@ -306,7 +306,7 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 		round(_pos.z / _cell_size)
 	)
 
-func _update_active_cell_items():
+func _update_active_cell_items() -> void:
 	for child in active_cell_container.get_children():
 		active_cell_container.remove_child(child)
 		child.queue_free()
@@ -318,13 +318,13 @@ func _update_active_cell_items():
 		active_cell_container.add_child(cell_ui_item)
 		cell_ui_item.configure(editing_cell.cell_data, editing_cell.registry_index, i, _on_save_pressed, _on_clear_pressed, _on_delete_pressed)
 
-func _update_cursor():
+func _update_cursor() -> void:
 	if len(anchor.cell_registries) == 0:
 		return
 
 	anchor.global_position = cell_to_world_space(coordinates, anchor.cell_registries[active_registry_index].cell_size)
 
-func _update_cell_options():
+func _update_cell_options() -> void:
 	if len(anchor.cell_registries) == 0:
 		return
 
@@ -341,12 +341,12 @@ func _on_clear_pressed(item : ActiveCellUiItem) -> void:
 func _on_clear_all_pressed() -> void:
 	_clear_all()
 
-func _enable_cell_editing(cell : Node, root : Node):
+func _enable_cell_editing(cell : Node, root : Node) -> void:
 	cell.owner = root
 	cell.scene_file_path = ""
 	_set_owner_recursive_safe(cell, root)
 
-func _set_owner_recursive_safe(node: Node, owner: Node):
+func _set_owner_recursive_safe(node: Node, owner: Node) -> void:
 	if node.scene_file_path != "":
 		node.owner = owner
 		for child in node.get_children():
@@ -361,7 +361,7 @@ func _set_owner_recursive_safe(node: Node, owner: Node):
 		if child is Node:
 			_set_owner_recursive_safe(child, owner)
 
-func _clear(_cell_idx : int):
+func _clear(_cell_idx : int) -> void:
 	var root = EditorInterface.get_edited_scene_root()
 	var editing_cell = active_cells[_cell_idx]
 	var active_cell = editing_cell.cell_ref
@@ -371,7 +371,7 @@ func _clear(_cell_idx : int):
 
 	on_update()
 
-func _clear_all():
+func _clear_all() -> void:
 	var root = EditorInterface.get_edited_scene_root()
 	if !root:
 		return

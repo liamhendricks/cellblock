@@ -8,18 +8,18 @@ var pending_scenes = []
 var cell : Cell
 var statics : Node3D
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 	finished_adding.connect(queue_free)
 
-func init(_cell : Cell):
+func init(_cell : Cell) -> void:
 	cell = _cell
 	statics = cell.get_node("statics")
 
-func add_pending_scene(node : Node):
+func add_pending_scene(node : Node) -> void:
 	pending_scenes.append(node)
 
-func start():
+func start() -> void:
 	set_process(true)
 
 func _process(_delta: float) -> void:

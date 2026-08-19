@@ -97,7 +97,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	CellblockLogger.info("cell_manager started")
 
 # await for signals to load everything
-func _initial_load():
+func _initial_load() -> void:
 	for proc in cell_processors:
 		await proc.work_all_cells(origin_object)
 
@@ -124,10 +124,10 @@ func stop() -> void:
 
 	cell_processors.clear()
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	work()
 
-func work():
+func work() -> void:
 	if origin_object == null || len(cell_processors) == 0:
 		return
 
@@ -150,12 +150,12 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 		round(_pos.z / _cell_size)
 	)
 
-func save_cells():
+func save_cells() -> void:
 	var save_data : Dictionary = {}
 	for p in cell_processors:
 		save_data.merge(p.get_cell_save_data())
 
 	cell_save.write_save(save_data)
 
-func _on_anchor_exited():
+func _on_anchor_exited() -> void:
 	pass

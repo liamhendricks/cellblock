@@ -16,7 +16,7 @@ var object_adder : ObjectAdder
 func _enter_tree() -> void:
 	request_ready()
 
-func _ready():
+func _ready() -> void:
 	cell_fully_configured = false
 	if object_loader != null:
 		object_loader.init(self)
@@ -44,7 +44,7 @@ func get_mutable() -> Dictionary:
 	return mutable
 
 # add mutable object to specific parent
-func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3):
+func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3) -> void:
 	if !has_node(_key):
 		return
 
@@ -78,7 +78,7 @@ func save_cell(_key : String) -> Dictionary:
 # performance reasons
 
 # load mutable cell objects from save
-func load_cell(_data : Dictionary):
+func load_cell(_data : Dictionary) -> void:
 	object_loader.start()
 	if len(_data.keys()) == 0:
 		return
@@ -106,17 +106,17 @@ func load_cell(_data : Dictionary):
 					"failed to load mutable scene: %s (error %d)" % [obj["filename"], res]
 				)
 
-func _on_finished_loading_mutable():
+func _on_finished_loading_mutable() -> void:
 	mutable_loading_complete = true
 	if static_loading_complete:
 		_cell_configured()
 
-func _on_finished_adding():
+func _on_finished_adding() -> void:
 	static_loading_complete = true
 	if mutable_loading_complete:
 		_cell_configured()
 
-func _cell_configured():
+func _cell_configured() -> void:
 	cell_fully_configured = true
 	CellblockLogger.debug("cell configured: %s" % name)
 	emit_signal("cell_configured", self)

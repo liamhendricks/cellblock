@@ -50,7 +50,7 @@ func work_all_cells(origin_object : Node3D) -> void:
 				cell_loader.add(cd)
 				await cell_loader.cell_added
 
-func _work(origin_object : Node3D):
+func _work(origin_object : Node3D) -> void:
 	if len(cell_registry.cells.keys()) == 0:
 		current_index = 0
 		return
@@ -100,7 +100,7 @@ func update_current_cell(_cell_coords : Vector3i) -> void:
 func enter_cell(_old : CellData, _new : CellData) -> void:
 	emit_signal("entered_cell", _old, _new)
 
-func try_reparent_mutable(_cell : Cell, _key : Vector3i):
+func try_reparent_mutable(_cell : Cell, _key : Vector3i) -> void:
 	var _mutable_data = _cell.get_mutable()
 	if len(_mutable_data.keys()) == 0:
 		return
@@ -115,7 +115,7 @@ func try_reparent_mutable(_cell : Cell, _key : Vector3i):
 			if actual != _key:
 				reparent_node(_key, actual, object, k, _cell)
 
-func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String, _old_cell : Cell):
+func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key : String, _old_cell : Cell) -> void:
 	var tkey := cell_registry.coords_to_key(_to)
 	if tkey not in cell_registry.cells:
 		return
@@ -160,14 +160,14 @@ func get_cell_save_data() -> Dictionary:
 
 	return save_data
 
-func _on_cell_configured(_cell : Cell):
+func _on_cell_configured(_cell : Cell) -> void:
 	emit_signal("cell_configured", _cell)
 
-func _on_cell_added(_cell_data : CellData, _cell : Cell):
+func _on_cell_added(_cell_data : CellData, _cell : Cell) -> void:
 	emit_signal("cell_added", _cell_data)
 
-func _on_cell_removed(_cell_data : CellData, _cell : Cell):
+func _on_cell_removed(_cell_data : CellData, _cell : Cell) -> void:
 	emit_signal("cell_removed", _cell_data)
 
-func on_exit():
+func on_exit() -> void:
 	cell_loader.on_exit()

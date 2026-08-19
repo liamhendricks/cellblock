@@ -8,16 +8,16 @@ signal finished_loading()
 var pending_scenes = []
 var cell : Cell
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 
-func init(_cell : Cell):
+func init(_cell : Cell) -> void:
 	cell = _cell
 
-func add_pending_scene(data : Dictionary):
+func add_pending_scene(data : Dictionary) -> void:
 	pending_scenes.append(data)
 
-func start():
+func start() -> void:
 	set_process(true)
 
 func _process(_delta: float) -> void:
