@@ -93,19 +93,25 @@ func _delete_cell():
 		push_warning("cell_directory not found: %s" % dir_name)
 		return
 
+	# delete cell_data from registry
+	var erased := r.erase_cell(to_delete.cell_data.coordinates)
+	if !erased:
+		push_warning("cell was not present in registry")
+		return
+
+	var reg_save_res := ResourceSaver.save(r, r.resource_path)
+	if reg_save_res != 0:
+		push_warning("error saving registry: %s" % r.resource_path)
+		r.set_cell(to_delete.cell_data.coordinates, to_delete.cell_data)
+		return
+
 	if dir.file_exists(to_delete.cell_data.scene_path):
 		var err := dir.remove(to_delete.cell_data.scene_path)
 		if err == OK:
 			print("cell deleted: %s" % to_delete.cell_data.cell_name)
 		else:
-			push_warning("something went wrong, failed to delete scene at: %s - aborting delete" % to_delete.cell_data.scene_path)
-			to_delete = null
-			delete_cell_popup.visible = false
-			return
-
-	# delete cell_data from registry
-	r.erase_cell(to_delete.cell_data.coordinates)
-	ResourceSaver.save(r, r.resource_path)
+			push_error("error deleting scene at: %s" % to_delete.cell_data.scene_path)
+			push_error("it has been deleted from the registry, delete manually on the file system")
 
 	# delete cell in the editor
 	var root = EditorInterface.get_edited_scene_root()
@@ -137,21 +143,39 @@ func _save_active_cell(_active_cell : Cell, _cell_data : CellData, _idx : int):
 		push_warning("registry index not found")
 		return
 
-	_cell_data.world_position = _active_cell.global_position
+	var root := EditorInterface.get_edited_scene_root()
 	var r = anchor.cell_registries[_idx]
-	r.set_cell(_cell_data.coordinates, _cell_data)
-	ResourceSaver.save(r, r.resource_path)
-
-	_set_owner_recursive_safe(_active_cell, _active_cell)
+	var original_position := _active_cell.global_position
+	var previous_world_pos := _cell_data.world_position
+	var previous_data := r.get_cell(_cell_data.coordinates)
 
 	var scene = PackedScene.new()
 	_active_cell.global_position = Vector3.ZERO
-	scene.pack(_active_cell)
-	ResourceSaver.save(scene, _cell_data.scene_path)
+	_set_owner_recursive_safe(_active_cell, _active_cell)
+	var pack_res := scene.pack(_active_cell)
+	_active_cell.global_position = original_position
+	_enable_cell_editing(_active_cell, root)
+	if pack_res != 0:
+		push_warning("error packing scene")
+		return
 
-	# now that the scene is saved, we can make the cell editable again
-	_active_cell.global_position = _cell_data.world_position
-	_enable_cell_editing(_active_cell, EditorInterface.get_edited_scene_root())
+	var scene_save_res := ResourceSaver.save(scene, _cell_data.scene_path)
+	if scene_save_res != 0:
+		push_warning("error saving scene: %s" % _cell_data.scene_path)
+		return
+
+	_cell_data.world_position = original_position
+	r.set_cell(_cell_data.coordinates, _cell_data)
+
+	var reg_save_res := ResourceSaver.save(r, r.resource_path)
+	if reg_save_res != 0:
+		push_error("scene saved, but registry save failed - registry metadata may be stale")
+		_cell_data.world_position = previous_world_pos
+		if previous_data != null:
+			r.set_cell(_cell_data.coordinates, previous_data)
+		else:
+			r.erase_cell(_cell_data.coordinates)
+		return
 
 func _save_all():
 	for child in active_cell_container.get_children():
@@ -233,7 +257,6 @@ func _on_create_pressed() -> void:
 	cell_data.cell_name = create_cell_name
 	cell_data.scene_path = full_path
 	cell_data.world_position = anchor.global_position
-	anchor.cell_registries[active_registry_index].set_cell(coordinates, cell_data)
 
 	var cell = cell_scene.instantiate()
 	var editing_cell = EditingCellData.new()

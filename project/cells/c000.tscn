@@ -11,6 +11,9 @@ script = ExtResource("1_as060")
 
 [node name="StaticObjectExample2" type="StaticBody3D" parent="statics" unique_id=1023325572 instance=ExtResource("2_hmsgi")]
 
+[node name="StaticObjectExample3" parent="statics" unique_id=1111241072 instance=ExtResource("2_hmsgi")]
+transform = Transform3D(1, 0, 0, 0, -0.5966591, -0.8024948, 0, 0.8024948, -0.5966591, 0, 68.101105, 0)
+
 [node name="objects" type="Node3D" parent="." unique_id=344490391]
 
 [node name="characters" type="Node3D" parent="." unique_id=205133797]

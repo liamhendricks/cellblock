@@ -48,6 +48,4 @@ cells = Dictionary[String, ExtResource("1_cpxlq")]({
 })
 grid_size = Vector3i(5000, 100, 5000)
 cell_size = 100
-mutable_process_frames = null
-static_process_frames = null
 metadata/_custom_type_script = "uid://cnfcl1l6tdsaa"
