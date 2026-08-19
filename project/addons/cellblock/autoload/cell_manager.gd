@@ -10,6 +10,7 @@ var cell_save : CellSave
 var cell_processors : Array[CellProcessor]
 var procs_loaded : Dictionary
 var loaded : bool = false
+var instantiation_worker : CellInstantiationWorker
 
 func _ready() -> void:
 	loaded = false
@@ -43,12 +44,22 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		CellblockLogger.error("no origin object provided")
 		return
 
+	# user may have made a mistake and forgot to remove cell during editing
+	for child in _world.get_children():
+		if child is Cell:
+			CellblockLogger.warn("world contains active cell node: %s" % child.name)
+			CellblockLogger.warn("world scene likely saved before clearing all cells")
+			CellblockLogger.warn("it has been removed during runtime, but should be removed in the editor")
+			_world.remove_child(child)
+			child.queue_free()
+
 	var cell_registries = _anchor.cell_registries
 	origin_object = _origin_object
 	cell_save = _anchor.cell_save
 	current_processor_index = 0
 
 	var count = 0
+	var has_async_loader: bool = false
 	for registry : CellRegistry in cell_registries:
 		if registry == null:
 			CellblockLogger.error("null cell registry")
@@ -63,6 +74,8 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 			CellblockLogger.error("cell_loader not found")
 			return
 
+		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.ASYNC_LOAD:
+			has_async_loader = true
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
 		add_child(loader)
@@ -72,6 +85,9 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	if !_anchor.anchor_exited.is_connected(_on_anchor_exited):
 		_anchor.anchor_exited.connect(_on_anchor_exited)
 
+	if has_async_loader:
+		instantiation_worker = CellInstantiationWorker.new()
+		add_child(instantiation_worker)
 
 	await _initial_load()
 

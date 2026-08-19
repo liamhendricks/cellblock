@@ -6,40 +6,46 @@ signal scene_load_complete()
 
 # This loader loads nearby cells from disk, and only retains a number equal to
 # cache_size in the cache. Save state is handled at time of load / unload
+# instantiation is done in a separate thread
 
 var done_loading : bool = false
 var pending_scenes = {}
 var all_save_data : Dictionary
 var cell_registry : CellRegistry
+var key_counter := 0
 
-func _init(_world : Node3D, _max_cache_size : int):
+func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
 	cell_cache = CellCache.new(_max_cache_size)
 
-func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
+func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
+	key_counter = 0
 
 func get_registry() -> CellRegistry:
 	return cell_registry
 
-func add(cell_data : CellData):
+func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in active_cells:
+		return
+
+	if cell_data.coordinates in pending_scenes:
 		return
 
 	# load the cell from in-memory cache if exists
 	var cell := cell_cache.pull(cell_data.coordinates)
 	if cell != null:
 		CellblockLogger.debug("pulling cell from cache")
-		call_deferred("_finish_loading", cell, cell_data)
+		_finish_loading(cell, cell_data)
 		return
 
 	CellblockLogger.debug("loading cell from disk")
 
 	# otherwise trigger an async load operation
-	call_deferred("_deferred_load", cell_data)
+	_deferred_load(cell_data)
 
-func remove(cell_data : CellData):
+func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
 		return
 
@@ -57,20 +63,23 @@ func remove(cell_data : CellData):
 	CellblockLogger.debug("cell removed from async loader")
 	emit_signal("cell_removed", cell_data, cell)
 
-func _deferred_load(cell_data : CellData):
+func _deferred_load(cell_data : CellData) -> void:
 	var res = ResourceLoader.load_threaded_request(cell_data.scene_path)
-	if res == OK && cell_data.coordinates not in pending_scenes:
+	if res == OK:
+		var key := CellManager.instantiation_worker.request_key()
 		pending_scenes[cell_data.coordinates] = {
 			"cell_data": cell_data,
 			"progress": [0.0],
 			"done": false,
 			"scene": null,
+			"key": key,
 		}
 	else:
 		CellblockLogger.error("error starting cell load")
 
-func _finish_loading(cell : Cell, cell_data : CellData):
+func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 	if cell == null:
+		pending_scenes.erase(cell_data.coordinates)
 		emit_signal("cell_added", cell_data, null)
 		return
 
@@ -112,7 +121,7 @@ func _finish_loading(cell : Cell, cell_data : CellData):
 	CellblockLogger.debug("cell added to async loader")
 	emit_signal("cell_added", cell_data, cell)
 
-func _process(_delta):
+func _process(_delta : float) -> void:
 	for k in pending_scenes.keys():
 		var data = pending_scenes[k]
 		var done = data["done"]
@@ -121,12 +130,14 @@ func _process(_delta):
 
 		if done:
 			var scene = data["scene"]
-			data["done"] = false
 			if scene != null:
-				var cell : Cell = scene.instantiate()
-				call_deferred("_finish_loading", cell, cell_data)
+				#here we are polling for our scene to be instantiated
+				var cell : Cell = CellManager.instantiation_worker.get_done_node(data["key"])
+				if cell != null:
+					_finish_loading(cell, cell_data)
 			else:
-				call_deferred("_finish_loading", null, cell_data)
+				_finish_loading(null, cell_data)
+
 			continue
 
 		var load_status = ResourceLoader.load_threaded_get_status(cell_data.scene_path, progress)
@@ -141,3 +152,7 @@ func _process(_delta):
 				var scene = ResourceLoader.load_threaded_get(cell_data.scene_path)
 				data["scene"] = scene
 				data["done"] = true
+				CellManager.instantiation_worker.enqueue(scene, data["key"])
+
+func increment_key_counter() -> void:
+	key_counter += 1

@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-
 var dock
 
 func _enter_tree() -> void:
@@ -31,6 +30,16 @@ func _enable_plugin():
 func _disable_plugin():
 	remove_autoload_singleton("CellManager")
 	remove_autoload_singleton("CellblockLogger")
+
+func _save_external_data() -> void:
+	if dock == null:
+		return
+
+	var root = dock.get_child(0)
+	if root != null && "active_cells" in root && len(root.active_cells) > 0:
+		push_error("ensure active cells get saved and cleared in the cellblock editor window ")
+		for active_cell: EditingCellData in root.active_cells:
+			push_error("scene saved with active cell: %s" % active_cell.cell_data.cell_name)
 
 func _handles(object):
 	return object is CellAnchor

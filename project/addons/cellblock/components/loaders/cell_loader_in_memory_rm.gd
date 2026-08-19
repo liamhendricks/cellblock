@@ -9,10 +9,10 @@ extends CellLoader
 var cells : Dictionary[Vector3i, Cell]
 var cell_registry : CellRegistry
 
-func _init(_world : Node3D, _max_cache_size : int):
+func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
 
-func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
+func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	var all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
@@ -35,7 +35,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 func get_registry() -> CellRegistry:
 	return cell_registry
 
-func add(cell_data : CellData):
+func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in active_cells:
 		return
 
@@ -81,11 +81,11 @@ func add(cell_data : CellData):
 
 	call_deferred("_finish_loading", cell)
 
-func _finish_loading(cell : Cell):
+func _finish_loading(cell : Cell) -> void:
 	CellblockLogger.debug("cell added to in memory rm loader")
 	emit_signal("cell_added", cell.cell_data, cell)
 
-func remove(cell_data : CellData):
+func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
 		return
 
@@ -98,7 +98,7 @@ func remove(cell_data : CellData):
 	CellblockLogger.debug("cell removed from in memory rm loader")
 	emit_signal("cell_removed", cell_data, cell)
 
-func on_exit():
+func on_exit() -> void:
 	super()
 
 	for k in cells.keys():
