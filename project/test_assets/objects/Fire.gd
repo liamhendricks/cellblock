@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var fire = $Fire
+@onready var fire := $Fire
 
-func shrink():
+func shrink() -> void:
 	fire.amount -= 3
 	fire.process_material.scale_min -= .8

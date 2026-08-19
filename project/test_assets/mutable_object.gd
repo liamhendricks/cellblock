@@ -11,7 +11,7 @@ func on_save() -> Dictionary:
 		"pos_z": transform.origin.z,
 	}
 
-func on_load(data : Dictionary):
+func on_load(data : Dictionary) -> void:
 	transform.origin.x = data["pos_x"]
 	transform.origin.y = data["pos_y"]
 	transform.origin.z = data["pos_z"]

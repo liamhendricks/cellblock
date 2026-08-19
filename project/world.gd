@@ -1,7 +1,7 @@
 class_name World
 extends Node3D
 
-@onready var player = $Player
+@onready var player := $Player
 @onready var cell_anchor : CellAnchor = $CellAnchor
 
 func _ready() -> void:
