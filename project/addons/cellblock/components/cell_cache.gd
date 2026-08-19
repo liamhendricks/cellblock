@@ -32,7 +32,7 @@ func _evict() -> void:
 	cell.queue_free()
 	data.erase(key)
 
-func clear():
+func clear() -> void:
 	for k in data.keys():
 		var cell = data[k]
 		cell.free()

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://4vsvwnfweck1"]
+
+[ext_resource type="PackedScene" uid="uid://coghc2tr01c74" path="res://environments/castle/castle_1/towerblock_window_wall.glb" id="1_rwr7o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lfe8r"]
+size = Vector3(2.9, 8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rk6s"]
+size = Vector3(4, 2.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p6im0"]
+size = Vector3(4, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukead"]
+size = Vector3(1, 3.5, 1)
+
+[node name="TowerBlockWall1" type="StaticBody3D" unique_id=1500697194]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1461278932]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 2.7525127, 4, 0.74748725)
+shape = SubResource("BoxShape3D_lfe8r")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=145142320]
+transform = Transform3D(-0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, -0.7071068, -2.7474873, 4, 0.74748725)
+shape = SubResource("BoxShape3D_lfe8r")
+
+[node name="towerblock_window_wall2" parent="." unique_id=709346046 instance=ExtResource("1_rwr7o")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2115060165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 1.5)
+shape = SubResource("BoxShape3D_0rk6s")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=906290408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 1.5)
+shape = SubResource("BoxShape3D_p6im0")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=2029187778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.25, 1.5)
+shape = SubResource("BoxShape3D_ukead")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=1827337467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.25, 1.5)
+shape = SubResource("BoxShape3D_ukead")

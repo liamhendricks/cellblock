@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cey3psb4dkaic"]
+
+[ext_resource type="Texture2D" uid="uid://bl2tojmq3p527" path="res://environments/castle/castle_1/roof_roofgreen.png" id="1_ywkq4"]
+
+[resource]
+resource_name = "roof2"
+albedo_texture = ExtResource("1_ywkq4")
+metallic_specular = 0.0

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://fuju71y4oqiu"]
+
+[ext_resource type="Texture2D" uid="uid://dbeb84j84hdqd" path="res://environments/castle/castle_1/wall_lg_entry_castle3.jpg" id="1_degkf"]
+
+[resource]
+resource_name = "stone5"
+albedo_texture = ExtResource("1_degkf")
+metallic_specular = 0.0

@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-
 var dock
 
 func _enter_tree() -> void:
@@ -24,23 +23,33 @@ func _exit_tree() -> void:
 	if ProjectSettings.has_setting("autoload/" + "CellblockLogger"):
 		remove_autoload_singleton("CellblockLogger")
 
-func _enable_plugin():
+func _enable_plugin() -> void:
 	add_autoload_singleton("CellManager", "res://addons/cellblock/autoload/cell_manager.gd")
 	add_autoload_singleton("CellblockLogger", "res://addons/cellblock/autoload/cellblock_logger.gd")
 
-func _disable_plugin():
+func _disable_plugin() -> void:
 	remove_autoload_singleton("CellManager")
 	remove_autoload_singleton("CellblockLogger")
 
-func _handles(object):
+func _save_external_data() -> void:
+	if dock == null:
+		return
+
+	var root = dock.get_child(0)
+	if root != null && "active_cells" in root && len(root.active_cells) > 0:
+		push_error("ensure active cells get saved and cleared in the cellblock editor window ")
+		for active_cell: EditingCellData in root.active_cells:
+			push_error("scene saved with active cell: %s" % active_cell.cell_data.cell_name)
+
+func _handles(object : Object) -> bool:
 	return object is CellAnchor
 
-func _edit(object):
+func _edit(object : Object) -> void:
 	if object is CellAnchor:
 		var editor = dock.get_node("CellblockEditor")
 		editor.anchor = object
 		editor.init()
 		editor.on_update()
 
-func _make_visible(visible : bool):
+func _make_visible(visible : bool) -> void:
 	dock.visible = visible

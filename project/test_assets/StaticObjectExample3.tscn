@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bsw18mac6svd7"]
+
+[ext_resource type="Shader" uid="uid://qg5gwfiwfldl" path="res://test_assets/expensive_example.gdshader" id="1_s8uoq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_otnkg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4smwt"]
+noise = SubResource("FastNoiseLite_otnkg")
+seamless = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s8uoq"]
+noise = SubResource("FastNoiseLite_otnkg")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvvtp"]
+render_priority = 0
+shader = ExtResource("1_s8uoq")
+shader_parameter/albedo = Color(0.9372549, 0, 0.9529412, 0.26666668)
+shader_parameter/albedo_texture = SubResource("NoiseTexture2D_4smwt")
+shader_parameter/roughness = 0.15
+shader_parameter/roughness_texture = SubResource("NoiseTexture2D_4smwt")
+shader_parameter/normal_strength = 1.0
+shader_parameter/normal_map = SubResource("NoiseTexture2D_s8uoq")
+shader_parameter/edge_color = Color(0, 0.654902, 0, 1)
+
+[node name="StaticObjectExample3" type="Node3D" unique_id=1803349895]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=481679378]
+transform = Transform3D(0.9999978, 0.0021118468, 0, -0.0021118468, 0.9999978, 0, 0, 0, 1, 0, 0, 0)
+radius = 25.0
+height = 100.0
+sides = 20
+smooth_faces = false
+material = SubResource("ShaderMaterial_uvvtp")

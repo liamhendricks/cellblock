@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bhtubyy1ploq"]
+
+[ext_resource type="Texture2D" uid="uid://bv5mp77yrw77y" path="res://environments/castle/castle_1/foundation_sm_angled_castle2.jpg" id="1_t38ob"]
+
+[resource]
+resource_name = "stone2"
+albedo_texture = ExtResource("1_t38ob")
+metallic_specular = 0.0

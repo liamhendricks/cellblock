@@ -5,7 +5,7 @@ var time_format = "hh:mm:ss"
 var format_string = "[{TIME}] [{LEVEL}] - {MESSAGE}"
 var log_level : LOG_LEVELS = LOG_LEVELS.ERROR
 
-func init(_log_level : LOG_LEVELS):
+func init(_log_level : LOG_LEVELS) -> void:
 	log_level = _log_level
 
 func debug(message : String) -> void:
@@ -22,7 +22,10 @@ func error(message : String) -> void:
 
 func _log(message : String, level : LOG_LEVELS) -> void:
 	if level >= log_level:
-		print(_format(message, level))
+		match(level):
+			LOG_LEVELS.INFO: print(_format(message, level))
+			LOG_LEVELS.WARN: push_warning(_format(message, level))
+			LOG_LEVELS.ERROR: push_error(_format(message, level))
 
 func _format(message : String, level : LOG_LEVELS) -> String:
 	var result = format_string
@@ -34,5 +37,5 @@ func _format(message : String, level : LOG_LEVELS) -> String:
 	result = result.replace("{TIME}", "%s" % time)
 	result = result.replace("{LEVEL}", "%d" % level)
 	result = result.replace("{MESSAGE}", "%s" % message)
-	
+
 	return result

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://do52m5xdl8k4e"]
+
+[ext_resource type="PackedScene" uid="uid://ykm67k03kexs" path="res://environments/castle/objects/brazier.glb" id="1_vdr25"]
+
+[node name="Brazier" type="Node3D"]
+
+[node name="brazier2" parent="." instance=ExtResource("1_vdr25")]

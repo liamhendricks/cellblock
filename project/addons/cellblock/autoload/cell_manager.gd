@@ -10,6 +10,7 @@ var cell_save : CellSave
 var cell_processors : Array[CellProcessor]
 var procs_loaded : Dictionary
 var loaded : bool = false
+var instantiation_worker : CellInstantiationWorker
 
 func _ready() -> void:
 	loaded = false
@@ -23,42 +24,80 @@ func set_origin_object(_origin_object : Node3D) -> void:
 # entrypoint to start the cell_manager
 # await start(...) and you will have all mutable objects instantiated in the scene on first load
 func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> void:
-	current_processor_index = 0
-	origin_object = _origin_object
-	var cell_registries = _anchor.cell_registries
+	if loaded == true:
+		CellblockLogger.error("cell manager is currently running, stop() first")
+		return
+
+	if _anchor == null:
+		CellblockLogger.error("no cell_anchor provided")
+		return
 
 	if _anchor.cell_save == null:
 		CellblockLogger.error("cell_save is null")
 		return
 
+	if _world == null:
+		CellblockLogger.error("no world provided")
+		return
+
+	if _origin_object == null:
+		CellblockLogger.error("no origin object provided")
+		return
+
+	# user may have made a mistake and forgot to remove cell during editing
+	for child in _world.get_children():
+		if child is Cell:
+			CellblockLogger.warn("world contains active cell node: %s" % child.name)
+			CellblockLogger.warn("world scene likely saved before clearing all cells")
+			CellblockLogger.warn("it has been removed during runtime, but should be removed in the editor")
+			_world.remove_child(child)
+			child.queue_free()
+
+	var cell_registries = _anchor.cell_registries
+	origin_object = _origin_object
 	cell_save = _anchor.cell_save
+	current_processor_index = 0
 
 	var count = 0
+	var has_async_loader: bool = false
 	for registry : CellRegistry in cell_registries:
-		var loader = _get_loader(_world, registry)
-		var processor = CellProcessor.new(registry, loader, "%d" % count)
-		cell_processors.append(processor)
-		if  registry == null || origin_object == null || loader == null:
-			CellblockLogger.error("cell_manager not started correctly, please review the docs if any below are null")
-			CellblockLogger.error("cell_registry: %s" % registry)
-			CellblockLogger.error("origin_object: %s" % origin_object)
-			CellblockLogger.error("cell_loader: %s" % loader)
+		if registry == null:
+			CellblockLogger.error("null cell registry")
 			return
 
+		if registry.load_strategy > registry.LOAD_STRATEGY.ASYNC_LOAD:
+			CellblockLogger.error("unsupported load strategy - registry.load_strategy: %d" % registry.load_strategy)
+			return
+
+		var loader = _get_loader(_world, registry)
+		if loader == null:
+			CellblockLogger.error("cell_loader not found")
+			return
+
+		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.ASYNC_LOAD:
+			has_async_loader = true
+		var processor = CellProcessor.new(registry, loader, "%d" % count)
+		cell_processors.append(processor)
 		add_child(loader)
 		loader.configure(registry, cell_save)
 		count += 1
 
-	_anchor.anchor_exited.connect(_on_anchor_exited)
+	if !_anchor.anchor_exited.is_connected(_on_anchor_exited):
+		_anchor.anchor_exited.connect(_on_anchor_exited)
+
+	if has_async_loader:
+		instantiation_worker = CellInstantiationWorker.new()
+		add_child(instantiation_worker)
 
 	await _initial_load()
 
+	loaded = true
 	set_process(true)
 	emit_signal("manager_started")
 	CellblockLogger.info("cell_manager started")
 
 # await for signals to load everything
-func _initial_load():
+func _initial_load() -> void:
 	for proc in cell_processors:
 		await proc.work_all_cells(origin_object)
 
@@ -85,10 +124,10 @@ func stop() -> void:
 
 	cell_processors.clear()
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	work()
 
-func work():
+func work() -> void:
 	if origin_object == null || len(cell_processors) == 0:
 		return
 
@@ -111,12 +150,12 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 		round(_pos.z / _cell_size)
 	)
 
-func save_cells():
+func save_cells() -> void:
 	var save_data : Dictionary = {}
 	for p in cell_processors:
 		save_data.merge(p.get_cell_save_data())
 
 	cell_save.write_save(save_data)
 
-func _on_anchor_exited():
+func _on_anchor_exited() -> void:
 	pass

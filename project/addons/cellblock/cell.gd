@@ -5,20 +5,27 @@ signal cell_configured(cell : Cell)
 
 var cell_data : CellData
 var cell_fully_configured : bool = false
-var process_frames : int = 1
+var mutable_loading_complete : bool = false
+var static_loading_complete : bool = false
+var mutable_process_frames : int = 1
+var static_process_frames : int = 10
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
+var object_adder : ObjectAdder
 
 func _enter_tree() -> void:
-	visible = false
 	request_ready()
 
-func _ready():
+func _ready() -> void:
 	cell_fully_configured = false
-	object_loader.init(self)
-	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
-		object_loader.finished_loading.connect(_on_finished_loading_mutable)
-	call_deferred("set_visible", true)
+	if object_loader != null:
+		object_loader.init(self)
+		if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
+			object_loader.finished_loading.connect(_on_finished_loading_mutable)
+	if object_adder != null:
+		object_adder.init(self)
+		if !object_adder.finished_adding.is_connected(_on_finished_adding):
+			object_adder.finished_adding.connect(_on_finished_adding)
 
 # define the names of the cell children which are the parents of each type of mutable node
 func get_mutable_names() -> Array[String]:
@@ -37,7 +44,7 @@ func get_mutable() -> Dictionary:
 	return mutable
 
 # add mutable object to specific parent
-func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3):
+func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3) -> void:
 	if !has_node(_key):
 		return
 
@@ -45,6 +52,9 @@ func add_mutable(_mutable_node : Node3D, _key : String, _pos : Vector3):
 	node.add_child(_mutable_node)
 	_mutable_node.owner = node
 	_mutable_node.global_position = _pos
+
+func get_static_names() -> Array[String]:
+	return ["statics"]
 
 # construct a keyed save dictionary of all current mutable cell children
 func save_cell(_key : String) -> Dictionary:
@@ -68,7 +78,8 @@ func save_cell(_key : String) -> Dictionary:
 # performance reasons
 
 # load mutable cell objects from save
-func load_cell(_data : Dictionary):
+func load_cell(_data : Dictionary) -> void:
+	object_loader.start()
 	if len(_data.keys()) == 0:
 		return
 
@@ -90,10 +101,22 @@ func load_cell(_data : Dictionary):
 					"parent": mutable_root,
 				}
 				object_loader.pending_scenes.append(load_data)
+			else:
+				CellblockLogger.error(
+					"failed to load mutable scene: %s (error %d)" % [obj["filename"], res]
+				)
 
-	object_loader.start()
+func _on_finished_loading_mutable() -> void:
+	mutable_loading_complete = true
+	if static_loading_complete:
+		_cell_configured()
 
-func _on_finished_loading_mutable():
-	CellblockLogger.debug("cell configured: %s" % name)
+func _on_finished_adding() -> void:
+	static_loading_complete = true
+	if mutable_loading_complete:
+		_cell_configured()
+
+func _cell_configured() -> void:
 	cell_fully_configured = true
+	CellblockLogger.debug("cell configured: %s" % name)
 	emit_signal("cell_configured", self)

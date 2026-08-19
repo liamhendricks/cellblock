@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cfv5ahpx33dpt"]
+
+[ext_resource type="Texture2D" uid="uid://d0m8a6jl2bitg" path="res://environments/castle/objects/Ruins1_castle1.jpg" id="1_kjgr3"]
+
+[resource]
+resource_name = "stone1"
+cull_mode = 2
+albedo_texture = ExtResource("1_kjgr3")

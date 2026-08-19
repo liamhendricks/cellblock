@@ -9,7 +9,7 @@ extends HBoxContainer
 
 var cell_index : int
 
-func configure(_cell_data : CellData, _registry_idx : int, _cell_idx : int, _on_save : Callable, _on_clear : Callable, _on_delete : Callable):
+func configure(_cell_data : CellData, _registry_idx : int, _cell_idx : int, _on_save : Callable, _on_clear : Callable, _on_delete : Callable) -> void:
 	var tt_text = "grid coordinates: (%d, %d, %d) registry idx: %d" % [_cell_data.coordinates.x,  _cell_data.coordinates.y,  _cell_data.coordinates.z, _registry_idx]
 	label.text = _cell_data.cell_name
 	tooltip_text = tt_text

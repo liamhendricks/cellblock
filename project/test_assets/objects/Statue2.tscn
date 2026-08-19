@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://igtrqmxtvm80"]
+
+[ext_resource type="PackedScene" uid="uid://nfs1iaa72kst" path="res://environments/castle/objects/Statue3.glb" id="1_86208"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ex3yx"]
+size = Vector3(3, 2, 2.1000001)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k2eta"]
+height = 10.25
+radius = 2.0
+
+[node name="Statue" type="StaticBody3D"]
+
+[node name="Statue32" parent="." instance=ExtResource("1_86208")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 3.0257077)
+shape = SubResource("BoxShape3D_ex3yx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.625, 0)
+shape = SubResource("CylinderShape3D_k2eta")

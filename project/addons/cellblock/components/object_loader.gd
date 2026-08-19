@@ -2,25 +2,26 @@ extends Node
 class_name ObjectLoader
 
 signal scene_loaded(node : Node, data : Dictionary)
+signal scene_load_failed(path : String, error_code : int)
 signal finished_loading()
 
 var pending_scenes = []
 var cell : Cell
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 
-func init(_cell : Cell):
+func init(_cell : Cell) -> void:
 	cell = _cell
 
-func add_pending_scene(data : Dictionary):
+func add_pending_scene(data : Dictionary) -> void:
 	pending_scenes.append(data)
 
-func start():
+func start() -> void:
 	set_process(true)
 
 func _process(_delta: float) -> void:
-	for i in range(cell.process_frames):
+	for i in range(cell.mutable_process_frames):
 		if len(pending_scenes) == 0:
 			set_process(false)
 			CellblockLogger.debug("finished loading mutable scenes")
@@ -40,9 +41,12 @@ func _process(_delta: float) -> void:
 
 		match load_status:
 			0,2: # ERROR
-				set_process(false)
-				pending_scenes.clear()
-				return
+				pending_scenes.pop_back()
+				CellblockLogger.error(
+					"failed to load mutable scene: %s (error %d)" % [next["fn"], load_status]
+				)
+				emit_signal("scene_load_failed", next["fn"], load_status)
+				continue
 			3: # finished
 				var scene = ResourceLoader.load_threaded_get(next["fn"])
 				next["scene"] = scene

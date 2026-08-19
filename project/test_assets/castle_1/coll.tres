@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://6aaq1rwjhgmk"]
+
+[resource]
+resource_name = "coll"
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.906, 0.906, 0.906, 0)
+roughness = 0.0

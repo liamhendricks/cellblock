@@ -8,24 +8,32 @@ var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]
 var cell_cache : CellCache
 
-func _init(_world : Node3D, _max_cache_size : int):
+func _init(_world : Node3D, _max_cache_size : int) -> void:
+	pass
+
+#virtual
+func get_registry() -> CellRegistry:
+	return null
+
+# virtual
+func configure(cell_registry : CellRegistry, cell_save : CellSave) -> void:
 	pass
 
 # virtual
-func configure(cell_registry : CellRegistry, cell_save : CellSave):
+func add(cell_data : CellData) -> void:
 	pass
 
 # virtual
-func add(cell_data : CellData):
-	pass
-
-# virtual
-func remove(cell_data : CellData):
+func remove(cell_data : CellData) -> void:
 	pass
 
 # loads the save data from the file
-func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
-	var key = "%v" % _cell_data.coordinates
+func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
+	var cr := get_registry()
+	if cr == null:
+		return
+
+	var key := cr.coords_to_key(_cell_data.coordinates)
 	if _resource_path not in _all_save_data:
 		_cell_data.save_data = {}
 	else:
@@ -39,16 +47,20 @@ func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData,
 	if len(_cell_data.save_data.keys()) == 0:
 		_cell_data.save_data = _cell.save_cell(key)
 
-func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String):
+func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
 	if _resource_path not in _all_save_data:
 		return
 
+	var cr := get_registry()
+	if cr == null:
+		return
+
 	var save_data = _all_save_data[_resource_path]
-	var key = "%v" % _cell_data.coordinates
+	var key := cr.coords_to_key(_cell_data.coordinates)
 	if key in save_data:
 		save_data[key] = _cell_data.save_data
 
-func on_exit():
+func on_exit() -> void:
 	if cell_cache != null:
 		cell_cache.clear()
 

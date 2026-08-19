@@ -1,0 +1,60 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bq1c5vnarsorr"
+path="res://.godot/imported/Statue4.glb-4bcc8c947bbe9ff011c57a575ac17241.scn"
+
+[deps]
+
+source_file="res://test_assets/objects/Statue4.glb"
+dest_files=["res://.godot/imported/Statue4.glb-4bcc8c947bbe9ff011c57a575ac17241.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"metal": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://test_assets/castle_1/metal.tres",
+"use_external/path": "uid://2dcxgsnrvdi4"
+},
+"stone4": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://test_assets/castle_1/stone4.tres",
+"use_external/path": "uid://diftq77wcs53r"
+}
+},
+"nodes": {
+"PATH:Statue4": {
+"physics/shape_type": 1
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://s0v1ni25ix7q"]
+
+[ext_resource type="PackedScene" uid="uid://dawperuackw5f" path="res://environments/castle/castle_1/towerblock_window_wall_sm.glb" id="1_70mqq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lfe8r"]
+size = Vector3(2.9, 8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_so16a"]
+size = Vector3(4, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7htv"]
+size = Vector3(4, 4.2000003, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kc71c"]
+size = Vector3(1, 1.8000001, 1)
+
+[node name="TowerBlockWall1" type="StaticBody3D" unique_id=1500697194]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1461278932]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 2.7525127, 4, 0.74748725)
+shape = SubResource("BoxShape3D_lfe8r")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=145142320]
+transform = Transform3D(-0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, -0.7071068, -2.7474873, 4, 0.74748725)
+shape = SubResource("BoxShape3D_lfe8r")
+
+[node name="towerblock_window_wall_sm2" parent="." unique_id=1619725607 instance=ExtResource("1_70mqq")]
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=501777509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
+shape = SubResource("BoxShape3D_so16a")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=61781004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8999996, 1.5)
+shape = SubResource("BoxShape3D_h7htv")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=639864703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.9, 1.5)
+shape = SubResource("BoxShape3D_kc71c")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="." unique_id=758477845]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -1.5, 2.9, 1.5)
+shape = SubResource("BoxShape3D_kc71c")

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cnkqi5gu621ry"]
+
+[ext_resource type="Texture2D" uid="uid://cja7unre52e6f" path="res://environments/castle/objects/ruin1-s_stone10.png" id="1_rv5b8"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "glow"
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
+albedo_texture = ExtResource("1_rv5b8")
+roughness = 0.5
+emission_enabled = true
+emission = Color(0, 1.3002294, 1.353256, 1)
+emission_texture = ExtResource("1_rv5b8")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true

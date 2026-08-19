@@ -3,10 +3,10 @@ extends Resource
 
 @export var save_file_name : String = "user://savegame.save"
 
-func write_save(_data : Dictionary):
+func write_save(data : Dictionary) -> void:
 	var save_file = FileAccess.open(save_file_name, FileAccess.WRITE)
-	for k in _data.keys():
-		var json_string = JSON.stringify({k:_data[k]})
+	for k in data.keys():
+		var json_string = JSON.stringify({k:data[k]})
 		save_file.store_line(json_string)
 
 func load_save() -> Dictionary:

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://2dcxgsnrvdi4"]
+
+[ext_resource type="Texture2D" uid="uid://ge3npv7if648" path="res://environments/castle/castle_1/gate_metal.png" id="1_dbig8"]
+
+[resource]
+resource_name = "metal"
+cull_mode = 2
+albedo_texture = ExtResource("1_dbig8")

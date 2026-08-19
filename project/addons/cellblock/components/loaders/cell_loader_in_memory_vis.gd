@@ -9,10 +9,10 @@ extends CellLoader
 var cells : Dictionary[Vector3i, Cell]
 var cell_registry : CellRegistry
 
-func _init(_world : Node3D, _max_cache_size : int):
+func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
 
-func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
+func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	var all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
@@ -23,15 +23,28 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
 			continue
 
 		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
+
+		# remove all mutable objects and we will load them one by one
+		var mutable_names = cell.get_mutable_names()
+		for child in cell.get_children():
+			if mutable_names.has(child.name):
+				for gc in child.get_children():
+					child.remove_child(gc)
+					gc.queue_free()
+
 		world.add_child(cell)
 		cell.name = cell_data.cell_name
-		cell.process_frames = cell_registry.mutable_process_frames
+		cell.mutable_process_frames = cell_registry.mutable_process_frames
+		cell.static_process_frames = cell_registry.static_process_frames
 		cell.global_position = cell_data.world_position
 		cell.load_cell(cell_data.save_data)
 		cells[cell_data.coordinates] = cell
 		cell.visible = false
 
-func add(cell_data : CellData):
+func get_registry() -> CellRegistry:
+	return cell_registry
+
+func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in active_cells:
 		return
 
@@ -47,26 +60,26 @@ func add(cell_data : CellData):
 
 	active_cells[cell_data.coordinates] = cell
 	cell.visible = true
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
 
 	call_deferred("_finish_loading", cell)
 
-func _finish_loading(cell : Cell):
+func _finish_loading(cell : Cell) -> void:
 	CellblockLogger.debug("cell added to in memory visual")
 	emit_signal("cell_added", cell.cell_data, cell)
 
-func remove(cell_data : CellData):
+func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
 	cell.visible = false
 	active_cells.erase(cell_data.coordinates)
 
 	emit_signal("cell_removed", cell_data, cell)
 
-func on_exit():
+func on_exit() -> void:
 	super()
 
 	for k in cells.keys():

@@ -9,25 +9,33 @@ extends CellLoader
 var cells : Dictionary[Vector3i, Cell]
 var cell_registry : CellRegistry
 
-func _init(_world : Node3D, _max_cache_size : int):
+func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
 
-func configure(_cell_registry : CellRegistry, _cell_save : CellSave):
+func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	var all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
-		cell.process_frames = cell_registry.mutable_process_frames
-		cell.cell_data = cell_data
 		if cell == null:
+			CellblockLogger.error(
+				"failed to instantiate cell: %s at %s" % [cell_data.scene_path, cell_data.coordinates]
+			)
 			continue
+
+		cell.mutable_process_frames = cell_registry.mutable_process_frames
+		cell.static_process_frames = cell_registry.static_process_frames
+		cell.cell_data = cell_data
 
 		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
 
 		cells[cell_data.coordinates] = cell
 
-func add(cell_data : CellData):
+func get_registry() -> CellRegistry:
+	return cell_registry
+
+func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in active_cells:
 		return
 
@@ -49,32 +57,48 @@ func add(cell_data : CellData):
 				child.remove_child(gc)
 				gc.queue_free()
 
+	# remove all static objects and we will load them one by one
+	var object_adder : ObjectAdder = ObjectAdder.new()
+	var static_names = cell.get_static_names()
+	for child in cell.get_children():
+		if static_names.has(child.name):
+			for gc in child.get_children():
+				child.remove_child(gc)
+				gc.owner = null
+				object_adder.add_pending_scene(gc)
+
+	cell.add_child(object_adder)
+	cell.object_adder = object_adder
 	active_cells[cell_data.coordinates] = cell
 	world.add_child(cell)
 	cell.name = cell_data.cell_name
+	cell.mutable_process_frames = cell_registry.mutable_process_frames
+	cell.static_process_frames = cell_registry.static_process_frames
 	cell.global_position = cell_data.world_position
+	cell.object_adder.start()
 	cell.load_cell(cell_data.save_data)
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
 
 	call_deferred("_finish_loading", cell)
 
-func _finish_loading(cell : Cell):
+func _finish_loading(cell : Cell) -> void:
 	CellblockLogger.debug("cell added to in memory rm loader")
 	emit_signal("cell_added", cell.cell_data, cell)
 
-func remove(cell_data : CellData):
+func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
-	cell_data.save_data = cell.save_cell("%v" % cell_data.coordinates)
+	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
 
 	CellblockLogger.debug("cell removed from in memory rm loader")
 	emit_signal("cell_removed", cell_data, cell)
 
-func on_exit():
+func on_exit() -> void:
 	super()
 
 	for k in cells.keys():
