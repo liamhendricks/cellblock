@@ -154,9 +154,10 @@ func get_cell_save_data() -> Dictionary:
 		save_data[cell_registry.resource_path][k] = cell_data.save_data
 
 	for k: Vector3i in active_cells.keys():
+		var key := cell_registry.coords_to_key(k)
 		var cell := active_cells[k]
-		cell.cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(k))
-		save_data[cell_registry.resource_path][k] = cell.cell_data.save_data
+		cell.cell_data.save_data = cell.save_cell(key)
+		save_data[cell_registry.resource_path][key] = cell.cell_data.save_data
 
 	return save_data
 
