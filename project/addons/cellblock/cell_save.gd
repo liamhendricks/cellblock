@@ -27,3 +27,6 @@ func load_save() -> Dictionary:
 		data.merge(parsed_json, true)
 
 	return data
+
+func save_exists() -> bool:
+	return FileAccess.file_exists(save_file_name)

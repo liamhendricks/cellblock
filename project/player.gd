@@ -2,7 +2,8 @@ extends CharacterBody3D
 class_name Player
 
 #basic character controller for demo purposes
-@onready var camera_pivot := $CameraPivot
+@onready var camera_pivot := $Path3D/PathFollow3D/CameraPivot
+@onready var camera_path := $Path3D/PathFollow3D
 
 @export var speed := 5.0
 @export var acceleration := 4.0
@@ -10,6 +11,7 @@ class_name Player
 @export var mouse_sensitivity := 0.0015
 @export var rotation_speed := 12.0
 @export var force := 5.0
+@export var cam_scroll_speed := 0.05
 
 var gravity :Variant = ProjectSettings.get_setting("physics/3d/default_gravity")
 var jumping := false
@@ -38,7 +40,7 @@ func get_move_input(delta: float) -> void:
 	var vy := velocity.y
 	velocity.y = 0
 	var input := Input.get_vector("left", "right", "forward", "back")
-	var dir := Vector3(input.x, 0, input.y).rotated(Vector3.UP, camera_pivot.rotation.y)
+	var dir := Vector3(-input.x, 0, -input.y).rotated(Vector3.UP, rotation.y)
 	velocity = lerp(velocity, dir * speed, acceleration * delta)
 	velocity.y = vy
 
@@ -46,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.mouse_mode == Input.MouseMode.MOUSE_MODE_CAPTURED:
 		camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
 		camera_pivot.rotation_degrees.x = clamp(camera_pivot.rotation_degrees.x, -90.0, 30.0)
-		camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
+		self.rotation.y -= event.relative.x * mouse_sensitivity
 
 	if Input.is_action_just_pressed("quit"):
 		if Input.mouse_mode == Input.MouseMode.MOUSE_MODE_CAPTURED:
@@ -57,4 +59,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("save"):
 		CellManager.save_cells()
+		return
+
+	if Input.is_action_just_pressed("mouse_scroll_down"):
+		var tmp_p : float = camera_path.progress_ratio
+		tmp_p += cam_scroll_speed
+		if tmp_p >= 1.0:
+			camera_path.progress_ratio = 1.0
+		else:
+			camera_path.progress_ratio = tmp_p
+		return
+
+	if Input.is_action_just_pressed("mouse_scroll_up"):
+		var tmp_p : float = camera_path.progress_ratio
+		tmp_p -= cam_scroll_speed
+		if tmp_p <= 0.0:
+			camera_path.progress_ratio = 0.0
+		else:
+			camera_path.progress_ratio = tmp_p
 		return

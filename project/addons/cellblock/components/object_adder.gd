@@ -4,20 +4,17 @@ class_name ObjectAdder
 signal scene_added(node : Node)
 signal finished_adding()
 
-var pending_scenes = []
+var pending_scenes : Array = []
 var cell : Cell
 var statics : Node3D
 
 func _ready() -> void:
 	set_process(false)
-	finished_adding.connect(queue_free)
 
 func init(_cell : Cell) -> void:
 	cell = _cell
+	pending_scenes = cell.pending_scenes
 	statics = cell.get_node("statics")
-
-func add_pending_scene(node : Node) -> void:
-	pending_scenes.append(node)
 
 func start() -> void:
 	set_process(true)

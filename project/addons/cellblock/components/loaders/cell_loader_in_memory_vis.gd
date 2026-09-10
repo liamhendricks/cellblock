@@ -22,15 +22,9 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 		if cell == null:
 			continue
 
-		load_from(cell, all_save_data, cell_data, _cell_registry.resource_path)
-
-		# remove all mutable objects and we will load them one by one
-		var mutable_names = cell.get_mutable_names()
-		for child in cell.get_children():
-			if mutable_names.has(child.name):
-				for gc in child.get_children():
-					child.remove_child(gc)
-					gc.queue_free()
+		var should_load := load_from(all_save_data, cell_data, _cell_registry.resource_path)
+		if should_load:
+			cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
 		world.add_child(cell)
 		cell.name = cell_data.cell_name
@@ -60,7 +54,7 @@ func add(cell_data : CellData) -> void:
 
 	active_cells[cell_data.coordinates] = cell
 	cell.visible = true
-	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+	cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
 	call_deferred("_finish_loading", cell)
 
@@ -73,7 +67,7 @@ func remove(cell_data : CellData) -> void:
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
-	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+	cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 	cell.visible = false
 	active_cells.erase(cell_data.coordinates)
 

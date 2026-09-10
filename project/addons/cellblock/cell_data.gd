@@ -18,3 +18,6 @@ func get_scene_instance() -> Cell:
 		return scene.instantiate()
 
 	return null
+
+func coords_to_key() -> String:
+	return "%d,%d,%d" % [coordinates.x, coordinates.y, coordinates.z]

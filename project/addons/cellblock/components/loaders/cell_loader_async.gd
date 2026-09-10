@@ -16,7 +16,6 @@ var key_counter := 0
 
 func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
-	cell_cache = CellCache.new(_max_cache_size)
 
 func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	all_save_data = _cell_save.load_save()
@@ -33,13 +32,6 @@ func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in pending_scenes:
 		return
 
-	# load the cell from in-memory cache if exists
-	var cell := cell_cache.pull(cell_data.coordinates)
-	if cell != null:
-		CellblockLogger.debug("pulling cell from cache")
-		_finish_loading(cell, cell_data)
-		return
-
 	CellblockLogger.debug("loading cell from disk")
 
 	# otherwise trigger an async load operation
@@ -50,15 +42,11 @@ func remove(cell_data : CellData) -> void:
 		return
 
 	var cell : Cell = active_cells[cell_data.coordinates]
-	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+	cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 	save_to(all_save_data, cell_data, cell_registry.resource_path)
 
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
-
-	# cells get auto freed on cache eviction here
-	if !cell_cache.exists(cell_data.coordinates):
-		cell_cache.add(cell_data.coordinates, cell)
 
 	CellblockLogger.debug("cell removed from async loader")
 	emit_signal("cell_removed", cell_data, cell)
@@ -69,6 +57,7 @@ func _deferred_load(cell_data : CellData) -> void:
 		var key := CellManager.instantiation_worker.request_key()
 		pending_scenes[cell_data.coordinates] = {
 			"cell_data": cell_data,
+			"should_load": true,
 			"progress": [0.0],
 			"done": false,
 			"scene": null,
@@ -83,43 +72,17 @@ func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 		emit_signal("cell_added", cell_data, null)
 		return
 
-	cell.cell_data = cell_data
+	active_cells[cell.cell_data.coordinates] = cell
 
-	active_cells[cell_data.coordinates] = cell
-	var time_start = Time.get_ticks_msec()
-	load_from(cell, all_save_data, cell_data, cell_registry.resource_path)
-
-	# remove all mutable objects and we will load them one by one
-	var mutable_names = cell.get_mutable_names()
-	for child in cell.get_children():
-		if mutable_names.has(child.name):
-			for gc in child.get_children():
-				child.remove_child(gc)
-				gc.queue_free()
-
-	# remove all static objects and we will load them one by one
-	var object_adder : ObjectAdder = ObjectAdder.new()
-	var static_names = cell.get_static_names()
-	for child in cell.get_children():
-		if static_names.has(child.name):
-			for gc in child.get_children():
-				child.remove_child(gc)
-				gc.owner = null
-				object_adder.add_pending_scene(gc)
-
-	cell.add_child(object_adder)
-	cell.object_adder = object_adder
 	world.add_child(cell)
 	cell.mutable_process_frames = cell_registry.mutable_process_frames
 	cell.static_process_frames = cell_registry.static_process_frames
-	cell.global_position = cell_data.world_position
-	cell.object_adder.start()
-	cell.load_cell(cell_data.save_data)
-	cell_data.save_data = cell.save_cell(cell_registry.coords_to_key(cell_data.coordinates))
+	cell.global_position = cell.cell_data.world_position
+	cell.load_cell(cell.cell_data.save_data)
 
-	pending_scenes.erase(cell_data.coordinates)
+	pending_scenes.erase(cell.cell_data.coordinates)
 	CellblockLogger.debug("cell added to async loader")
-	emit_signal("cell_added", cell_data, cell)
+	emit_signal("cell_added", cell.cell_data, cell)
 
 func _process(_delta : float) -> void:
 	for k in pending_scenes.keys():
@@ -152,7 +115,9 @@ func _process(_delta : float) -> void:
 				var scene = ResourceLoader.load_threaded_get(cell_data.scene_path)
 				data["scene"] = scene
 				data["done"] = true
-				CellManager.instantiation_worker.enqueue(scene, data["key"])
+				var should_load := load_from(all_save_data, data["cell_data"], cell_registry.resource_path)
+				data["should_load"] = should_load
+				CellManager.instantiation_worker.enqueue(data, data["key"])
 
 func increment_key_counter() -> void:
 	key_counter += 1

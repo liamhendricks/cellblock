@@ -7,7 +7,7 @@ var thread: Thread
 var mu: Mutex
 var sem: Semaphore
 var exit_thread: bool = false
-var scenes_to_work: Dictionary[int, PackedScene]
+var scenes_to_work: Dictionary[int, Dictionary]
 var done_scenes: Dictionary[int, Node]
 var key_counter: int = 0
 
@@ -22,7 +22,7 @@ func _ready() -> void:
 		CellblockLogger.error("error starting instantiation worker thread")
 		return
 
-func enqueue(scene: PackedScene, key: int) -> void:
+func enqueue(scene: Dictionary, key: int) -> void:
 	mu.lock()
 	if key in scenes_to_work:
 		CellblockLogger.error("requested duplicate key")
@@ -46,11 +46,34 @@ func _worker() -> void:
 		if l > 0:
 			mu.lock()
 			var k := scenes_to_work.keys().front()
-			var scene := scenes_to_work[k]
+			var data := scenes_to_work[k]
+			var scene : PackedScene = data["scene"]
+			var cell_data : CellData = data["cell_data"]
+			var should_load : bool = data["should_load"]
 			mu.unlock()
-			var node = scene.instantiate()
+			var cell = scene.instantiate() as Cell
+			if should_load:
+				cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
+
+			cell.cell_data = cell_data
+			# remove all mutable objects and we will load them one by one
+			var mutable_names = cell.get_mutable_names()
+			for child in cell.get_children():
+				if mutable_names.has(child.name):
+					for gc in child.get_children():
+						child.remove_child(gc)
+						gc.queue_free()
+
+			# remove all static objects and we will load them one by one
+			var static_names = cell.get_static_names()
+			for child in cell.get_children():
+				if static_names.has(child.name):
+					for gc in child.get_children():
+						child.remove_child(gc)
+						gc.owner = null
+						cell.pending_scenes.append(gc)
 			mu.lock()
-			done_scenes[k] = node
+			done_scenes[k] = cell
 			scenes_to_work.erase(k)
 			mu.unlock()
 

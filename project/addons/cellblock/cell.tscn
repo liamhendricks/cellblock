@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_oi3gf"]
 [ext_resource type="Script" uid="uid://b8jkwbmbdvtc" path="res://addons/cellblock/components/object_loader.gd" id="2_stbjc"]
+[ext_resource type="Script" uid="uid://bb4lgvtwt04p8" path="res://addons/cellblock/components/object_adder.gd" id="3_7hs0t"]
 
 [node name="Cell" type="Node3D" unique_id=1939246854]
 script = ExtResource("1_oi3gf")
@@ -19,3 +20,7 @@ script = ExtResource("1_oi3gf")
 [node name="ObjectLoader" type="Node" parent="." unique_id=991901315]
 script = ExtResource("2_stbjc")
 metadata/_custom_type_script = "uid://b8jkwbmbdvtc"
+
+[node name="ObjectAdder" type="Node" parent="." unique_id=1967249540]
+script = ExtResource("3_7hs0t")
+metadata/_custom_type_script = "uid://bb4lgvtwt04p8"

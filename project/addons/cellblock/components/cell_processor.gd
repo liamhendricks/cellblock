@@ -120,14 +120,14 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 	if tkey not in cell_registry.cells:
 		return
 
-	var old = cell_registry.get_cell(_from)
-	var new = cell_registry.get_cell(_to)
+	var old := cell_registry.get_cell(_from)
+	var new := cell_registry.get_cell(_to)
 
 	var tmp_pos = _node.global_position
 	var parent = _node.get_parent()
 	parent.remove_child(_node)
 
-	old.save_data = _old_cell.save_cell(cell_registry.coords_to_key(_from))
+	old.save_data = _old_cell.save_cell(old.coords_to_key())
 
 	# if the new cell is already loaded, just add it. the new node will be included in the save if
 	# the cell gets removed, or if saved while active

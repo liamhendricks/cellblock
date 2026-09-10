@@ -6,7 +6,6 @@ signal cell_removed(cell_data : CellData, cell : Cell)
 
 var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]
-var cell_cache : CellCache
 
 func _init(_world : Node3D, _max_cache_size : int) -> void:
 	pass
@@ -28,12 +27,8 @@ func remove(cell_data : CellData) -> void:
 	pass
 
 # loads the save data from the file
-func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
-	var cr := get_registry()
-	if cr == null:
-		return
-
-	var key := cr.coords_to_key(_cell_data.coordinates)
+func load_from(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> bool:
+	var key := _cell_data.coords_to_key()
 	if _resource_path not in _all_save_data:
 		_cell_data.save_data = {}
 	else:
@@ -43,27 +38,18 @@ func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData,
 		else:
 			_cell_data.save_data = {}
 
-	# in a first load scenario, we won't have any data, so we need to load it from the cell
-	if len(_cell_data.save_data.keys()) == 0:
-		_cell_data.save_data = _cell.save_cell(key)
+	return _cell_data.save_data.is_empty()
 
 func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
 	if _resource_path not in _all_save_data:
 		return
 
-	var cr := get_registry()
-	if cr == null:
-		return
-
 	var save_data = _all_save_data[_resource_path]
-	var key := cr.coords_to_key(_cell_data.coordinates)
+	var key := _cell_data.coords_to_key()
 	if key in save_data:
 		save_data[key] = _cell_data.save_data
 
 func on_exit() -> void:
-	if cell_cache != null:
-		cell_cache.clear()
-
 	for k in active_cells.keys():
 		var cell = active_cells[k]
 		if is_instance_valid(cell):

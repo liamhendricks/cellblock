@@ -16,7 +16,6 @@ func _ready() -> void:
 	loaded = false
 	set_process(false)
 	current_processor_index = 0
-	CellblockLogger.init(CellblockLogger.LOG_LEVELS.DEBUG)
 
 func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
@@ -29,19 +28,29 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		return
 
 	if _anchor == null:
-		CellblockLogger.error("no cell_anchor provided")
+		CellblockLogger.error("no cell_anchor provided. review documentation")
 		return
 
-	if _anchor.cell_save == null:
-		CellblockLogger.error("cell_save is null")
-		return
+	CellblockLogger.init(_anchor.log_level)
 
 	if _world == null:
-		CellblockLogger.error("no world provided")
+		CellblockLogger.error("no world provided. review documentation")
 		return
 
 	if _origin_object == null:
-		CellblockLogger.error("no origin object provided")
+		CellblockLogger.error("no origin object provided. review documentation")
+		return
+
+	if _anchor.cell_save == null:
+		CellblockLogger.error("cell_save is null. review documentation")
+		return
+
+	if cell_save.save_file_name == "":
+		CellblockLogger.error("save filename empty. review documentation")
+		return
+
+	if !cell_save.save_exists():
+		CellblockLogger.error("no save file on disk. you must create file at: %s" % cell_save.save_file_name)
 		return
 
 	# user may have made a mistake and forgot to remove cell during editing

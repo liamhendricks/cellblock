@@ -4,6 +4,7 @@ extends Node3D
 signal cell_configured(cell : Cell)
 
 var cell_data : CellData
+var pending_scenes : Array = []
 var cell_fully_configured : bool = false
 var mutable_loading_complete : bool = false
 var static_loading_complete : bool = false
@@ -11,21 +12,19 @@ var mutable_process_frames : int = 1
 var static_process_frames : int = 10
 
 @onready var object_loader : ObjectLoader = $ObjectLoader
-var object_adder : ObjectAdder
+@onready var object_adder : ObjectAdder = $ObjectAdder
 
 func _enter_tree() -> void:
 	request_ready()
 
 func _ready() -> void:
 	cell_fully_configured = false
-	if object_loader != null:
-		object_loader.init(self)
-		if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
-			object_loader.finished_loading.connect(_on_finished_loading_mutable)
-	if object_adder != null:
-		object_adder.init(self)
-		if !object_adder.finished_adding.is_connected(_on_finished_adding):
-			object_adder.finished_adding.connect(_on_finished_adding)
+	object_loader.init(self)
+	if !object_loader.finished_loading.is_connected(_on_finished_loading_mutable):
+		object_loader.finished_loading.connect(_on_finished_loading_mutable)
+	object_adder.init(self)
+	if !object_adder.finished_adding.is_connected(_on_finished_adding):
+		object_adder.finished_adding.connect(_on_finished_adding)
 
 # define the names of the cell children which are the parents of each type of mutable node
 func get_mutable_names() -> Array[String]:
@@ -80,6 +79,7 @@ func save_cell(_key : String) -> Dictionary:
 # load mutable cell objects from save
 func load_cell(_data : Dictionary) -> void:
 	object_loader.start()
+	object_adder.start()
 	if len(_data.keys()) == 0:
 		return
 
@@ -117,6 +117,7 @@ func _on_finished_adding() -> void:
 		_cell_configured()
 
 func _cell_configured() -> void:
+	cell_data.save_data = save_cell(cell_data.coords_to_key())
 	cell_fully_configured = true
 	CellblockLogger.debug("cell configured: %s" % name)
 	emit_signal("cell_configured", self)

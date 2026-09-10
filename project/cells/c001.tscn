@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cuh238b5eycuy" path="res://addons/cellblock/cell.gd" id="1_lrnhw"]
 [ext_resource type="PackedScene" uid="uid://b8dsv02bisyox" path="res://test_assets/StaticObjectExample.tscn" id="2_cw3l3"]
 [ext_resource type="Script" uid="uid://b8jkwbmbdvtc" path="res://addons/cellblock/components/object_loader.gd" id="2_u67d8"]
+[ext_resource type="Script" uid="uid://bb4lgvtwt04p8" path="res://addons/cellblock/components/object_adder.gd" id="4_cw3l3"]
 
 [node name="c001" type="Node3D" unique_id=1684182230]
 script = ExtResource("1_lrnhw")
@@ -22,3 +23,7 @@ script = ExtResource("1_lrnhw")
 [node name="ObjectLoader" type="Node" parent="." unique_id=353799712]
 script = ExtResource("2_u67d8")
 metadata/_custom_type_script = "uid://b8jkwbmbdvtc"
+
+[node name="ObjectAdder" type="Node" parent="." unique_id=1786375377]
+script = ExtResource("4_cw3l3")
+metadata/_custom_type_script = "uid://bb4lgvtwt04p8"
