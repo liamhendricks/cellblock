@@ -79,6 +79,7 @@ func _worker() -> void:
 						child.remove_child(gc)
 						gc.owner = null
 						cell.pending_scenes.append(gc)
+
 			mu.lock()
 			done_scenes[k] = cell
 			scenes_to_work.erase(k)

@@ -71,7 +71,7 @@ func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 	cell.mutable_process_frames = cell_registry.mutable_process_frames
 	cell.static_process_frames = cell_registry.static_process_frames
 	cell.global_position = cell.cell_data.world_position
-	cell.load_cell(cell.cell_data.save_data)
+	cell.load_cell_async(cell.cell_data.save_data)
 	CellblockLogger.debug("cell added to in memory rm loader")
 	emit_signal("cell_added", cell.cell_data, cell)
 

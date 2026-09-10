@@ -18,7 +18,6 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	for k in _cell_registry.cells.keys():
 		var cell_data : CellData = _cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
-		cell.cell_data = cell_data
 		if cell == null:
 			continue
 
@@ -26,6 +25,15 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 		if should_load:
 			cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
+		# remove all mutable objects and we will load them one by one
+		var mutable_names = cell.get_mutable_names()
+		for child in cell.get_children():
+			if mutable_names.has(child.name):
+				for gc in child.get_children():
+					child.remove_child(gc)
+					gc.queue_free()
+
+		cell.cell_data = cell_data
 		world.add_child(cell)
 		cell.name = cell_data.cell_name
 		cell.mutable_process_frames = cell_registry.mutable_process_frames
@@ -34,6 +42,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 		cell.load_cell(cell_data.save_data)
 		cells[cell_data.coordinates] = cell
 		cell.visible = false
+		cell.cell_fully_configured = true
 
 func get_registry() -> CellRegistry:
 	return cell_registry
@@ -50,11 +59,8 @@ func add(cell_data : CellData) -> void:
 	CellblockLogger.debug("enabling cell from memory")
 
 	var cell : Cell = cells[cell_data.coordinates]
-	cell.cell_data = cell_data
-
 	active_cells[cell_data.coordinates] = cell
 	cell.visible = true
-	cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
 	call_deferred("_finish_loading", cell)
 

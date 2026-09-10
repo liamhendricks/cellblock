@@ -33,9 +33,19 @@ func add(cell_data : CellData) -> void:
 		return
 
 	CellblockLogger.debug("loading cell from disk")
-
-	# otherwise trigger an async load operation
-	_deferred_load(cell_data)
+	var res = ResourceLoader.load_threaded_request(cell_data.scene_path)
+	if res == OK:
+		var key := CellManager.instantiation_worker.request_key()
+		pending_scenes[cell_data.coordinates] = {
+			"cell_data": cell_data,
+			"should_load": true,
+			"progress": [0.0],
+			"done": false,
+			"scene": null,
+			"key": key,
+		}
+	else:
+		CellblockLogger.error("error starting cell load: %d" % res)
 
 func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
@@ -51,21 +61,6 @@ func remove(cell_data : CellData) -> void:
 	CellblockLogger.debug("cell removed from async loader")
 	emit_signal("cell_removed", cell_data, cell)
 
-func _deferred_load(cell_data : CellData) -> void:
-	var res = ResourceLoader.load_threaded_request(cell_data.scene_path)
-	if res == OK:
-		var key := CellManager.instantiation_worker.request_key()
-		pending_scenes[cell_data.coordinates] = {
-			"cell_data": cell_data,
-			"should_load": true,
-			"progress": [0.0],
-			"done": false,
-			"scene": null,
-			"key": key,
-		}
-	else:
-		CellblockLogger.error("error starting cell load")
-
 func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 	if cell == null:
 		pending_scenes.erase(cell_data.coordinates)
@@ -78,7 +73,7 @@ func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 	cell.mutable_process_frames = cell_registry.mutable_process_frames
 	cell.static_process_frames = cell_registry.static_process_frames
 	cell.global_position = cell.cell_data.world_position
-	cell.load_cell(cell.cell_data.save_data)
+	cell.load_cell_async(cell.cell_data.save_data)
 
 	pending_scenes.erase(cell.cell_data.coordinates)
 	CellblockLogger.debug("cell added to async loader")
