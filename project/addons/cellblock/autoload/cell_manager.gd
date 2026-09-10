@@ -45,11 +45,11 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		CellblockLogger.error("cell_save is null. review documentation")
 		return
 
-	if cell_save.save_file_name == "":
+	if _anchor.cell_save.save_file_name == "":
 		CellblockLogger.error("save filename empty. review documentation")
 		return
 
-	if !cell_save.save_exists():
+	if !_anchor.cell_save.save_exists():
 		CellblockLogger.error("no save file on disk. you must create file at: %s" % cell_save.save_file_name)
 		return
 
@@ -68,7 +68,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	current_processor_index = 0
 
 	var count = 0
-	var has_async_loader: bool = false
+	var has_async_loader: bool = true
 	for registry : CellRegistry in cell_registries:
 		if registry == null:
 			CellblockLogger.error("null cell registry")
@@ -83,8 +83,8 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 			CellblockLogger.error("cell_loader not found")
 			return
 
-		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.ASYNC_LOAD:
-			has_async_loader = true
+		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.IN_MEMORY_VISUAL:
+			has_async_loader = false
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
 		add_child(loader)

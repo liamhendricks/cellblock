@@ -8,6 +8,7 @@ extends CellLoader
 # all configured cell scenes
 var cells : Dictionary[Vector3i, Cell]
 var cell_registry : CellRegistry
+var pending_scenes : Dictionary = {}
 
 func _init(_world : Node3D, _max_cache_size : int) -> void:
 	world = _world
@@ -47,21 +48,30 @@ func add(cell_data : CellData) -> void:
 		return
 
 	CellblockLogger.debug("adding cell from memory")
-
+	var key := CellManager.instantiation_worker.request_key()
 	var cell : Cell = cells[cell_data.coordinates]
-	cell.cell_data = cell_data
+	var data : Dictionary = {
+		"cell": cell,
+		"cell_data": cell_data,
+		"should_load": false,
+		"key": key,
+	}
+	pending_scenes[cell_data.coordinates] = data
+	CellManager.instantiation_worker.enqueue(data, key)
 
-	active_cells[cell_data.coordinates] = cell
+func _finish_loading(cell : Cell, cell_data : CellData) -> void:
+	if cell == null:
+		pending_scenes.erase(cell_data.coordinates)
+		emit_signal("cell_added", cell_data, null)
+		return
+
+	active_cells[cell.cell_data.coordinates] = cell
 	world.add_child(cell)
-	cell.name = cell_data.cell_name
+	cell.name = cell.cell_data.cell_name
 	cell.mutable_process_frames = cell_registry.mutable_process_frames
 	cell.static_process_frames = cell_registry.static_process_frames
-	cell.global_position = cell_data.world_position
-	cell.load_cell(cell_data.save_data)
-
-	call_deferred("_finish_loading", cell)
-
-func _finish_loading(cell : Cell) -> void:
+	cell.global_position = cell.cell_data.world_position
+	cell.load_cell(cell.cell_data.save_data)
 	CellblockLogger.debug("cell added to in memory rm loader")
 	emit_signal("cell_added", cell.cell_data, cell)
 
@@ -77,6 +87,20 @@ func remove(cell_data : CellData) -> void:
 
 	CellblockLogger.debug("cell removed from in memory rm loader")
 	emit_signal("cell_removed", cell_data, cell)
+
+func _process(_delta : float) -> void:
+	for k in pending_scenes.keys():
+		var data = pending_scenes[k]
+		var cell_data = data["cell_data"]
+
+		var scell = data["cell"]
+		if scell != null:
+			#here we are polling for our cell to be ready
+			var cell : Cell = CellManager.instantiation_worker.get_done_node(data["key"])
+			if cell != null:
+				_finish_loading(cell, cell_data)
+		else:
+			_finish_loading(null, cell_data)
 
 func on_exit() -> void:
 	super()

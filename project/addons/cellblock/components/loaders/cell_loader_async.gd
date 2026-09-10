@@ -9,7 +9,7 @@ signal scene_load_complete()
 # instantiation is done in a separate thread
 
 var done_loading : bool = false
-var pending_scenes = {}
+var pending_scenes : Dictionary = {}
 var all_save_data : Dictionary
 var cell_registry : CellRegistry
 var key_counter := 0

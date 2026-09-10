@@ -47,11 +47,18 @@ func _worker() -> void:
 			mu.lock()
 			var k := scenes_to_work.keys().front()
 			var data := scenes_to_work[k]
-			var scene : PackedScene = data["scene"]
+			var scene : PackedScene = null
+			var cell : Cell = null
+			if "scene" in data:
+				scene = data["scene"]
 			var cell_data : CellData = data["cell_data"]
 			var should_load : bool = data["should_load"]
+			if "cell" in data:
+				cell = data["cell"]
 			mu.unlock()
-			var cell = scene.instantiate() as Cell
+			if cell == null && scene != null:
+				cell = scene.instantiate()
+
 			if should_load:
 				cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
@@ -100,4 +107,6 @@ func _exit_tree() -> void:
 	thread.wait_to_finish()
 	for k in done_scenes.keys():
 		var s := done_scenes[k]
+		if s == null || !is_instance_valid(s):
+			continue
 		s.free()
