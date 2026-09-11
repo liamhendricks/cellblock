@@ -73,6 +73,7 @@ func _work_cell(origin_object : Node3D, key : String) -> void:
 	var dist : float = origin_object.global_position.distance_to(world_space_coords)
 	var dist_to_current : float = origin_object.global_position.distance_to(cur_world_space_coords)
 
+	# check dist against the middle of the cell boundary
 	if dist <= (cell_registry.cell_size * cell_registry.radius_multiplier) + half_cell_size:
 		in_range = true
 		if floorf(dist) < floorf(dist_to_current):
@@ -98,6 +99,7 @@ func update_current_cell(_cell_coords : Vector3i) -> void:
 		enter_cell(old, new_current)
 
 func enter_cell(_old : CellData, _new : CellData) -> void:
+	CellblockLogger.info("entered new nearest cell. new: %s - old: %s" % [_new.coords_to_key(), _old.coords_to_key()])
 	emit_signal("entered_cell", _old, _new)
 
 func try_reparent_mutable(_cell : Cell, _key : Vector3i) -> void:

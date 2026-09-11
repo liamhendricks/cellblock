@@ -159,12 +159,13 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 		round(_pos.z / _cell_size)
 	)
 
-# 
+# write save data to the save file
 func save_cells() -> void:
 	var save_data : Dictionary = {}
 	for p in cell_processors:
 		save_data.merge(p.get_cell_save_data())
 
+	CellblockLogger.info("saved all cell data")
 	cell_save.write_save(save_data)
 
 func _on_anchor_exited() -> void:
