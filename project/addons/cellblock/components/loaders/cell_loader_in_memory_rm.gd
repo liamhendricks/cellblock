@@ -17,7 +17,7 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 	var all_save_data = _cell_save.load_save()
 	cell_registry = _cell_registry
 	for k in _cell_registry.cells.keys():
-		var cell_data : CellData = _cell_registry.cells[k]
+		var cell_data : CellData = cell_registry.cells[k]
 		var cell : Cell = cell_data.get_scene_instance()
 		if cell == null:
 			CellblockLogger.error(
@@ -25,11 +25,12 @@ func configure(_cell_registry : CellRegistry, _cell_save : CellSave) -> void:
 			)
 			continue
 
+		CellblockLogger.debug("cell %s instantiated" % cell_data.coords_to_key())
 		cell.mutable_process_frames = cell_registry.mutable_process_frames
 		cell.static_process_frames = cell_registry.static_process_frames
 		cell.cell_data = cell_data
 
-		var should_load := load_from(all_save_data, cell_data, _cell_registry.resource_path)
+		var should_load := load_from(all_save_data, cell_data, cell_registry.resource_path)
 		if should_load:
 			cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
 
@@ -47,7 +48,6 @@ func add(cell_data : CellData) -> void:
 		CellblockLogger.error("unable to load cell from coordinates: %v" % cell_data.coordinates)
 		return
 
-	CellblockLogger.debug("adding cell from memory")
 	var key := CellManager.instantiation_worker.request_key()
 	var cell : Cell = cells[cell_data.coordinates]
 	var data : Dictionary = {
@@ -65,15 +65,15 @@ func _finish_loading(cell : Cell, cell_data : CellData) -> void:
 		emit_signal("cell_added", cell_data, null)
 		return
 
-	active_cells[cell.cell_data.coordinates] = cell
+	active_cells[cell_data.coordinates] = cell
 	world.add_child(cell)
-	cell.name = cell.cell_data.cell_name
+	cell.name = cell_data.cell_name
 	cell.mutable_process_frames = cell_registry.mutable_process_frames
 	cell.static_process_frames = cell_registry.static_process_frames
-	cell.global_position = cell.cell_data.world_position
-	cell.load_cell_async(cell.cell_data.save_data)
-	CellblockLogger.debug("cell added to in memory rm loader")
-	emit_signal("cell_added", cell.cell_data, cell)
+	cell.global_position = cell_data.world_position
+	cell.load_cell_async(cell_data.save_data)
+	CellblockLogger.debug("cell %s added" % cell_data.coords_to_key())
+	emit_signal("cell_added", cell_data, cell)
 
 func remove(cell_data : CellData) -> void:
 	if cell_data.coordinates not in active_cells:
@@ -85,7 +85,7 @@ func remove(cell_data : CellData) -> void:
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
 
-	CellblockLogger.debug("cell removed from in memory rm loader")
+	CellblockLogger.debug("cell %s removed" % cell_data.coords_to_key())
 	emit_signal("cell_removed", cell_data, cell)
 
 func _process(_delta : float) -> void:

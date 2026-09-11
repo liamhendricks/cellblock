@@ -26,11 +26,11 @@ func add(cell_data : CellData) -> void:
 func remove(cell_data : CellData) -> void:
 	pass
 
-# loads the save data from the file
+# loads the save data from a persistent dictionary
 func load_from(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> bool:
 	var key := _cell_data.coords_to_key()
 	if _resource_path not in _all_save_data:
-		_cell_data.save_data = {}
+		_all_save_data[_resource_path] = {}
 	else:
 		var save_data = _all_save_data[_resource_path]
 		if key in save_data:
@@ -38,16 +38,18 @@ func load_from(_all_save_data : Dictionary, _cell_data : CellData, _resource_pat
 		else:
 			_cell_data.save_data = {}
 
+	CellblockLogger.debug("cell data loaded %s" % key)
 	return _cell_data.save_data.is_empty()
 
+# saves the save data to a persistent dictionary
 func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
 	if _resource_path not in _all_save_data:
-		return
+		_all_save_data[_resource_path] = {}
 
-	var save_data = _all_save_data[_resource_path]
 	var key := _cell_data.coords_to_key()
-	if key in save_data:
-		save_data[key] = _cell_data.save_data
+	_all_save_data[_resource_path][key] = _cell_data.save_data
+
+	CellblockLogger.debug("cell data saved %s" % key)
 
 func on_exit() -> void:
 	for k in active_cells.keys():

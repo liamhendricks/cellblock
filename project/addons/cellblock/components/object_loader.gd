@@ -64,5 +64,5 @@ func _finish_loading(new_instance : Node, data : Dictionary, node_data : Diction
 		if nn != "":
 			new_instance.name = nn
 
-	CellblockLogger.debug("loaded mutable instance: %s" % new_instance.name)
+	CellblockLogger.debug("added mutable instance: %s" % new_instance.name)
 	emit_signal("scene_loaded", new_instance, data)

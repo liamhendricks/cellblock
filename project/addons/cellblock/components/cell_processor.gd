@@ -143,6 +143,8 @@ func reparent_node(_from : Vector3i, _to : Vector3i, _node : Node3D, _data_key :
 
 	emit_signal("reparented_node", old, new, _node.name)
 
+# get current save data for all active cells, and most recently saved data for
+# all other inactive cells
 func get_cell_save_data() -> Dictionary:
 	var count = 0
 	var save_data = {}
