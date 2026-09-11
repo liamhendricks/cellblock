@@ -53,7 +53,6 @@ func add(cell_data : CellData) -> void:
 	if cell_data.coordinates in active_cells:
 		return
 
-	# load the cell from in memory dictionary
 	if cell_data.coordinates not in cells:
 		CellblockLogger.error("unable to load cell from coordinates: %v" % cell_data.coordinates)
 		return

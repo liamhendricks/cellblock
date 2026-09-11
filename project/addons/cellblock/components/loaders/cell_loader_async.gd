@@ -58,7 +58,6 @@ func remove(cell_data : CellData) -> void:
 
 	var cell : Cell = active_cells[cell_data.coordinates]
 	cell_data.save_data = cell.save_cell(cell_data.coords_to_key())
-	#save_to(all_save_data, cell_data, cell_registry.resource_path)
 
 	world.remove_child(cell)
 	active_cells.erase(cell_data.coordinates)
