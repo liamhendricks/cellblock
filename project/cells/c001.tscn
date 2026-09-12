@@ -10,7 +10,10 @@ script = ExtResource("1_lrnhw")
 
 [node name="statics" type="Node3D" parent="." unique_id=901336649]
 
-[node name="StaticObjectExample" parent="statics" unique_id=1539254810 instance=ExtResource("2_cw3l3")]
+[node name="StaticObjectExample" type="StaticBody3D" parent="statics" unique_id=1539254810 instance=ExtResource("2_cw3l3")]
+
+[node name="StaticObjectExample2" parent="statics" unique_id=2110809554 instance=ExtResource("2_cw3l3")]
+transform = Transform3D(-0.9996033, 0, -0.02816582, 0, 1, 0, 0.02816582, 0, -0.9996033, 0, 0, 27.59668)
 
 [node name="objects" type="Node3D" parent="." unique_id=2118905003]
 

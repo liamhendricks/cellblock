@@ -3,6 +3,69 @@
 [ext_resource type="Script" uid="uid://cnfcl1l6tdsaa" path="res://addons/cellblock/cell_registry.gd" id="1_73c4r"]
 [ext_resource type="Script" uid="uid://lftsrpr8yjp4" path="res://addons/cellblock/cell_data.gd" id="1_cpxlq"]
 
+[sub_resource type="Resource" id="Resource_paads"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-10-1"
+coordinates = Vector3i(-1, 0, -1)
+world_position = Vector3(-100, 0, -100)
+scene_path = "res://cells/c-10-1.tscn"
+
+[sub_resource type="Resource" id="Resource_exl5k"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-10-2"
+coordinates = Vector3i(-1, 0, -2)
+world_position = Vector3(-100, 0, -200)
+scene_path = "res://cells/c-10-2.tscn"
+
+[sub_resource type="Resource" id="Resource_01q1u"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-100"
+coordinates = Vector3i(-1, 0, 0)
+world_position = Vector3(-100, 0, 0)
+scene_path = "res://cells/c-100.tscn"
+
+[sub_resource type="Resource" id="Resource_i0otr"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-101"
+coordinates = Vector3i(-1, 0, 1)
+world_position = Vector3(-100, 0, 100)
+scene_path = "res://cells/c-101.tscn"
+
+[sub_resource type="Resource" id="Resource_6py4y"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-20-2"
+coordinates = Vector3i(-2, 0, -2)
+world_position = Vector3(-200, 0, -200)
+scene_path = "res://cells/c-20-2.tscn"
+
+[sub_resource type="Resource" id="Resource_y7lhq"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-200"
+coordinates = Vector3i(-2, 0, 0)
+world_position = Vector3(-200, 0, 0)
+scene_path = "res://cells/c-200.tscn"
+
+[sub_resource type="Resource" id="Resource_hw2e0"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-201"
+coordinates = Vector3i(-2, 0, 1)
+world_position = Vector3(-200, 0, 100)
+scene_path = "res://cells/c-201.tscn"
+
+[sub_resource type="Resource" id="Resource_ufowc"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-202"
+coordinates = Vector3i(-2, 0, 2)
+world_position = Vector3(-200, 0, 200)
+scene_path = "res://cells/c-202.tscn"
+
+[sub_resource type="Resource" id="Resource_uxvce"]
+script = ExtResource("1_cpxlq")
+cell_name = "c-300"
+coordinates = Vector3i(-3, 0, 0)
+world_position = Vector3(-300, 0, 0)
+scene_path = "res://cells/c-300.tscn"
+
 [sub_resource type="Resource" id="Resource_j122v"]
 script = ExtResource("1_cpxlq")
 cell_name = "c00-1"
@@ -36,33 +99,12 @@ coordinates = Vector3i(0, 0, 2)
 world_position = Vector3(0, 0, 200)
 scene_path = "res://cells/c002.tscn"
 
-[sub_resource type="Resource" id="Resource_01q1u"]
+[sub_resource type="Resource" id="Resource_iv6nb"]
 script = ExtResource("1_cpxlq")
-cell_name = "c-100"
-coordinates = Vector3i(-1, 0, 0)
-world_position = Vector3(-100, 0, 0)
-scene_path = "res://cells/c-100.tscn"
-
-[sub_resource type="Resource" id="Resource_y7lhq"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-200"
-coordinates = Vector3i(-2, 0, 0)
-world_position = Vector3(-200, 0, 0)
-scene_path = "res://cells/c-200.tscn"
-
-[sub_resource type="Resource" id="Resource_uxvce"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-300"
-coordinates = Vector3i(-3, 0, 0)
-world_position = Vector3(-300, 0, 0)
-scene_path = "res://cells/c-300.tscn"
-
-[sub_resource type="Resource" id="Resource_m6yor"]
-script = ExtResource("1_cpxlq")
-cell_name = "c300"
-coordinates = Vector3i(3, 0, 0)
-world_position = Vector3(300, 0, 0)
-scene_path = "res://cells/c300.tscn"
+cell_name = "c10-1"
+coordinates = Vector3i(1, 0, -1)
+world_position = Vector3(100, 0, -100)
+scene_path = "res://cells/c10-1.tscn"
 
 [sub_resource type="Resource" id="Resource_7otuo"]
 script = ExtResource("1_cpxlq")
@@ -71,61 +113,12 @@ coordinates = Vector3i(1, 0, 1)
 world_position = Vector3(100, 0, 100)
 scene_path = "res://cells/c101.tscn"
 
-[sub_resource type="Resource" id="Resource_i0otr"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-101"
-coordinates = Vector3i(-1, 0, 1)
-world_position = Vector3(-100, 0, 100)
-scene_path = "res://cells/c-101.tscn"
-
-[sub_resource type="Resource" id="Resource_paads"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-10-1"
-coordinates = Vector3i(-1, 0, -1)
-world_position = Vector3(-100, 0, -100)
-scene_path = "res://cells/c-10-1.tscn"
-
-[sub_resource type="Resource" id="Resource_iv6nb"]
-script = ExtResource("1_cpxlq")
-cell_name = "c10-1"
-coordinates = Vector3i(1, 0, -1)
-world_position = Vector3(100, 0, -100)
-scene_path = "res://cells/c10-1.tscn"
-
 [sub_resource type="Resource" id="Resource_n8buv"]
 script = ExtResource("1_cpxlq")
 cell_name = "c20-1"
 coordinates = Vector3i(2, 0, -1)
 world_position = Vector3(200, 0, -100)
 scene_path = "res://cells/c20-1.tscn"
-
-[sub_resource type="Resource" id="Resource_t5sm4"]
-script = ExtResource("1_cpxlq")
-cell_name = "c201"
-coordinates = Vector3i(2, 0, 1)
-world_position = Vector3(200, 0, 100)
-scene_path = "res://cells/c201.tscn"
-
-[sub_resource type="Resource" id="Resource_hw2e0"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-201"
-coordinates = Vector3i(-2, 0, 1)
-world_position = Vector3(-200, 0, 100)
-scene_path = "res://cells/c-201.tscn"
-
-[sub_resource type="Resource" id="Resource_ufowc"]
-script = ExtResource("1_cpxlq")
-cell_name = "c-202"
-coordinates = Vector3i(-2, 0, 2)
-world_position = Vector3(-200, 0, 200)
-scene_path = "res://cells/c-202.tscn"
-
-[sub_resource type="Resource" id="Resource_2wwmt"]
-script = ExtResource("1_cpxlq")
-cell_name = "c202"
-coordinates = Vector3i(2, 0, 2)
-world_position = Vector3(200, 0, 200)
-scene_path = "res://cells/c202.tscn"
 
 [sub_resource type="Resource" id="Resource_xu2rm"]
 script = ExtResource("1_cpxlq")
@@ -134,19 +127,26 @@ coordinates = Vector3i(2, 0, -2)
 world_position = Vector3(200, 0, -200)
 scene_path = "res://cells/c20-2.tscn"
 
-[sub_resource type="Resource" id="Resource_exl5k"]
+[sub_resource type="Resource" id="Resource_t5sm4"]
 script = ExtResource("1_cpxlq")
-cell_name = "c-10-2"
-coordinates = Vector3i(-1, 0, -2)
-world_position = Vector3(-100, 0, -200)
-scene_path = "res://cells/c-10-2.tscn"
+cell_name = "c201"
+coordinates = Vector3i(2, 0, 1)
+world_position = Vector3(200, 0, 100)
+scene_path = "res://cells/c201.tscn"
 
-[sub_resource type="Resource" id="Resource_6py4y"]
+[sub_resource type="Resource" id="Resource_2wwmt"]
 script = ExtResource("1_cpxlq")
-cell_name = "c-20-2"
-coordinates = Vector3i(-2, 0, -2)
-world_position = Vector3(-200, 0, -200)
-scene_path = "res://cells/c-20-2.tscn"
+cell_name = "c202"
+coordinates = Vector3i(2, 0, 2)
+world_position = Vector3(200, 0, 200)
+scene_path = "res://cells/c202.tscn"
+
+[sub_resource type="Resource" id="Resource_m6yor"]
+script = ExtResource("1_cpxlq")
+cell_name = "c300"
+coordinates = Vector3i(3, 0, 0)
+world_position = Vector3(300, 0, 0)
+scene_path = "res://cells/c300.tscn"
 
 [resource]
 script = ExtResource("1_73c4r")

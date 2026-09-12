@@ -49,10 +49,6 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		CellblockLogger.error("save filename empty. review documentation")
 		return
 
-	if !_anchor.cell_save.save_exists():
-		CellblockLogger.error("no save file on disk. you must create file at: %s" % cell_save.save_file_name)
-		return
-
 	# user may have made a mistake and forgot to remove cell during editing
 	for child in _world.get_children():
 		if child is Cell:
