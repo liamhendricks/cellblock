@@ -52,7 +52,7 @@ speed = 40.0
 [node name="CellAnchor" parent="." unique_id=1497866091 instance=ExtResource("2_2dftf")]
 cell_registries = Array[ExtResource("4_eu7l1")]([ExtResource("5_p1v5b")])
 cell_save = SubResource("Resource_bah7m")
-log_level = 1
+log_level = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1781440735]
 environment = SubResource("Environment_p1v5b")
