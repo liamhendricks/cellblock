@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bboxdkqegjnlw" path="res://test_assets/objects/Statue4.tscn" id="20_dhfb3"]
 [ext_resource type="PackedScene" uid="uid://cdiywi5n0qjg" path="res://test_assets/objects/sconce.tscn" id="21_op64v"]
 [ext_resource type="PackedScene" uid="uid://yvk66kqc4ijr" path="res://test_assets/monkey.glb" id="23_jibqe"]
+[ext_resource type="Script" uid="uid://bb4lgvtwt04p8" path="res://addons/cellblock/components/object_adder.gd" id="26_8cjcq"]
 
 [sub_resource type="Shader" id="Shader_nsoe0"]
 code = "shader_type spatial;
@@ -2331,6 +2332,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03289032, 236.80786, -34)
 [node name="ObjectLoader" type="Node" parent="." unique_id=463183665]
 script = ExtResource("2_h2tv0")
 metadata/_custom_type_script = "uid://b8jkwbmbdvtc"
+
+[node name="ObjectAdder" type="Node" parent="." unique_id=1368627654]
+script = ExtResource("26_8cjcq")
+metadata/_custom_type_script = "uid://bb4lgvtwt04p8"
 
 [editable path="statics/StaticObjectExample75"]
 [editable path="statics/StaticObjectExample76"]

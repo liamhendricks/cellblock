@@ -6,7 +6,6 @@ signal cell_removed(cell_data : CellData, cell : Cell)
 
 var world : Node3D
 var active_cells : Dictionary[Vector3i, Cell]
-var cell_cache : CellCache
 
 func _init(_world : Node3D, _max_cache_size : int) -> void:
 	pass
@@ -27,15 +26,11 @@ func add(cell_data : CellData) -> void:
 func remove(cell_data : CellData) -> void:
 	pass
 
-# loads the save data from the file
-func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
-	var cr := get_registry()
-	if cr == null:
-		return
-
-	var key := cr.coords_to_key(_cell_data.coordinates)
+# loads the save data from a persistent dictionary
+func load_from(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> bool:
+	var key := _cell_data.coords_to_key()
 	if _resource_path not in _all_save_data:
-		_cell_data.save_data = {}
+		_all_save_data[_resource_path] = {}
 	else:
 		var save_data = _all_save_data[_resource_path]
 		if key in save_data:
@@ -43,27 +38,20 @@ func load_from(_cell : Cell, _all_save_data : Dictionary, _cell_data : CellData,
 		else:
 			_cell_data.save_data = {}
 
-	# in a first load scenario, we won't have any data, so we need to load it from the cell
-	if len(_cell_data.save_data.keys()) == 0:
-		_cell_data.save_data = _cell.save_cell(key)
+	CellblockLogger.debug("cell data loaded %s" % key)
+	return _cell_data.save_data.is_empty()
 
+# saves the save data to a persistent dictionary
 func save_to(_all_save_data : Dictionary, _cell_data : CellData, _resource_path : String) -> void:
 	if _resource_path not in _all_save_data:
-		return
+		_all_save_data[_resource_path] = {}
 
-	var cr := get_registry()
-	if cr == null:
-		return
+	var key := _cell_data.coords_to_key()
+	_all_save_data[_resource_path][key] = _cell_data.save_data
 
-	var save_data = _all_save_data[_resource_path]
-	var key := cr.coords_to_key(_cell_data.coordinates)
-	if key in save_data:
-		save_data[key] = _cell_data.save_data
+	CellblockLogger.debug("cell data saved %s" % key)
 
 func on_exit() -> void:
-	if cell_cache != null:
-		cell_cache.clear()
-
 	for k in active_cells.keys():
 		var cell = active_cells[k]
 		if is_instance_valid(cell):

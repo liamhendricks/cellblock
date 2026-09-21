@@ -60,7 +60,7 @@ enum LOAD_STRATEGY {
 # the number of static objects to load per frame when a cell is added to the scene
 @export var static_process_frames : int = 10
 
-func set_cell(coords: Vector3i, cell_data: Resource) -> void:
+func set_cell(coords: Vector3i, cell_data: CellData) -> void:
 	var key = coords_to_key(coords)
 	# the dictionary is locked by the editor/resource loader, duplicate it to unlock
 	if cells.is_read_only():
@@ -68,7 +68,7 @@ func set_cell(coords: Vector3i, cell_data: Resource) -> void:
 
 	cells[key] = cell_data
 
-func get_cell(coords: Vector3i) -> Resource:
+func get_cell(coords: Vector3i) -> CellData:
 	return cells.get(coords_to_key(coords), null)
 
 func erase_cell(coords: Vector3i) -> bool:

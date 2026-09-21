@@ -16,7 +16,6 @@ func _ready() -> void:
 	loaded = false
 	set_process(false)
 	current_processor_index = 0
-	CellblockLogger.init(CellblockLogger.LOG_LEVELS.DEBUG)
 
 func set_origin_object(_origin_object : Node3D) -> void:
 	origin_object = _origin_object
@@ -29,19 +28,25 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 		return
 
 	if _anchor == null:
-		CellblockLogger.error("no cell_anchor provided")
+		CellblockLogger.error("no cell_anchor provided. review documentation")
 		return
 
-	if _anchor.cell_save == null:
-		CellblockLogger.error("cell_save is null")
-		return
+	CellblockLogger.init(_anchor.log_level)
 
 	if _world == null:
-		CellblockLogger.error("no world provided")
+		CellblockLogger.error("no world provided. review documentation")
 		return
 
 	if _origin_object == null:
-		CellblockLogger.error("no origin object provided")
+		CellblockLogger.error("no origin object provided. review documentation")
+		return
+
+	if _anchor.cell_save == null:
+		CellblockLogger.error("cell_save is null. review documentation")
+		return
+
+	if _anchor.cell_save.save_file_name == "":
+		CellblockLogger.error("save filename empty. review documentation")
 		return
 
 	# user may have made a mistake and forgot to remove cell during editing
@@ -59,7 +64,7 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 	current_processor_index = 0
 
 	var count = 0
-	var has_async_loader: bool = false
+	var has_async_loader: bool = true
 	for registry : CellRegistry in cell_registries:
 		if registry == null:
 			CellblockLogger.error("null cell registry")
@@ -74,8 +79,8 @@ func start(_origin_object : Node3D, _world : Node3D, _anchor : CellAnchor) -> vo
 			CellblockLogger.error("cell_loader not found")
 			return
 
-		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.ASYNC_LOAD:
-			has_async_loader = true
+		if registry.load_strategy == CellRegistry.LOAD_STRATEGY.IN_MEMORY_VISUAL:
+			has_async_loader = false
 		var processor = CellProcessor.new(registry, loader, "%d" % count)
 		cell_processors.append(processor)
 		add_child(loader)
@@ -150,11 +155,13 @@ func world_to_cell_space(_pos : Vector3, _cell_size : int) -> Vector3i:
 		round(_pos.z / _cell_size)
 	)
 
+# write save data to the save file
 func save_cells() -> void:
 	var save_data : Dictionary = {}
 	for p in cell_processors:
 		save_data.merge(p.get_cell_save_data())
 
+	CellblockLogger.info("saved all cell data")
 	cell_save.write_save(save_data)
 
 func _on_anchor_exited() -> void:

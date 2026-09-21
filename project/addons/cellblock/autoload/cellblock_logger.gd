@@ -23,6 +23,7 @@ func error(message : String) -> void:
 func _log(message : String, level : LOG_LEVELS) -> void:
 	if level >= log_level:
 		match(level):
+			LOG_LEVELS.DEBUG: print(_format(message, level))
 			LOG_LEVELS.INFO: print(_format(message, level))
 			LOG_LEVELS.WARN: push_warning(_format(message, level))
 			LOG_LEVELS.ERROR: push_error(_format(message, level))
